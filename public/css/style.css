@@ -1,0 +1,131 @@
+      /* Google font Roboto & Poppins  */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Rubik&display=swap');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+:root {
+   /* Css Variables */
+      /* Colors  */
+      --ad-first-color : rgb(20, 66, 104);
+      --ad-first-color-alt : rgb(15, 52, 82);
+      --ad-second-color: rgb(247, 75, 75);
+      --ad-second-color-alt: rgb(224, 63, 63);
+      --light-bg : rgb(238, 238, 238);
+
+      --text-color : rgb(87, 87, 87);
+
+      /* fonts  */
+      --font-roboto : 'Roboto', sans-serif;
+      --font-poppins : 'Poppins', sans-serif;
+      --font-rubik : 'Rubik', sans-serif;
+}
+   /*Tags, Common && reusable classes  */
+h1,h2,h3,h4,h5,h6 {}
+a {
+   cursor: pointer;
+}
+input {
+   color: var(--text-color) !important;
+}
+textarea {
+   color: var(--text-color) !important;
+}
+img {}
+form {}
+
+/* admin product image  */
+
+.product_img {
+   width: 7% !important;
+}
+.product_img img{
+   max-width:100% !important;
+   height: 3rem !important;
+}
+.common-btn{
+   background-color: var(--ad-second-color) !important;
+   transition: .3s ease-in-out
+}
+.common-btn:hover{
+   background-color: var(--ad-second-color-alt) !important;
+}
+
+   /* --- Admin Header Nav ----  */
+.admin-nav {
+   /* background: rgb(238, 238, 238); */
+   background-color: var(--light-bg);
+   box-shadow: 0 2px 10px 1px rgb(187, 187, 187);
+}
+.admin-logo i {
+   color: var(--ad-first-color);
+}
+.admin-logo h3 {
+   color: var(--ad-second-color);
+}
+.admin-logo h3 span{
+   color: var(--ad-first-color) !important;
+}
+.admin-name button {
+   background-color: var(--ad-second-color);
+}
+.admin-name button:hover {
+   background-color: var(--ad-second-color-alt) !important;
+}
+   /* ----- Side Bar CSS ----- */
+#sidebar-container {
+   background-color: var(--ad-first-color);
+   padding: 0;
+}
+#sidebar-container ul li:hover {
+   background-color: var(--ad-second-color) !important;
+   cursor: pointer;
+}
+#sidebar-container a {
+   display: block;
+}
+
+      /* ---  DashBoard Content Css ---- */
+.dashboard-content-detail {
+   background-color: tomato;
+   color: white;
+   padding: 3rem 3.5rem;
+   width: 230px;
+   margin: 0.5rem auto 2.5rem;
+   border: 5px solid white;
+   box-shadow: 5px 5px 0 #ddd;
+   border-bottom-left-radius: 0.6rem;
+   border-top-right-radius: 0.6rem;
+}
+.dashboard-content-detail span {
+   display: block;
+   text-align: center;
+   
+}
+.dashboard-content-detail span:first-child {
+   font-weight: bold;
+   font-family: var(--font-rubik);
+}
+
+
+         /* -----  Pagination  -----  */
+.pagination .page-item .page-link{
+   background-color: var(--ad-first-color);
+   transition: .3s ease-out;
+}
+.pagination .page-item .page-link:hover{
+   background-color: var(--ad-second-color) !important;
+}
+
+
+
+
+
+
+
+/* Active Nav  */
+.active-admin-nav ,.active-pagination{
+   background-color: var(--ad-second-color) !important;
+}
