@@ -442,6 +442,7 @@ public function ajouter_referenceVente(Request $request)
     }
 }
 
+
 public function supprimerLigneCommande($id)
 {
     try {
