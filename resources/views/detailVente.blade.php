@@ -36,7 +36,7 @@
 </div>
 
 <div class="d-flex justify-content-end mb-2">
-            <a href="" class="btn btn-success">Ajouter</a>
+            <a href="{{ route('venteDetail.index', ['id' => $commandes->idCommande]) }}" class="btn btn-success">Ajouter</a>
  </div>
 
                         <table class="table">
@@ -58,11 +58,14 @@
                                     <td>{{ $produit['prix_unitaire'] }}</td>
                                     <td>{{ $produit['quantite'] }}</td>
                                     <td>{{ $produit['tailleL'] }}</td>
-                                    <td>{{ $produit['couleur'] }}</td>
+                                    <td>
+                                    <div style="width: 20px; height: 20px; background-color: {{ $produit['couleur'] }}; margin: 0 auto;"></div>
+                                    <span>   {{ $produit['couleur'] }} </span>
+                                    </td>
                                     <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
                                     <td>
             <a href="" class="btn btn-sm btn-primary">Modifier</a>
-            <a href="#" class="btn btn-sm btn-danger btn-delete" data-reference-id="">Supprimer</a>
+            <a href="#" class="btn btn-sm btn-danger btn-delete" data-reference-id="{{ $produit['idR'] }}">Supprimer</a>
             </td>
                                 </tr>
                                     @endforeach
@@ -84,6 +87,25 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+$(document).ready(function () {
+    $('.btn-delete').click(function () {
+        var referenceId = $(this).data('reference-id');
+        
+        // Envoyer une requête Ajax pour supprimer la ligne de commande
+        $.ajax({
+            url: '/supprimer-ligne-commande/' + referenceId, // Remplacez par votre route
+            type: 'DELETE',
+            success: function (response) {
+                // Actualiser la page ou effectuer d'autres actions si nécessaire
+            },
+            error: function (error) {
+                console.error('Erreur lors de la suppression :', error);
+            }
+        });
+    });
+});
+</script>
     <!-- Custom Javascript -->
 </body>
 </html>

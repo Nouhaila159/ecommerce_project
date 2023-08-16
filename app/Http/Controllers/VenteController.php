@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Commandes;
 use App\Models\Client;
 use App\Models\Ligne_commande;
 use App\Models\Reference;
 use App\Models\Produit;
+use App\Models\Tailles;
+use App\Models\Stock;
 use Dompdf\Dompdf;
 
 class VenteController extends Controller
@@ -39,40 +42,51 @@ class VenteController extends Controller
 }
 
 public function detailVente($id)
-    {    
-        $commandes = Commandes::findOrFail($id);
-        $ligneCommandeData = ligne_Commande::where('idCommande', $id)->get(); 
-        $produits = [];
-        $totalProduits = 0;
-        $prixTotal = 0;
-        foreach ($ligneCommandeData as $ligneCommande) {
-            $reference = Reference::with('produit')->find($ligneCommande->idR);
-            
-            if ($reference) {
-                $produit = $reference->produit;
-               
-                $produits[] = [
-                    'reference' => $reference->referenceP,
-                    'prix_unitaire' => $produit->prixP,
-                    'quantite' => $ligneCommande->quantite,
-                    'tailleL' => $ligneCommande->tailleL, // Remplacez par la colonne appropriée
-                    'couleur' => $reference->couleur,
-                    'image' => $reference->urlPhoto,
-                ];
-    
-                $totalProduits += $ligneCommande->quantite;
-                $prixTotal += $produit->prixP * $ligneCommande->quantite;
+{    
+    $commandes = Commandes::findOrFail($id);
+    $ligneCommandeData = ligne_Commande::where('idCommande', $id)->get(); 
+    $produits = [];
+    $totalProduits = 0;
+    $prixTotal = 0;
+
+    foreach ($ligneCommandeData as $ligneCommande) {
+        $reference = Reference::with('produit')->find($ligneCommande->idR);
+        
+        if ($reference) {
+            $produit = $reference->produit;
+
+            // Vérifier si la ligne de commande a une taille associée
+            $taille = null;
+            $tailleObject = Tailles::find($ligneCommande->tailleL);
+            if ($tailleObject) {
+                $taille = $tailleObject->taille;
             }
+
+            $produits[] = [
+                'idR'=> $reference->idR,
+                'reference' => $reference->referenceP,
+                'prix_unitaire' => $produit->prixP,
+                'quantite' => $ligneCommande->quantite,
+                'tailleL' => $taille,
+                'couleur' => $reference->couleur,
+                'image' => $reference->urlPhoto,
+            ];
+
+            $totalProduits += $ligneCommande->quantite;
+            $prixTotal += $produit->prixP * $ligneCommande->quantite;
         }
-    
-        return view('detailVente', [
-            'ligneCommandeData' => $ligneCommandeData,
-            'produits' => $produits,
-            'totalProduits' => $totalProduits,
-            'prixTotal' => $prixTotal,
-            'idCommande'=>$id,
-        ]);
     }
+
+    return view('detailVente', [
+        'commandes'=>$commandes,
+        'ligneCommandeData' => $ligneCommandeData,
+        'produits' => $produits,
+        'totalProduits' => $totalProduits,
+        'prixTotal' => $prixTotal,
+        'idCommande'=>$id,
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -315,5 +329,151 @@ public function updateVente(Request $request, $id)
     $commande->save();
     return redirect()->route('vente')->with('success', 'La commande a été mise à jour avec succès.');
 }
+
+//////////////////////////////////////////////////////////CRUD DETAIL/////////////////////////////////////
+
+public function ajouter_referenceVente_index($id)
+{
+    $references = Reference::all();
+
+    return view('addDetailVente',[
+        'id'=> $id,
+        'references' => $references,]
+    );
+}
+
+public function getReferenceImage($id)
+{
+    $reference = Reference::find($id);
+
+    if ($reference) {
+        return response()->json(['urlPhoto' => $reference->urlPhoto]);
+    }
+
+    return response()->json(['error' => 'Référence non trouvée'], 404);
+}
+
+public function getReferenceSizes($id)
+{
+    // Obtenez les tailles disponibles pour la référence spécifiée (idR)
+    $sizes = Tailles::where('idR', $id)->get();
+
+    // Retournez les tailles sous forme de réponse JSON
+    return response()->json(['sizes' => $sizes]);
+}
+
+
+
+public function ajouter_referenceVente(Request $request)
+{
+    $idCommande = $request->input('idVente');
+    $idR = $request->input('reference');
+    $idT = $request->input('taille');
+    $quantite = $request->input('quantite');
+
+    // Utiliser une transaction pour gérer les opérations atomiques
+    DB::beginTransaction();
+
+    try {
+        // Vérifier si une ligne de commande avec la même référence et la même taille existe déjà
+        $existingLigneCommande = Ligne_commande::where('idCommande', $idCommande)
+            ->where('idR', $idR)
+            ->where('tailleL', $idT)
+            ->first();
+
+        if ($existingLigneCommande) {
+            // Incrémenter la quantité existante
+            $existingLigneCommande->quantite += $quantite;
+            $existingLigneCommande->save();
+        } else {
+            // Vérifier la quantité disponible dans la table tailles
+            $taille = Tailles::find($idT);
+
+            if ($taille->quantiteT >= $quantite) {
+                // Créer un nouvel enregistrement dans la table ligne_commande
+                Ligne_commande::create([
+                    'idCommande' => $idCommande,
+                    'idR' => $idR,
+                    'quantite' => $quantite,
+                    'tailleL' => $idT,
+                ]);
+
+                // Mettre à jour la quantité disponible dans la table tailles
+                $taille->quantiteT -= $quantite;
+                $taille->save();
+
+                // Récupérer la référence
+                $reference = Reference::find($idR);
+
+                $tailles = Tailles::where('idR', $reference->idR)->get();
+                $totalQuantiteR = $tailles->sum('quantiteT');
+                // Mettre à jour la quantité totale de référence
+                $reference->quantiteR = $totalQuantiteR;
+                $reference->save();
+
+                // Recalculer et mettre à jour les quantités de Produit
+                $references = Reference::where('idP', $reference->idP)->get();
+                $totalQuantite = $references->sum('quantiteR');
+
+                // Recalculer et mettre à jour les quantités de stock
+                $stock = Stock::where('idP', $reference->idP)->first();
+                if ($stock) {
+                    $stock->quantite_disponible = $totalQuantite;
+                    $stock->save();
+                }
+
+                // Si tout s'est bien passé, valider et enregistrer les changements
+                DB::commit();
+            } else {
+                // Quantité insuffisante, annuler la transaction
+                DB::rollback();
+
+                // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+            }
+        }
+        
+        // Rediriger l'utilisateur ou retourner une réponse JSON réussie
+        return redirect()->route('vente.detail', ['id' => $idCommande]);
+    } catch (\Exception $e) {
+        // En cas d'erreur, annuler les modifications
+        DB::rollback();
+        
+        // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+    }
+}
+
+
+public function supprimerLigneCommande($id)
+{
+    try {
+        // Supprimer la ligne de commande en utilisant l'ID de référence
+        // ... Code de suppression ...
+
+        return response()->json(['message' => 'Ligne de commande supprimée avec succès'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Erreur lors de la suppression de la ligne de commande'], 500);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

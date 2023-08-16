@@ -135,7 +135,7 @@ Route::post('/updateValidation/{id}', [CommandesController::class,'updateValidat
 //CRUD VENTE
 
 Route::get('/vente', [VenteController::class, 'index'])->name('orders.index');
-Route::get('/detailVente/{id}', [VenteController::class, 'detailVente']);
+Route::get('/detailVente/{id}', [VenteController::class, 'detailVente'])->name('vente.detail');
 Route::post('/updateValidationV/{id}', [VenteController::class,'updateValidationV'])->name('updateValidationV');
 Route::put('/commandes/{id}/update-statutV', [VenteController::class, 'updateStatutV'])->name('updateStatutV');
 Route::put('/commandes/{id}/update-statutLivraisonV', [VenteController::class, 'updateStatutLivraisonV'])->name('updateStatutLivraisonV');
@@ -149,6 +149,15 @@ Route::delete('/commande/{id}', [VenteController::class, 'destroy'])->name('dest
 Route::get('/updateVente/{id}', [VenteController::class, 'updateVente']);
 Route::get('/updateVente/{id}', [VenteController::class, 'showUpdateForm'])->name('updateVente');
 Route::put('/updateVente/{id}', [VenteController::class,'updateVente'])->name('updateVente');
+
+
+//CRUD DETAIL VENTE
+Route::get('/ajouter_referenceVente/{id}', [VenteController::class, 'ajouter_referenceVente_index'])->name('venteDetail.index');
+Route::get('/get-reference-image/{id}', [VenteController::class, 'getReferenceImage']);
+Route::get('/get-reference-sizes/{id}', [VenteController::class, 'getReferenceSizes'])->name('get-reference-sizes');
+Route::post('/ajouter_referenceVente',[VenteController::class, 'ajouter_referenceVente'])->name('venteDetail.add');
+Route::delete('/supprimer-ligne-commande/{id}', [VenteController::class, 'supprimerLigneCommande'])->name('venteDetail.delete');
+
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
 
