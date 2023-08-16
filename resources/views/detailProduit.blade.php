@@ -51,7 +51,9 @@
             <span>{{ $reference->couleur }}</span>
             </td>
 
-            <td><img height="100px" width="100px" src="{{ asset('storage/' . $reference->urlPhoto) }}" alt="Image de référence"></td>
+            <td>
+                <img height="100px" width="100px" src="{{ asset('storage/' . $reference->urlPhoto) }}" alt="Image de référence">
+            </td>
             <td>
                 @foreach ($tailles[$reference->idR] as $taille)
                     {{ $taille->taille }} ({{ $taille->quantiteT }}) <br>
