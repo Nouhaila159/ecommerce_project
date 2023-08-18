@@ -15,11 +15,6 @@ class Ligne_commande extends Model
 
     protected $fillable = ['idCommande', 'idR', 'quantite','idT']; // Colonnes que vous souhaitez remplir
 
-    public function taille()
-    {
-        return $this->belongsTo(Tailles::class, 'idT', 'idT'); // Relation avec la table 'commandes'
-    }
-
     public function commande()
     {
         return $this->belongsTo(Commande::class, 'idCommande', 'idCommande'); // Relation avec la table 'commandes'

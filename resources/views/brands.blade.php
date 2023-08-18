@@ -140,8 +140,6 @@
    <!-- Add Brand modal ends-->
     @include('partials.footer')
 
-   <!-- bootstrap Js  -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Custom Javascript  -->
    <script type="text/javascript" src="./js/admin-script.js"></script>
    

@@ -557,6 +557,7 @@ private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
     }
 }
 
+
 public function getMaxQuantityForSize($sizeId)
 {
     // Récupérez la quantité maximale pour la taille spécifiée
@@ -566,39 +567,38 @@ public function getMaxQuantityForSize($sizeId)
     return response()->json(['maxQuantity' => $maxQuantity]);
 }
 
-
-public function updateDetailVente(Request $request, $id)
-{
-    // Logique de mise à jour et redirection
-}
-public function showUpdateDetailVente($idCommande, $idReference)
+public function showUpdateDetailVente($idLigne)
 {
     try {
-        $commande = Commandes::findOrFail($idCommande);
-        $reference = Reference::findOrFail($idReference);
+        $ligne = Ligne_commande::findOrFail($idLigne);
+        $reference = Reference::find($ligne->idR);
         $references = Reference::all();
-        $taillesAssociees = $reference->tailles ?? [];
-
+        $taille = Tailles::find($ligne->idT);
+        $quantite = $ligne->quantite;
+        $taillesList = Tailles::where('idR', $reference->idR)->get();
+     // Utilisez une autre variable pour stocker les tailles pour l'itération
         // Autres données nécessaires...
 
         return view('updateDetailVente', [
+            'ligne' => $ligne,
             'reference' => $reference,
             'references' => $references,
-            'taillesAssociees' => $taillesAssociees,
-            'commande' => $commande,
+            'taille' => $taille,
+            'quantite' => $quantite,
+            'quantiteMax' => $taille->quantiteT,
+            'taillesList' => $taillesList, // Utilisez cette variable pour itérer sur les tailles
             // Autres données nécessaires...
         ]);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        return redirect()->route('updateDetailVente', ['idCommande' => $idCommande, 'idReference' => $idReference])
-            ->with('error', 'La commande ou la référence spécifiée est introuvable.');
+    } catch (\Exception  $e) {
+        return redirect()->route('updateDetailVente', $idLigne)
+            ->with('error', 'Détail spécifié est introuvable.');
     }
 }
 
 
-
-
-public function update(Request $request, $idCommande, $idReference)
-{{
+/*
+public function update(Request $request)
+{
     // Récupérez les données du formulaire
     $idReference = $request->input('reference');
     $idTaille = $request->input('taille');
@@ -623,10 +623,7 @@ public function update(Request $request, $idCommande, $idReference)
     // Redirigez l'utilisateur vers la page de détails de la vente en passant les id de commande et de référence
     return redirect()->route('updateDetailVente', ['idCommande' => $idCommande])
                      ->with('success', 'Ligne de commande mise à jour avec succès.');
-}
-
-
-}
+}*/
 
 
 }

@@ -25,6 +25,7 @@
                                     <label class="form-label">Référence</label>
                                     <select name="reference" id="reference" class="form-select" placeholder="Référence" required>
                                         <option disabled>catégorie de produit</option>
+                                        <option type="hidden" style="color:grey">reference000</option>
                                         @foreach($references as $reference)
                                             <option value="{{ $reference->idR }}">{{ $reference->referenceP }}</option>
                                         @endforeach

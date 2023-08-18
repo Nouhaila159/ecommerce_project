@@ -64,12 +64,11 @@
                                     </td>
                                     <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
                                     <td>
-                                        <a href="{{ route('updateDetailVente', ['idCommande' => $commandes->idCommande, 'idReference' => $produit['idR']]) }}" >
+                                        <a href="{{ route('updateDetailVente', [$produit['idLigne']]) }}" >
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                         
-                                        
-            <a href="#" class="btn btn-sm btn-danger btn-delete" data-reference-id="{{ $produit['idR'] }}">Supprimer</a>
+                                        <a href="#" class="btn btn-sm btn-danger btn-delete" data-Ligne-id="{{ $produit['idLigne'] }}">Supprimer</a>
             </td>
                                 </tr>
                                     @endforeach
@@ -90,7 +89,6 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         const deleteButtons = document.querySelectorAll(".btn-delete");

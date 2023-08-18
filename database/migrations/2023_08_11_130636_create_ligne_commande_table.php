@@ -18,12 +18,11 @@ return new class extends Migration
             $table->integer('idCommande')->unsigned()->nullable();
             $table->integer('idR')->unsigned()->nullable();
             $table->integer('quantite')->nullable();
-            $table->integer('idT')->unsigned()->nullable();
+            $table->integer('idT')->nullable();
             $table->timestamps();
 
             $table->foreign('idCommande')->references('idCommande')->on('commandes')->onDelete('cascade');
             $table->foreign('idR')->references('idR')->on('reference')->onDelete('cascade');
-            $table->foreign('idT')->references('idT')->on('tailles');
 
         });
     }
