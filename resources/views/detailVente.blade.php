@@ -64,8 +64,12 @@
                                     </td>
                                     <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
                                     <td>
-            <a href="" class="btn btn-sm btn-primary">Modifier</a>
-            <a href="#" class="btn btn-sm btn-danger btn-delete" data-Ligne-id="{{ $produit['idLigne'] }}">Supprimer</a>
+                                        <a href="{{ route('updateDetailVente', ['idCommande' => $commandes->idCommande, 'idReference' => $produit['idR']]) }}" >
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        
+                                        
+            <a href="#" class="btn btn-sm btn-danger btn-delete" data-reference-id="{{ $produit['idR'] }}">Supprimer</a>
             </td>
                                 </tr>
                                     @endforeach

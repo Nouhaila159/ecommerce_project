@@ -139,10 +139,7 @@ public function detailVente($id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -560,7 +557,76 @@ private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
     }
 }
 
+public function getMaxQuantityForSize($sizeId)
+{
+    // Récupérez la quantité maximale pour la taille spécifiée
+    $maxQuantity = Tailles::find($sizeId)->quantiteT;
 
+    // Retournez la quantité maximale au format JSON
+    return response()->json(['maxQuantity' => $maxQuantity]);
+}
+
+
+public function updateDetailVente(Request $request, $id)
+{
+    // Logique de mise à jour et redirection
+}
+public function showUpdateDetailVente($idCommande, $idReference)
+{
+    try {
+        $commande = Commandes::findOrFail($idCommande);
+        $reference = Reference::findOrFail($idReference);
+        $references = Reference::all();
+        $taillesAssociees = $reference->tailles ?? [];
+
+        // Autres données nécessaires...
+
+        return view('updateDetailVente', [
+            'reference' => $reference,
+            'references' => $references,
+            'taillesAssociees' => $taillesAssociees,
+            'commande' => $commande,
+            // Autres données nécessaires...
+        ]);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return redirect()->route('updateDetailVente', ['idCommande' => $idCommande, 'idReference' => $idReference])
+            ->with('error', 'La commande ou la référence spécifiée est introuvable.');
+    }
+}
+
+
+
+
+public function update(Request $request, $idCommande, $idReference)
+{{
+    // Récupérez les données du formulaire
+    $idReference = $request->input('reference');
+    $idTaille = $request->input('taille');
+    $quantite = $request->input('quantite');
+
+    // Trouvez la ligne de commande à mettre à jour
+    $ligneCommande = Ligne_commande::find($id);
+
+    if (!$ligneCommande) {
+        // Gérez le cas où la ligne de commande n'est pas trouvée
+        return redirect()->back()->with('error', 'Ligne de commande non trouvée.');
+    }
+
+    // Mettez à jour les données de la ligne de commande
+    $ligneCommande->idR = $request->input('reference');
+    $ligneCommande->tailleL = $request->input('taille');
+    $ligneCommande->quantite = $request->input('quantite');
+    $ligneCommande->save();
+    // Enregistrez les changements
+    $ligneCommande->save();
+
+    // Redirigez l'utilisateur vers la page de détails de la vente en passant les id de commande et de référence
+    return redirect()->route('updateDetailVente', ['idCommande' => $idCommande])
+                     ->with('success', 'Ligne de commande mise à jour avec succès.');
+}
+
+
+}
 
 
 }

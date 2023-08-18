@@ -157,10 +157,13 @@ Route::get('/get-reference-image/{id}', [VenteController::class, 'getReferenceIm
 Route::get('/get-reference-sizes/{id}', [VenteController::class, 'getReferenceSizes'])->name('get-reference-sizes');
 Route::post('/ajouter_referenceVente',[VenteController::class, 'ajouter_referenceVente'])->name('venteDetail.add');
 Route::delete('/supprimerLigneCommande/{id}', [VenteController::class, 'supprimerLigneCommande'])->name('venteDetail.delete');
+//updateDétailVente
+
+Route::get('/updateDetailVente/{idCommande}/{idReference}', [VenteController::class, 'showUpdateDetailVente'])->name('updateDetailVente');
+Route::put('/updateDetailVente/{idCommande}', [VenteController::class, 'updateDetailVente'])->name('updateDetailVente.update');
+Route::get('/detailVente/{idCommande}', [VenteController::class,'showUpdateDetailVente'])->name('detailVente');
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
-
-
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
