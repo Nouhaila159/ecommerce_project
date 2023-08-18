@@ -13,7 +13,12 @@ class Ligne_commande extends Model
 
     protected $primaryKey = 'idLigneC'; // Clé primaire
 
-    protected $fillable = ['idCommande', 'idR', 'quantite','tailleL']; // Colonnes que vous souhaitez remplir
+    protected $fillable = ['idCommande', 'idR', 'quantite','idT']; // Colonnes que vous souhaitez remplir
+
+    public function taille()
+    {
+        return $this->belongsTo(Tailles::class, 'idT', 'idT'); // Relation avec la table 'commandes'
+    }
 
     public function commande()
     {

@@ -8,6 +8,8 @@ use App\Models\Client;
 use App\Models\Ligne_commande;
 use App\Models\Reference;
 use App\Models\Produit;
+use App\Models\Tailles;
+
 use Dompdf\Dompdf;
 
 class CommandesController extends Controller
@@ -131,12 +133,17 @@ public function updateStatutLivraison($id)
             
             if ($reference) {
                 $produit = $reference->produit;
-               
+                  // Vérifier si la ligne de commande a une taille associée
+            $taille = null;
+            $tailleObject = Tailles::find($ligneCommande->idT);
+            if ($tailleObject) {
+                $taille = $tailleObject->taille;
+            }
                 $produits[] = [
                     'reference' => $reference->referenceP,
                     'prix_unitaire' => $produit->prixP,
                     'quantite' => $ligneCommande->quantite,
-                    'tailleL' => $ligneCommande->tailleL, // Remplacez par la colonne appropriée
+                    'tailleL' => $taille, // Remplacez par la colonne appropriée
                     'couleur' => $reference->couleur,
                     'image' => $reference->urlPhoto,
                 ];
@@ -154,56 +161,8 @@ public function updateStatutLivraison($id)
             'idCommande'=>$id,
         ]);
     }
-    public function genererFacture($id){
-    $ligneCommandeData = Ligne_commande::where('idCommande', $id)->get();
-    $commande = Commandes::findOrFail($id); // Fetch the specific commande
-    $client = Client::findOrFail($commande->idC); // Fetch the associated client
-    $produits = [];
-    $totalProduits = 0;
-    $prixTotal = 0;
-    
-    foreach ($ligneCommandeData as $ligneCommande) {
-        $reference = Reference::with('produit')->find($ligneCommande->idR);
-        if ($reference) {
-            $produit = $reference->produit;
-    
-            $produits[] = [
-                'reference' => $reference->referenceP,
-                'prix_unitaire' => $produit->prixP,
-                'quantite' => $ligneCommande->quantite,
-                'tailleL' => $ligneCommande->tailleL,
-                'couleur' => $reference->couleur,
-                'image' => $reference->urlPhoto,
-            ];
-    
-            $totalProduits += $ligneCommande->quantite;
-            $prixTotal += $produit->prixP * $ligneCommande->quantite;
-        }
-    }
-    
-    return view('facture', [
-        'idCommande' => $id,
-        'commande' => $commande, // Pass the specific commande
-        'client' => $client, // Pass the associated client
-        'produits' => $produits,
-        'totalProduits' => $totalProduits,
-        'prixTotal' => $prixTotal,
-    ]);
-}
-public function telechargerFacture($id)
-{
-    try {
-        // ... le reste du code
+  
 
-        // Rendre le PDF
-        $pdf->render();
-
-        // Télécharger le PDF avec un nom de fichier personnalisé
-        return response()->download($pdf->output(), 'facture_'.$id.'.pdf');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Une erreur s\'est produite lors de la génération de la facture.');
-    }
-}
 public function updateValidation(Request $request, $id)
 {
     $commande = Commandes::findOrFail($id);

@@ -128,8 +128,8 @@ Route::get('/orders', [CommandesController::class, 'index'])->name('orders.index
 Route::put('/commandes/{id}/update-statut', [CommandesController::class, 'updateStatut'])->name('updateStatut');
 Route::put('/commandes/{id}/update-statutLivraison', [CommandesController::class, 'updateStatutLivraison'])->name('updateStatutLivraison');
 Route::get('/detailCommande/{id}', [CommandesController::class, 'detailCommande']);
-Route::get('/facture/{id}', [CommandesController::class, 'genererFacture']);
-Route::get('/telechargerFacture/{id}', [CommandesController::class,'telechargerFacture'])->name('telechargerFacture');
+Route::get('/facture/{id}', [VenteController::class, 'genererFactureV']);
+Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFacture');
 Route::post('/updateValidation/{id}', [CommandesController::class,'updateValidation'])->name('updateValidation');
 
 //CRUD VENTE
@@ -139,8 +139,8 @@ Route::get('/detailVente/{id}', [VenteController::class, 'detailVente'])->name('
 Route::post('/updateValidationV/{id}', [VenteController::class,'updateValidationV'])->name('updateValidationV');
 Route::put('/commandes/{id}/update-statutV', [VenteController::class, 'updateStatutV'])->name('updateStatutV');
 Route::put('/commandes/{id}/update-statutLivraisonV', [VenteController::class, 'updateStatutLivraisonV'])->name('updateStatutLivraisonV');
-Route::get('/factureV/{id}', [VenteController::class, 'genererFactureV']);
-Route::get('/telechargerFactureV/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFactureV');
+Route::get('/facture/{id}', [VenteController::class, 'genererFactureV']);
+Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFactureV');
 Route::get('/ajouterVente', [VenteController::class,'ajouterVente'])->name('ajouterVente');
 Route::post('ajouterVente', [VenteController::class,'ajouterVentePost'])->name('ajouterVente.post');
 Route::get('/vente', [VenteController::class,'ajouterVentePost']);
@@ -156,8 +156,7 @@ Route::get('/ajouter_referenceVente/{id}', [VenteController::class, 'ajouter_ref
 Route::get('/get-reference-image/{id}', [VenteController::class, 'getReferenceImage']);
 Route::get('/get-reference-sizes/{id}', [VenteController::class, 'getReferenceSizes'])->name('get-reference-sizes');
 Route::post('/ajouter_referenceVente',[VenteController::class, 'ajouter_referenceVente'])->name('venteDetail.add');
-Route::delete('/supprimer-ligne-commande/{id}', [VenteController::class, 'supprimerLigneCommande'])->name('venteDetail.delete');
-
+Route::delete('/supprimerLigneCommande/{id}', [VenteController::class, 'supprimerLigneCommande'])->name('venteDetail.delete');
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
 

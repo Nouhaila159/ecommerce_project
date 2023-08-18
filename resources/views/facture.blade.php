@@ -102,19 +102,19 @@
                                     <td>{{ $produit['quantite'] }}</td>
                                     <td>{{ $produit['tailleL'] }}</td>
                                     <td>{{ $produit['couleur'] }}</td>
-                                    <td><img height="100" width="100" src="{{ asset($produit['image']) }}" alt="Image de référence"></td>
+                                    <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
 
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="text-right">
-                            <p><strong>Total produits:</strong> {{ $totalProduits }}</p>
-                            <p><strong>Prix total:</strong> {{ $prixTotal+$commande->prix_livraison }}</p>
+                            <p><strong>Total produits:</strong> {{ $totalProduits }} </p>
+                            <p><strong>Prix total:</strong> {{ $prixTotal+$commande->prix_livraison }} MAD</p>
                         </div>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="{{ route('telechargerFacture', $idCommande) }}" class="btn btn-primary" download>Télécharger la facture</a>
+                        <a href="{{ route('telechargerFactureV', $idCommande) }}" class="btn btn-primary" download>Télécharger la facture</a>
                     </div>
                 </div>
             </div>

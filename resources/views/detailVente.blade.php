@@ -65,7 +65,7 @@
                                     <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
                                     <td>
             <a href="" class="btn btn-sm btn-primary">Modifier</a>
-            <a href="#" class="btn btn-sm btn-danger btn-delete" data-reference-id="{{ $produit['idR'] }}">Supprimer</a>
+            <a href="#" class="btn btn-sm btn-danger btn-delete" data-Ligne-id="{{ $produit['idLigne'] }}">Supprimer</a>
             </td>
                                 </tr>
                                     @endforeach
@@ -88,23 +88,40 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-$(document).ready(function () {
-    $('.btn-delete').click(function () {
-        var referenceId = $(this).data('reference-id');
-        
-        // Envoyer une requête Ajax pour supprimer la ligne de commande
-        $.ajax({
-            url: '/supprimer-ligne-commande/' + referenceId, // Remplacez par votre route
-            type: 'DELETE',
-            success: function (response) {
-                // Actualiser la page ou effectuer d'autres actions si nécessaire
-            },
-            error: function (error) {
-                console.error('Erreur lors de la suppression :', error);
-            }
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".btn-delete");
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+
+                const ligneId = this.getAttribute("data-Ligne-id");
+                const confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce detail ?");
+
+                if (confirmation) {
+                    fetch(`/supprimerLigneCommande/${ligneId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message); // Afficher le message
+                            window.location.href = '{{ route('vente.detail', ['id' => $commandes->idCommande]) }}';
+                             // Rediriger l'utilisateur
+                        } else {
+                            alert('Erreur lors de la suppression.'); // Gérer les erreurs
+                        }
+                    })
+                    .catch(error => {
+                        alert('Une erreur s\'est produite.'); // Gérer les erreurs
+                    });
+                }
+            });
         });
     });
-});
 </script>
     <!-- Custom Javascript -->
 </body>

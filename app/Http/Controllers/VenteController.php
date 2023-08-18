@@ -57,12 +57,13 @@ public function detailVente($id)
 
             // Vérifier si la ligne de commande a une taille associée
             $taille = null;
-            $tailleObject = Tailles::find($ligneCommande->tailleL);
+            $tailleObject = Tailles::find($ligneCommande->idT);
             if ($tailleObject) {
                 $taille = $tailleObject->taille;
             }
 
             $produits[] = [
+                'idLigne' => $ligneCommande->idLigneC,
                 'idR'=> $reference->idR,
                 'reference' => $reference->referenceP,
                 'prix_unitaire' => $produit->prixP,
@@ -198,14 +199,20 @@ public function genererFactureV($id){
     
     foreach ($ligneCommandeData as $ligneCommande) {
         $reference = Reference::with('produit')->find($ligneCommande->idR);
-        if ($reference) {
+       if ($reference) {
             $produit = $reference->produit;
     
+              // Vérifier si la ligne de commande a une taille associée
+            $taille = null;
+            $tailleObject = Tailles::find($ligneCommande->idT);
+            if ($tailleObject) {
+                $taille = $tailleObject->taille;
+            }
             $produits[] = [
                 'reference' => $reference->referenceP,
                 'prix_unitaire' => $produit->prixP,
                 'quantite' => $ligneCommande->quantite,
-                'tailleL' => $ligneCommande->tailleL,
+                'tailleL' => $taille,
                 'couleur' => $reference->couleur,
                 'image' => $reference->urlPhoto,
             ];
@@ -378,13 +385,53 @@ public function ajouter_referenceVente(Request $request)
         // Vérifier si une ligne de commande avec la même référence et la même taille existe déjà
         $existingLigneCommande = Ligne_commande::where('idCommande', $idCommande)
             ->where('idR', $idR)
-            ->where('tailleL', $idT)
+            ->where('idT', $idT)
             ->first();
 
         if ($existingLigneCommande) {
-            // Incrémenter la quantité existante
-            $existingLigneCommande->quantite += $quantite;
-            $existingLigneCommande->save();
+            $taille = Tailles::find($idT);
+
+            if ($taille->quantiteT >= $quantite) {
+                // Créer un nouvel enregistrement dans la table ligne_commande
+                // Incrémenter la quantité existante
+                $existingLigneCommande->quantite += $quantite;
+                $existingLigneCommande->save();
+                // Mettre à jour la quantité disponible dans la table tailles
+                $taille->quantiteT -= $quantite;
+                $taille->save();
+
+                // Récupérer la référence
+                $reference = Reference::find($idR);
+
+                $tailles = Tailles::where('idR', $reference->idR)->get();
+                $totalQuantiteR = $tailles->sum('quantiteT');
+                // Mettre à jour la quantité totale de référence
+                $reference->quantiteR = $totalQuantiteR;
+                $reference->save();
+
+                // Recalculer et mettre à jour les quantités de Produit
+                $references = Reference::where('idP', $reference->idP)->get();
+                $totalQuantite = $references->sum('quantiteR');
+
+                // Recalculer et mettre à jour les quantités de stock
+                $stock = Stock::where('idP', $reference->idP)->first();
+                if ($stock) {
+                    $stock->quantite_disponible = $totalQuantite;
+                    $stock->save();
+                }
+
+                // Si tout s'est bien passé, valider et enregistrer les changements
+                DB::commit();
+            } else {
+                // Quantité insuffisante, annuler la transaction
+                DB::rollback();
+            // Add an error message to the session
+            return redirect()->route('venteDetail.index', ['id' => $idCommande])
+            ->withErrors(['quantite' => 'La quantité demandée n\'est pas disponible.']);
+
+                // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+            }
+            
         } else {
             // Vérifier la quantité disponible dans la table tailles
             $taille = Tailles::find($idT);
@@ -395,7 +442,7 @@ public function ajouter_referenceVente(Request $request)
                     'idCommande' => $idCommande,
                     'idR' => $idR,
                     'quantite' => $quantite,
-                    'tailleL' => $idT,
+                    'idT' => $idT,
                 ]);
 
                 // Mettre à jour la quantité disponible dans la table tailles
@@ -427,8 +474,11 @@ public function ajouter_referenceVente(Request $request)
             } else {
                 // Quantité insuffisante, annuler la transaction
                 DB::rollback();
+            // Add an error message to the session
+            return redirect()->route('venteDetail.index', ['id' => $idCommande])
+            ->withErrors(['quantite' => 'La quantité demandée n\'est pas disponible.']);
 
-                // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+                            // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
             }
         }
         
@@ -443,35 +493,72 @@ public function ajouter_referenceVente(Request $request)
 }
 
 
+
 public function supprimerLigneCommande($id)
 {
-    try {
-        // Supprimer la ligne de commande en utilisant l'ID de référence
-        // ... Code de suppression ...
+    $ligne = Ligne_commande::find($id);
 
-        return response()->json(['message' => 'Ligne de commande supprimée avec succès'], 200);
-    } catch (\Exception $e) {
-        return response()->json(['message' => 'Erreur lors de la suppression de la ligne de commande'], 500);
+    if (!$ligne) {
+        return response()->json(['success' => false, 'message' => 'Détail introuvable']);
     }
-    
+
+    // Sauvegarder les informations nécessaires avant la suppression
+
+    $idR = $ligne->idR;
+    $tailleL = $ligne->idT;
+    $quantite = $ligne->quantite;
+
+    // Suppression de la référence
+    $ligne->delete();
+
+    // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
+    $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+
+    return response()->json(['success' => true, 'message' => 'Détail supprimé avec succès']);
 }
 
+private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
+{
+    // Utiliser une transaction pour gérer les opérations atomiques
+    DB::beginTransaction();
 
+    try {
+        // Mettre à jour la quantité dans la table des tailles
+        $taille = Tailles::where('idR', $idR)
+            ->where('idT', $tailleL)
+            ->lockForUpdate() // Verrouille la ligne pour éviter les conflits de concurrence
+            ->first();
 
+        if (!$taille) {
+            throw new \Exception('Taille introuvable');
+        }
 
+        $taille->quantiteT += $quantite;
+        $taille->save();
 
+        // Mettre à jour la quantité totale de référence
+        $reference = Reference::find($idR);
+        $reference->quantiteR = Tailles::where('idR', $reference->idR)->sum('quantiteT');
+        $reference->save();
 
+        // Recalculer et mettre à jour les quantités de stock
+        $stock = Stock::where('idP', $reference->idP)->first();
+        if ($stock) {
+            $stock->quantite_disponible = Reference::where('idP', $reference->idP)->sum('quantiteR');
+            $stock->save();
+        }
 
+        // Valider et enregistrer les changements
+        DB::commit();
+        return 0;
 
+    } catch (\Exception $e) {
+        // En cas d'erreur, annuler les modifications
+        DB::rollback();
 
-
-
-
-
-
-
-
-
+        // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+    }
+}
 
 
 

@@ -53,8 +53,13 @@
                                     <td>{{ $produit['prix_unitaire'] }}</td>
                                     <td>{{ $produit['quantite'] }}</td>
                                     <td>{{ $produit['tailleL'] }}</td>
-                                    <td>{{ $produit['couleur'] }}</td>
-                                    <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
+                                    <td>
+                                    <div style="width: 20px; height: 20px; background-color: {{ $produit['couleur'] }}; margin: 0 auto;"></div>
+                                    <span>   {{ $produit['couleur'] }} </span>
+                                    </td>
+                                    <td>
+                                        <img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence">
+                                    </td>
                                 </tr>
                                     @endforeach
 
