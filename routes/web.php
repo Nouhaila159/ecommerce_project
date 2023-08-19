@@ -162,7 +162,8 @@ Route::delete('/supprimerLigneCommande/{id}', [VenteController::class, 'supprime
 //updateDétailVente
 
 Route::get('/updateDetailVente/{idLigne}', [VenteController::class, 'showUpdateDetailVente'])->name('updateDetailVente');
-Route::put('/updateDetailVente/{idCommande}', [VenteController::class, 'updateDetailVente'])->name('updateDetailVente.update');
+Route::put('/updateDetailVente/{idLigne}', [VenteController::class, 'updateDetailVente'])->name('update');
+
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
 });
