@@ -18,7 +18,7 @@
                     <div class="card-body">
                     
                         <h1 class="text-center mb-4">Modifier un produit de la commande</h1>
-                        <form action="" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('update', ['idLigne' => $ligne->idLigneC]) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row mb-2">

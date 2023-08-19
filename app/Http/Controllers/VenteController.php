@@ -590,8 +590,9 @@ public function showUpdateDetailVente($idLigne)
             // Autres données nécessaires...
         ]);
     } catch (\Exception  $e) {
-        return redirect()->route('updateDetailVente', $idLigne)
-            ->with('error', 'Détail spécifié est introuvable.');
+        return redirect()->route('updateDetailVente', ['idLigne' => $idLigne])
+        ->with('error', 'Détail spécifié est introuvable.');
+    
     }
 }
 
@@ -625,5 +626,33 @@ public function update(Request $request)
                      ->with('success', 'Ligne de commande mise à jour avec succès.');
 }*/
 
+public function updateDetailVente(Request $request, $idLigne)
+{
+    try {
+        $ligne = Ligne_commande::findOrFail($idLigne);
 
+        // Validez les données du formulaire
+        $validatedData = $request->validate([
+            'reference' => 'required',
+            'taille' => 'required',
+            'quantite' => 'required|numeric',
+            // Ajoutez d'autres règles de validation si nécessaire
+        ]);
+
+        // Mettez à jour les champs de la ligne de commande avec les données validées
+        $ligne->idR = $request->input('reference');
+        $ligne->idT = $request->input('taille');
+        $ligne->quantite = $request->input('quantite');
+
+        // Enregistrez les modifications
+        $ligne->save();
+
+        return redirect()->route('vente.detail', ['id' => $ligne->idCommande])
+            ->with('success', 'Détail de vente mis à jour avec succès.');
+    } catch (\Exception $e) {
+        return redirect()->route('updateDetailVente', ['idLigne' => $idLigne])
+    ->with('error', 'Une erreur s\'est produite lors de la mise à jour.');
+
+    }
+}
 }
