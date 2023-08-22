@@ -28,9 +28,21 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div class="admin-logo d-flex align-items-center flex-column">
-                    <img width="50px" height="50px" src="{{ asset('/images/logo.jpeg') }}" alt="Logo">
-                     </div>
+                        @php
+                            // Utilisez la classe InfoSite pour récupérer les informations du logo depuis la base de données
+                            $infoSite = \App\Models\InfoSite::find(1); // Assurez-vous que 1 est l'ID correct de votre enregistrement
+                
+                            // Vérifiez si l'enregistrement a été trouvé avant d'afficher le logo
+                            if ($infoSite && !empty($infoSite->urlPhotoS)) {
+
+                                echo '<img width="75px" height="75px" src="' . asset('storage/' .$infoSite->urlPhotoS) . '" alt="Logo">';
+                            } else {
+                                echo '<img width="50px" height="50px" src="' . asset('/images/logo.jpeg') . '" alt="Logo">';
+                            }
+                        @endphp
+                    </div>
                 </a>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

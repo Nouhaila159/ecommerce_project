@@ -34,78 +34,85 @@
             </div>
             
             <!-- Settings Form  -->
-            <form action="">
+               <form action="{{ route('settings.update', ['id' => $infoSite->idS]) }}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  @method('PUT')
                <!-- row -->
                <div class="row">
                   <!-- col left  -->
                   <div class="col-6">
+                    
                      <!-- Site Name -->
+                     
                      <div class="mb-3 mt-3 ">
                         <label for="Site Name" class="form-label fw-bold">Site Name</label>
-                        <input autocomplete="off" type="text" class="form-control form-control-sm" id="site-name" name="site_name" value="Super Market">
+                        <input autocomplete="off" type="text" class="form-control form-control-sm" id="site-name" name="nomS" value="{{$infoSite->nomS}}">
                      </div>
 
                     <!-- Site Title -->
                      <div class="mb-3 mt-3">
                         <label for="Site Title" class="form-label fw-bold">Site Title</label>
-                        <input autocomplete="off" type="text" class="form-control form-control-sm" id="site-title" name="site_title" value="Online Shopping Project for Mobiles, Clothes, Electronics and many more....">
+                        <input autocomplete="off" type="text" class="form-control form-control-sm" id="site-title" name="titreS" value="{{$infoSite->titreS}}">
                      </div>
 
                      <!-- Site Description -->
                      <div class="mb-3 mt-3">
                         <label for="Site Description" class="form-label fw-bold">Site Description</label>
-                        <textarea class="form-control form-control-sm" name="site_description" id="site-description" cols="30" rows="6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, perspiciatis quia repudiandae sapiente sed sunt.
+                        <textarea class="form-control form-control-sm" name="descriptionS" id="site-description" cols="30" rows="6">
+                            {{$infoSite->descriptionS}}
                         </textarea>
-                     </div>
+                    </div>
+                    
 
                      <!-- Contact Email -->
                      <div class="mb-3 mt-3">
                         <label for="Contact-Email" class="form-label fw-bold">Contact Email</label>
-                        <input autocomplete="off" type="email" class="form-control form-control-sm" id="contact-email" name="contact_email" value="abc@gmail.com">
+                        <input autocomplete="off" type="email" class="form-control form-control-sm" id="contact-email" name="emailS" value="{{$infoSite->emailS}}">
                      </div>
 
                      <!-- Contact Phone Number -->
                      <div class="mb-3 mt-3">
                         <label for="Contact-Email" class="form-label fw-bold">Contact Phone Number</label>
-                        <input autocomplete="off" type="number" class="form-control form-control-sm" id="contact-phone-number" name="contact_phone_number" value="87654567">
+                        <input autocomplete="off" type="number" class="form-control form-control-sm" id="contact-phone-number" name="teleS" value="{{$infoSite->teleS}}">
                      </div>
    
                   </div>
                   <!-- col right  -->
                   <div class="col-6">
                      <!-- Site Logo -->
-                     <div class="mb-3 mt-3">
-                        <label for="product-title" class="form-label fw-bold">Site Logo</label>
-                        <input type="file" class="form-control form-control-sm" id="site-logo" name="site_logo">
-                     </div>
+                     <!-- Site Logo -->
+<div class="mb-3 mt-3">
+   <label for="product-title" class="form-label fw-bold">Site Logo</label>
+   <input type="file" class="form-control form-control-sm" id="site-logo" name="urlphotoS">
+</div>
+
+                     
 
                      <!-- Current Site Logo -->
-                     <div class="product_img mb-3">
-                        <img src="./images/logo.png" alt="Logo">
-                     </div>
+                     <div class="col-md-2">
 
-                     <!-- Currency Format -->
-                     <div class="mb-3 d-flex flex-column">
-                        <label for="product-title" class="form-label fw-bold">Currency Format</label>
-                        <input type="text" class="form-control form-control-sm" id="currency-format" name="currency_format" value="BDT.">
-                     </div>
+                        <img src="{{ asset('storage/' . $infoSite->urlPhotoS) }}" alt="Current Image" class="mt-2" style="max-height: 100px; max-width: 100px;">
+                    </div>
+
+                   
 
                        <!-- Contact Address -->
                      <div class="mb-3 d-flex flex-column">
                         <label for="vailable-quantity" class="form-label fw-bold">Contact Address</label>
-                        <input type="text" class="form-control form-control-sm" id="contact_address" name="contact_address" value="#157, Ukhia, Cox's Bazar">
+                        <input type="text" class="form-control form-control-sm" id="contact_address" name="adesseS" value="{{$infoSite->adesseS}}">
                      </div>
 
                      <!-- Footer Text -->
                      <div class="mb-3 d-flex flex-column">
                         <label for="vailable-quantity" class="form-label fw-bold">Footer Text</label>
-                        <input type="text" class="form-control form-control-sm" id="footer-text" name="footer_text" value="Copyright &copy; 2022">
+                        <input type="text" class="form-control form-control-sm" id="footer-text" name="footerS" value="{{$infoSite->footerS}}">
                      </div>
 
                      <!-- submit btn  -->
                      <input class="btn btn-sm rounded px-5 mt-3 fs-6 fw-bold text-white common-btn" type="submit" name="setting-submitbtn" value="Update" id="setting-submitbtn">
                   </div>
                </div>
+               
                <!-- form ends  -->
             </form>
             <!-- Settings Form end  -->
@@ -123,5 +130,8 @@
    <!-- bootstrap Js  -->
    <!-- Custom Javascript  -->
    <script type="text/javascript" src="./js/admin-script.js"></script>
+
+   <!-- bootstrap Js -->
+   <!-- bootstrap Js -->
 </body>
 </html>
