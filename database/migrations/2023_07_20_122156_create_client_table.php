@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('telC')->unsigned()->nullable();
             $table->string('adresseC', 500);
             $table->string('villeC', 100);
-            $table->string('emailC', 100);
+            $table->string('emailC', 100)->unique();
             
             $table->timestamps();
         });
