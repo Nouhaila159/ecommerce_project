@@ -132,7 +132,6 @@ Route::get('/detailCommande/{id}', [CommandesController::class, 'detailCommande'
 //FACTURE
 Route::get('/facture/{id}', [VenteController::class, 'genererFactureV']);
 Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFactureV');
-Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFacture');
 
 //CHANGEMENT VALIDATION & STATUT
 Route::post('/updateValidation/{id}', [CommandesController::class,'updateValidation'])->name('updateValidation');

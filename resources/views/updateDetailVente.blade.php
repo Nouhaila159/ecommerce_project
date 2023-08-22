@@ -34,7 +34,7 @@
                                 </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <img id="image-preview" src="{{ asset('storage/' . $ref->urlPhoto) }}" alt="Image de référence" style="max-height: 100px;">
+                                    <img id="image-preview" src="{{ asset('storage/' . $reference->urlPhoto) }}" alt="Image de référence" height="100px" width="100px">
                                 </div>
                             </div>
                             
@@ -66,6 +66,15 @@
                         <div class="d-flex justify-content-center">
                         <a href="{{ route('vente.detail', ['id' => $ligne->idCommande]) }}" class="btn btn-danger">Annuler</a>
                      </div>
+                     @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
                     </div>
                 </div>
             </div>

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Reference;
 use App\Models\Tailles;
 use App\Models\Stock;
+use App\Models\Ligne_commande;
+use Illuminate\Http\RedirectResponse;
+
+
 
 
 class ReferenceController extends Controller
@@ -70,20 +74,20 @@ class ReferenceController extends Controller
             }
         }
 
-    // Mettre à jour la quantité disponible dans la table Stock
-    $stock = Stock::where('idP', $reference->idP)->first();
-    if ($stock) {
-        $stock->quantite_disponible += $totalQuantite;
-        $stock->save();
-    } else {
-        Stock::create([
-            'idP' => $reference->idP,
-            'quantite_disponible' => $totalQuantite,
-        ]);
-    }
+        // Mettre à jour la quantité disponible dans la table Stock
+        $stock = Stock::where('idP', $reference->idP)->first();
+        if ($stock) {
+            $stock->quantite_disponible += $totalQuantite;
+            $stock->save();
+        } else {
+            Stock::create([
+                'idP' => $reference->idP,
+                'quantite_disponible' => $totalQuantite,
+            ]);
+        }
 
-    $id = $reference->idP;
-    return redirect()->route('produits.detail', ['id' => $id])->with('success', 'Référence ajoutée avec succès.');
+        $id = $reference->idP;
+        return redirect()->route('produits.detail', ['id' => $id])->with('success', 'Référence ajoutée avec succès.');
 }
     
     /**
@@ -147,52 +151,87 @@ class ReferenceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function updateReference(Request $request, $idR)
-    {
-        $reference = Reference::findOrFail($idR);
-        $idP = $request->input('idProduit');
-        $quantites = $request->input('quantites');
-    
-        // Update reference data
-        $reference->referenceP = $request->input('reference');
-        $reference->couleur = $request->input('couleur');
-        // Update image if provided
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $reference->urlPhoto = $imagePath;
-        }
-    
-        // Enregistrez les tailles et quantités associées
-        $tailles = $request->input('tailles');
-        $quantites = $request->input('quantites');
+{
+    $reference = Reference::findOrFail($idR);
+    $idP = $request->input('idProduit');
+    $quantites = $request->input('quantites');
 
-        // Supprimer les tailles existantes pour la référence
-        Tailles::where('idR', $reference->idR)->delete();
+    // Update reference data
+    $reference->referenceP = $request->input('reference');
+    $reference->couleur = $request->input('couleur');
+    // Update image if provided
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images', 'public');
+        $reference->urlPhoto = $imagePath;
+    }
+    
+    // Enregistrez les tailles et quantités associées
+    $tailles = $request->input('tailles');
+    $quantites = $request->input('quantites');
 
-        // Ajouter les nouvelles tailles avec leurs quantités
-        foreach ($tailles as $index => $taille) {
-            Tailles::create([
+
+    // Mettre à jour les tailles existantes et ajouter les nouvelles tailles avec leurs quantités
+    foreach ($tailles as $index => $taille) {
+        $existingTaille = Tailles::where('idR', $reference->idR)
+                                  ->where('taille', $taille)
+                                  ->first();
+       
+        if ($existingTaille) {
+            // Mettre à jour la quantité de la taille existante
+            $existingTaille->quantiteT = $quantites[$index];
+            $existingTaille->save();
+        } else {
+            // Créer une nouvelle taille avec sa quantité
+            $newTaille = Tailles::create([
                 'idR' => $reference->idR,
                 'taille' => $taille,
                 'quantiteT' => $quantites[$index],
             ]);
         }
-    
-        // Recalculate and update reference and stock quantities
-        $totalQuantite = array_sum($quantites);
-        $reference->quantiteR = $totalQuantite;
-        $reference->save();
-        
-        $references = Reference::where('idP', $reference->idP)->get();
-        $totalQuantite = $references->sum('quantiteR');
-
-        $stock = Stock::where('idP', $idP)->first();
-        if ($stock) {
-            $stock->quantite_disponible = $totalQuantite;
-            $stock->save();
-        }
-    
-        return redirect()->route('produits.detail', ['id' => $idP])->with('success', 'Référence modifiée avec succès.');
     }
+    $existingSizes = Tailles::where('idR', $reference->idR)->pluck('taille')->toArray();
+
+
+    $usedSizesIds = Ligne_commande::where('idR', $reference->idR)
+    ->whereIn('idT', function ($query) use ($reference) {
+        $query->select('idT')
+            ->from('tailles')
+            ->where('idR', $reference->idR);
+    })
+    ->pluck('idT')
+    ->toArray();
+
+    foreach ($existingSizes as $existingSize) {
+        if (!in_array($existingSize, $tailles)) {
+            if (!in_array($existingSize, $usedSizesIds)) {
+                Tailles::where('idR', $reference->idR)
+                       ->where('taille', $existingSize)
+                       ->delete();
+            } else {
+                $errorMessage = "La taille {$existingSize} ne peut pas être supprimée car elle est utilisée dans des lignes de commande.";
+                return back()->with('error', $errorMessage);
+            }
+        }
+    }
+    
+
+    // Recalculate and update reference and stock quantities
+    $totalQuantite = array_sum($quantites);
+    $reference->quantiteR = $totalQuantite;
+    $reference->save();
+    
+    $references = Reference::where('idP', $reference->idP)->get();
+    $totalQuantite = $references->sum('quantiteR');
+
+    $stock = Stock::where('idP', $idP)->first();
+    if ($stock) {
+        $stock->quantite_disponible = $totalQuantite;
+        $stock->save();
+    }
+
+    return redirect()->route('produits.detail', ['id' => $idP])->with('success', 'Référence modifiée avec succès.');
+}
+
     
 
     public function supprimerReference($id) {

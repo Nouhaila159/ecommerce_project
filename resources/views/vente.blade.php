@@ -92,9 +92,9 @@
                @csrf
                <td>
                   <select name="validation" id="validation" onchange="this.form.submit()">
-                      <option value="annulé" style="background: red" @if ($commande['commande']->validation === 'annulée') selected @endif>Annulé</option>
+                      <option value="annulée" style="background: red" @if ($commande['commande']->validation === 'annulée') selected @endif>Annulée</option>
                       <option value="en cours" style="background: yellow" @if ($commande['commande']->validation === 'en cours') selected @endif>En cours</option>
-                      <option value="validé" style="background: green" @if ($commande['commande']->validation === 'validée') selected @endif>Validé</option>
+                      <option value="validée" style="background: green" @if ($commande['commande']->validation === 'validée') selected @endif>Validée</option>
                   </select>
               </td>
            </form>

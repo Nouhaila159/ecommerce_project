@@ -62,10 +62,12 @@
                                     <div style="width: 20px; height: 20px; background-color: {{ $produit['couleur'] }}; margin: 0 auto;"></div>
                                     <span>   {{ $produit['couleur'] }} </span>
                                     </td>
-                                    <td><img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence"></td>
                                     <td>
-                                        <a href="{{ route('updateDetailVente', [$produit['idLigne']]) }}" >
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        <img height="100px" width="100px" src="{{ asset('storage/' . $produit['image']) }}" alt="Image de référence">
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('updateDetailVente', [$produit['idLigne']]) }}" class="btn btn-sm btn-primary">Modifier
+                                        
                                         </a>
                                         
                                         <a href="#" class="btn btn-sm btn-danger btn-delete" data-Ligne-id="{{ $produit['idLigne'] }}">Supprimer</a>

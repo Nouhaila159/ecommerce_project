@@ -47,6 +47,8 @@
                                         <div class="col-md-4">
                                         <label class="form-label">Quantité</label>
                                             <input type="number" name="quantite" class="form-control" placeholder="Quantité" required>
+                                            <p id="max-quantity-info" class="text-muted">Quantité maximale : <span id="max-quantity">0</span></p>
+
                                         </div>
                                     </div>
                             <button type="submit" class="btn btn-success">Ajouter à la commande</button>
@@ -71,6 +73,27 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+$(document).ready(function () {
+    $("#taille").change(function () {
+        var selectedValue = $(this).val();
+
+        // Faire une requête Ajax pour obtenir la quantité maximale pour la taille sélectionnée
+        $.ajax({
+            url: "/get-max-quantity/" + selectedValue,
+            method: "GET",
+            success: function (response) {
+                var maxQuantitySpan = $("#max-quantity");
+                maxQuantitySpan.text(response.maxQuantity); // Mettez à jour la quantité maximale affichée
+            },
+            error: function (error) {
+                console.log("Erreur lors de la récupération de la quantité maximale : ", error);
+            }
+        });
+    });
+});
+</script>
 <script>
     $(document).ready(function () {
         $("#reference").change(function () {
