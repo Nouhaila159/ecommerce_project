@@ -58,9 +58,7 @@
                      <!-- Site Description -->
                      <div class="mb-3 mt-3">
                         <label for="Site Description" class="form-label fw-bold">Site Description</label>
-                        <textarea class="form-control form-control-sm" name="descriptionS" id="site-description" cols="30" rows="6">
-                            {{$infoSite->descriptionS}}
-                        </textarea>
+                        <textarea class="form-control form-control-sm" name="descriptionS" id="site-description" cols="30" rows="6">{{$infoSite->descriptionS}}</textarea>
                     </div>
                     
 

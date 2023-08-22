@@ -92,8 +92,8 @@
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 101</a></li>
-									<li><a href="category.html">Text 102</a></li>
+									<li><a href="category">Text 101</a></li>
+									<li><a href="category">Text 102</a></li>
 								</ul>
 							</div>
 						</div>
@@ -102,11 +102,11 @@
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 201</a></li>
-									<li><a href="category.html">Text 202</a></li>
-									<li><a href="category.html">Text 203</a></li>
-									<li><a href="category.html">Text 204</a></li>
-									<li><a href="category.html">Text 205</a></li>
+									<li><a href="category">Text 201</a></li>
+									<li><a href="category">Text 202</a></li>
+									<li><a href="category">Text 203</a></li>
+									<li><a href="category">Text 204</a></li>
+									<li><a href="category">Text 205</a></li>
 								</ul>
 							</div> 
 						</div>
@@ -115,25 +115,25 @@
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 301</a></li>
-									<li><a href="category.html">Text 302</a></li>
-									<li><a href="category.html">Text 303</a></li>
-									<li><a href="category.html">Text 304</a></li>
-									<li><a href="category.html">Text 305</a></li>
+									<li><a href="category">Text 301</a></li>
+									<li><a href="category">Text 302</a></li>
+									<li><a href="category">Text 303</a></li>
+									<li><a href="category">Text 304</a></li>
+									<li><a href="category">Text 305</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 306</a></li>
-									<li><a href="category.html">Text 307</a></li>
-									<li><a href="category.html">Text 308</a></li>
-									<li><a href="category.html">Text 309</a></li>
-									<li><a href="category.html">Text 310</a></li>
+									<li><a href="category">Text 306</a></li>
+									<li><a href="category">Text 307</a></li>
+									<li><a href="category">Text 308</a></li>
+									<li><a href="category">Text 309</a></li>
+									<li><a href="category">Text 310</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 311</a></li>
-									<li><a href="category.html">Text 312</a></li>
-									<li><a href="category.html#">Text 313</a></li>
-									<li><a href="category.html#">Text 314</a></li>
-									<li><a href="category.html">Text 315</a></li>
+									<li><a href="category">Text 311</a></li>
+									<li><a href="category">Text 312</a></li>
+									<li><a href="category">Text 313</a></li>
+									<li><a href="category">Text 314</a></li>
+									<li><a href="category">Text 315</a></li>
 								</ul>
 							</div>
 						</div>
@@ -223,7 +223,7 @@
 								  <div class="col-sm-4">
 										<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp3_2.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp3_2.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -231,7 +231,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -240,7 +240,7 @@
 								  <div class="col-sm-4">
 										<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp5_1.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp5_1.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -248,7 +248,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -257,7 +257,7 @@
 								  <div class="col-sm-4">
 									<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp6_1.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp6_1.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -265,7 +265,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -278,7 +278,7 @@
 									<div class="col-sm-6">
 										<div class="product">
 												<div class="image">
-													<a href="product.html"><img src="images/clothing_sp12_1.jpg" /></a>
+													<a href="product"><img src="images/clothing_sp12_1.jpg" /></a>
 													<ul class="buttons">
 														<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 														<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -286,7 +286,7 @@
 													</ul>
 												</div>
 												<div class="caption">
-													<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+													<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 													<div class="price">$122<span>$98</span></div>
 													<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 												</div>
@@ -295,7 +295,7 @@
 									<div class="col-sm-6">
 										<div class="product">
 												<div class="image">
-													<a href="product.html"><img src="images/clothing_sp19_1.jpg" /></a>
+													<a href="product"><img src="images/clothing_sp19_1.jpg" /></a>
 													<div class="hot">
 														<span>HOT</span>
 													</div>
@@ -306,7 +306,7 @@
 													</ul>
 												</div>
 												<div class="caption">
-													<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+													<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 													<div class="price">$122<span>$98</span></div>
 													<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 												</div>
@@ -325,7 +325,7 @@
 								  <div class="col-sm-4">
 									<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp6_1.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp6_1.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -333,7 +333,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -342,7 +342,7 @@
 								  <div class="col-sm-4">
 									<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp5_1.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp5_1.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -350,7 +350,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -359,7 +359,7 @@
 								  <div class="col-sm-4">
 									<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp3_2.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp3_2.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -367,7 +367,7 @@
 												</ul>
 											</div>
 											<div class="caption">
-												<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 												<div class="price">$122<span>$98</span></div>
 												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 											</div>
@@ -380,7 +380,7 @@
 									<div class="col-sm-6">
 										<div class="product">
 												<div class="image">
-													<a href="product.html"><img src="images/clothing_sp19_1.jpg" /></a>
+													<a href="product"><img src="images/clothing_sp19_1.jpg" /></a>
 													<div class="hot">
 														<span>HOT</span>
 													</div>
@@ -391,7 +391,7 @@
 													</ul>
 												</div>
 												<div class="caption">
-													<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+													<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 													<div class="price">$122<span>$98</span></div>
 													<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 												</div>
@@ -400,7 +400,7 @@
 									<div class="col-sm-6">	
 										<div class="product">
 												<div class="image">
-													<a href="product.html"><img src="images/clothing_sp12_1.jpg" /></a>
+													<a href="product"><img src="images/clothing_sp12_1.jpg" /></a>
 													<ul class="buttons">
 														<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 														<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
@@ -409,7 +409,7 @@
 												</div>
 												
 												<div class="caption">
-													<div class="name"><h3><a href="product.html">Pretty Playsuit</a></h3></div>
+													<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
 													<div class="price">$122<span>$98</span></div>
 													<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></div>
 												</div>
@@ -445,7 +445,7 @@
 								  <div class="col-sm-4">
 									<div class="product">
 											<div class="image">
-												<a href="product.html"><img src="images/clothing_sp3_2.jpg" /></a>
+												<a href="product"><img src="images/clothing_sp3_2.jpg" /></a>
 												<ul class="buttons">
 													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
 													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
