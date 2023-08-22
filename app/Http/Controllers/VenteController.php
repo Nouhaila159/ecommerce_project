@@ -24,10 +24,10 @@ class VenteController extends Controller
     
     $clients = Client::all();
         
-    // Récupérer uniquement les commandes avec origine = 'siteWeb'
+    // Récupérer uniquement les commandes avec origine différent 'siteWeb'
     $commandes = Commandes::with('client')
         ->where('origine', '<>', 'siteWeb')
-        ->paginate(2)->onEachSide(0);
+        ->paginate(4)->onEachSide(0);
 
     $commandesAvecMontantTotal = [];
     foreach ($commandes as $commande) {
@@ -253,23 +253,32 @@ public function updateValidation(Request $request, $id)
 
 public function ajouterVente()
     {
-        return view('ajouterVente');
+        $client=Client::all();
+        return view('ajouterVente',['clients'=>$client]);
     }
+
 public function ajouterVentePost(Request $request)
 {
-    // Validez les données entrées par l'utilisateur si nécessaire
+   
     
-    // Créez un nouveau client ou récupérez un client existant
-    $client = new Client();
-    $client->nomC = $request->input('nomC');
-    $client->prenomC = $request->input('prenomC');
-    $client->telC = $request->input('telC');
-    $client->adresseC = $request->input('adresseC');
-    $client->emailC = $request->input('emailC');
-    $client->villeC = $request->input('villeC');
-
-    
-    $client->save();
+    $searchTerm = $request->input('search_client');         
+        
+    if ($searchTerm) {
+        $client = Client::where('emailC', $searchTerm)->first();
+        if (!$client) {
+            return back()->with('error', 'Aucun client trouvé avec cet email.');
+        }
+    } else{
+        // Sinon, créez un nouveau client
+        $client = new Client();
+        $client->nomC = $request->input('nomC');
+        $client->prenomC = $request->input('prenomC');
+        $client->telC = $request->input('telC');
+        $client->adresseC = $request->input('adresseC');
+        $client->emailC = $request->input('emailC');
+        $client->villeC = $request->input('villeC');
+        $client->save();
+    }
     
     // Créez une nouvelle instance de Commande avec les données du formulaire
     $commande = new Commandes();
@@ -282,8 +291,10 @@ public function ajouterVentePost(Request $request)
     // ... autres champs ...
     
     $commande->save();
+    
     return redirect()->route('vente')->with('success', 'La commande a été ajoutée avec succès.');
 }
+
 
 public function showUpdateForm($id) {
     // Fetch the data for the command based on the $id
@@ -595,36 +606,7 @@ public function showUpdateDetailVente($idLigne)
     
     }
 }
-
-
-/*
-public function update(Request $request)
-{
-    // Récupérez les données du formulaire
-    $idReference = $request->input('reference');
-    $idTaille = $request->input('taille');
-    $quantite = $request->input('quantite');
-
-    // Trouvez la ligne de commande à mettre à jour
-    $ligneCommande = Ligne_commande::find($id);
-
-    if (!$ligneCommande) {
-        // Gérez le cas où la ligne de commande n'est pas trouvée
-        return redirect()->back()->with('error', 'Ligne de commande non trouvée.');
-    }
-
-    // Mettez à jour les données de la ligne de commande
-    $ligneCommande->idR = $request->input('reference');
-    $ligneCommande->tailleL = $request->input('taille');
-    $ligneCommande->quantite = $request->input('quantite');
-    $ligneCommande->save();
-    // Enregistrez les changements
-    $ligneCommande->save();
-
-    // Redirigez l'utilisateur vers la page de détails de la vente en passant les id de commande et de référence
-    return redirect()->route('updateDetailVente', ['idCommande' => $idCommande])
-                     ->with('success', 'Ligne de commande mise à jour avec succès.');
-}*/
+ 
 
 public function updateDetailVente(Request $request, $idLigne)
 {
@@ -655,4 +637,28 @@ public function updateDetailVente(Request $request, $idLigne)
 
     }
 }
+
+
+//test
+public function searchClient(Request $request)
+    {
+        $searchTerm = $request->input('emailC');
+
+        // Query your database to find the client based on $searchTerm
+        $client = Client::where('emailC', $searchTerm)->first();
+
+        if ($client) {
+            return response()->json([
+                'nomC' => $client->nomC,
+                'prenomC' => $client->prenomC,
+                'adresseC' => $client->adresseC,
+                'villeC' => $client->villeC,
+                'emailC' => $client->emailC,
+                'telC' => $client->telC,
+                
+            ]);
+        } else {
+            return response()->json(null); // Return null or appropriate response
+        }
+    }
 }

@@ -33,6 +33,8 @@ class ProduitController extends Controller
             'materiels' => $materiels,
         ]);
     }
+    
+
 
     /**
      * Show the form for creating a new resource.

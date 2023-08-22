@@ -10,6 +10,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\VenteController;
+use App\Http\Controllers\InfoSiteController;
+use App\Http\Controllers\FrontProduitController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,24 @@ use App\Http\Controllers\VenteController;
 |
 */Route::get('/', function () {
     return view('master');
+});
+Route::get('/category', function () {
+    return view('frontend.category');
+});
+Route::get('/account', function () {
+    return view('frontend.account');
+});
+Route::get('/cart', function () {
+    return view('frontend.cart');
+});
+Route::get('/product', function () {
+    return view('frontend.product');
+});
+Route::get('/index', function () {
+    return view('frontend.index');
+});
+Route::get('/contact', function () {
+    return view('frontend.contact');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
@@ -73,6 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/vente', function () {
         return view('vente');
     });
+    
 
  
 
@@ -132,7 +155,6 @@ Route::get('/detailCommande/{id}', [CommandesController::class, 'detailCommande'
 //FACTURE
 Route::get('/facture/{id}', [VenteController::class, 'genererFactureV']);
 Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFactureV');
-Route::get('/telechargerFacture/{id}', [VenteController::class,'telechargerFactureV'])->name('telechargerFacture');
 
 //CHANGEMENT VALIDATION & STATUT
 Route::post('/updateValidation/{id}', [CommandesController::class,'updateValidation'])->name('updateValidation');
@@ -150,6 +172,8 @@ Route::get('/vente', [VenteController::class, 'index'])->name('vente');
 Route::delete('/commande/{id}', [VenteController::class, 'destroy'])->name('destroy');
 Route::get('/updateVente/{id}', [VenteController::class, 'showUpdateForm'])->name('updateVente');
 Route::put('/updateVente/{id}', [VenteController::class,'updateVente'])->name('updateVente');
+Route::get('/search-client', [VenteController::class, 'searchClient'])->name('search-client');
+//test
 
 
 //CRUD DETAIL VENTE
@@ -163,6 +187,13 @@ Route::delete('/supprimerLigneCommande/{id}', [VenteController::class, 'supprime
 
 Route::get('/updateDetailVente/{idLigne}', [VenteController::class, 'showUpdateDetailVente'])->name('updateDetailVente');
 Route::put('/updateDetailVente/{idLigne}', [VenteController::class, 'updateDetailVente'])->name('update');
+//Crud setting
+Route::get('/settings', [InfoSiteController::class, 'index'])->name('settings.index');
+Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->name('settings.update');
+
+//crud category 
+Route::get('/category', [FrontProduitController::class, 'index'])->name('frontend.category');
+
 
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
