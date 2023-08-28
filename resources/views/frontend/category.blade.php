@@ -117,37 +117,27 @@
 				<div id="main-content" class="col-md-8">
 					<div class="row">
 						<div class="products">
-							@foreach($produitsPublies as $produit)
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="nomP"><h3>{{ $produit->nomP }}</h3></div>
-										<div class="descriptionP">{{ $produit->descriptionP }}</div>
-										<div class="prixP">{{ $produit->prixP }}$<span>{{ $produit->reductionP }}</span></div>
-									</div>
-									<!-- Ajouter la boucle pour les références ici -->
-									<div class="references">
-										@if ($produit->references)
-											@foreach ($produit->references as $reference)
-												<div class="reference">
-													<div class="reference-title">{{ $reference->referenceP }}</div>
-													<div class="reference-color">{{ $reference->couleur }}</div>
-													<div class="reference-quantity">{{ $reference->quantiteR }} disponibles</div>
-												</div>
-											@endforeach
-										@endif
-									</div>									
-								</div>
-							</div>
-							@endforeach
-						</div>
+    @foreach($produitsPublies as $produit)
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="product">
+            <div class="image">
+                <img src="{{ asset('storage/') }}" alt="" />
+                <ul class="buttons">
+                    <li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                    <li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
+                    <li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
+                </ul>
+            </div>
+            <div class="caption">
+                <div class="nomP"><h3>{{ $produit->nomP }}</h3></div>
+                <div class="descriptionP">{{ $produit->descriptionP }}</div>
+                <div class="prixP">{{ $produit->prixP }}$<span>{{ $produit->reductionP }}</span></div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
 						<div class="clear"></div>
 					</div>
 				</div>
