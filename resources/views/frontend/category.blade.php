@@ -132,10 +132,21 @@
 										<div class="descriptionP">{{ $produit->descriptionP }}</div>
 										<div class="prixP">{{ $produit->prixP }}$<span>{{ $produit->reductionP }}</span></div>
 									</div>
+									<!-- Ajouter la boucle pour les références ici -->
+									<div class="references">
+										@if ($produit->references)
+											@foreach ($produit->references as $reference)
+												<div class="reference">
+													<div class="reference-title">{{ $reference->referenceP }}</div>
+													<div class="reference-color">{{ $reference->couleur }}</div>
+													<div class="reference-quantity">{{ $reference->quantiteR }} disponibles</div>
+												</div>
+											@endforeach
+										@endif
+									</div>									
 								</div>
 							</div>
 							@endforeach
-							
 						</div>
 						<div class="clear"></div>
 					</div>
@@ -144,7 +155,6 @@
 		</div>
 	</div>
 	
-	</div>	
 	<footer>
 		<div class="brand">
 			<div class="container">
