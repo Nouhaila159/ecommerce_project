@@ -24,15 +24,15 @@ use App\Http\Controllers\FrontProduitController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/Route::get('/', function () {
-    return view('master');
-});
+
+*/
 Route::get('/category', function () {
     return view('frontend.category');
 });
+
 Route::get('/account', function () {
     return view('frontend.account');
-});
+})->name('register');
 Route::get('/cart', function () {
     return view('frontend.cart');
 });
@@ -45,10 +45,17 @@ Route::get('/index', function () {
 Route::get('/contact', function () {
     return view('frontend.contact');
 });
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+    
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // Routes protégées nécessitant une authentification
+Route::get('/', function () {
+    return view('master');
+});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -97,8 +104,6 @@ Route::middleware('auth')->group(function () {
     });
     
 
- 
-
 //CRUD MARQUE
 Route::post('/brands', [MarqueController::class, 'store'])->name('brands.store');
 Route::get('/brands', [MarqueController::class, 'index'])->name('brands.index');
@@ -139,7 +144,6 @@ Route::get('/updateReference/{idR}/{idP}', [ReferenceController::class, 'editRef
 Route::post('/reference/{id}', [ReferenceController::class, 'updateReference'])->name('reference.update');
 Route::delete('/supprimer-reference/{id}', [ReferenceController::class, 'supprimerReference'])->name('reference.supprimer');
 
-
 //CRUD STOCK
 Route::get('/in-stock', [StockController::class, 'indexStock'])->name('in-stock.index'); 
 
@@ -173,8 +177,6 @@ Route::delete('/commande/{id}', [VenteController::class, 'destroy'])->name('dest
 Route::get('/updateVente/{id}', [VenteController::class, 'showUpdateForm'])->name('updateVente');
 Route::put('/updateVente/{id}', [VenteController::class,'updateVente'])->name('updateVente');
 Route::get('/search-client', [VenteController::class, 'searchClient'])->name('search-client');
-//test
-
 
 //CRUD DETAIL VENTE
 Route::get('/ajouter_referenceVente/{id}', [VenteController::class, 'ajouter_referenceVente_index'])->name('venteDetail.index');
@@ -183,10 +185,11 @@ Route::get('/get-reference-sizes/{id}', [VenteController::class, 'getReferenceSi
 Route::get('/get-max-quantity/{sizeId}', [VenteController::class, 'getMaxQuantityForSize'])->name('get-max-quantity');
 Route::post('/ajouter_referenceVente',[VenteController::class, 'ajouter_referenceVente'])->name('venteDetail.add');
 Route::delete('/supprimerLigneCommande/{id}', [VenteController::class, 'supprimerLigneCommande'])->name('venteDetail.delete');
-//updateDétailVente
 
+//updateDétailVente
 Route::get('/updateDetailVente/{idLigne}', [VenteController::class, 'showUpdateDetailVente'])->name('updateDetailVente');
 Route::put('/updateDetailVente/{idLigne}', [VenteController::class, 'updateDetailVente'])->name('update');
+
 //Crud setting
 Route::get('/settings', [InfoSiteController::class, 'index'])->name('settings.index');
 Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->name('settings.update');

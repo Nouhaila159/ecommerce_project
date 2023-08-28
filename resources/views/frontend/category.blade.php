@@ -92,18 +92,18 @@
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 201</a></li>
-									<li><a href="category.html">Text 202</a></li>
-									<li><a href="category.html">Text 203</a></li>
-									<li><a href="category.html">Text 204</a></li>
-									<li><a href="category.html">Text 205</a></li>
+									<li><a href="category">Text 201</a></li>
+									<li><a href="category">Text 202</a></li>
+									<li><a href="category">Text 203</a></li>
+									<li><a href="category">Text 204</a></li>
+									<li><a href="category">Text 205</a></li>
 								</ul>
 							</div> 
 						</div>
 					</li>
 					
-					<li><a href="category.html">New Fashion</a></li>
-					<li><a href="category.html">Hot Fashion</a></li>
+					<li><a href="category">New Fashion</a></li>
+					<li><a href="category">Hot Fashion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -178,7 +178,8 @@
 			<div class="wrap-footer">
 				<div class="row">
 					<div class="col-md-3 col-footer footer-1">
-						<img src="images/logofooter.png" />
+						<img src="images/logo.jpeg" style="width: 100px; height: 100px;"/>
+
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 					</div>
 					<div class="col-md-3 col-footer footer-2">

@@ -71,3 +71,27 @@
     </div>
 </div>
 @endsection
+<style>
+    .card {
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #FF5733;
+        color: white;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+    .btn-primary {
+        background-color: #FF5733;
+        border: none;
+        color: white;
+    }
+</style>

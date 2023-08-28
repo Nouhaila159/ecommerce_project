@@ -20,9 +20,6 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"  type="text/css">
     <link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
 	
-	<!-- jQuery and Modernizr-->
-	<script src="js/jquery-2.1.1.js"></script>
-	
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
 	
@@ -80,66 +77,31 @@
 		</div>
 	</header>
 	<!--Navigation-->
-    <nav id="menu" class="navbar">
+	<nav id="menu" class="navbar">
 		<div class="container">
 			<div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
 			  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Home</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Women Fashion</a>
-						<div class="dropdown-menu">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 101</a></li>
-									<li><a href="category.html">Text 102</a></li>
-								</ul>
-							</div>
-						</div>
-					</li>
+					<li><a href="index">Home</a></li>
+					
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 201</a></li>
-									<li><a href="category.html">Text 202</a></li>
-									<li><a href="category.html">Text 203</a></li>
-									<li><a href="category.html">Text 204</a></li>
-									<li><a href="category.html">Text 205</a></li>
+									<li><a href="category">Text 201</a></li>
+									<li><a href="category">Text 202</a></li>
+									<li><a href="category">Text 203</a></li>
+									<li><a href="category">Text 204</a></li>
+									<li><a href="category">Text 205</a></li>
 								</ul>
 							</div> 
 						</div>
 					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Kids Fashion</a>
-						<div class="dropdown-menu" style="margin-left: -203.625px;">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 301</a></li>
-									<li><a href="category.html">Text 302</a></li>
-									<li><a href="category.html">Text 303</a></li>
-									<li><a href="category.html">Text 304</a></li>
-									<li><a href="category.html">Text 305</a></li>
-								</ul>
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 306</a></li>
-									<li><a href="category.html">Text 307</a></li>
-									<li><a href="category.html">Text 308</a></li>
-									<li><a href="category.html">Text 309</a></li>
-									<li><a href="category.html">Text 310</a></li>
-								</ul>
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 311</a></li>
-									<li><a href="category.html">Text 312</a></li>
-									<li><a href="category.html#">Text 313</a></li>
-									<li><a href="category.html#">Text 314</a></li>
-									<li><a href="category.html">Text 315</a></li>
-								</ul>
-							</div>
-						</div>
-					</li>
-					<li><a href="category.html">New Fashion</a></li>
-					<li><a href="category.html">Hot Fashion</a></li>
+					
+					<li><a href="category">New Fashion</a></li>
+					<li><a href="category">Hot Fashion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -153,16 +115,18 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="account.html">Account</a></li>
+						<li><a href="index">Home</a></li>
+						<li><a href="account">Account</a></li>
 					</ul>
 				</div>
 			</div>
 			<div class="row">
+				
 				<div class="col-md-6" style="margin-bottom: 30px;">
 					<div class="heading"><h2>Login</h2></div>
-					<form name="form1" id="ff1" method="post" action="login.php">
-						<div class="form-group">
+					<form name="form1" id="ff1" method="POST" action="{{ route('login') }}">
+					@csrf
+					<div class="form-group">
 							<input type="text" class="form-control" placeholder="Username :" name="username" id="username" required>
 						</div>
 						<div class="form-group">
@@ -172,36 +136,51 @@
 						<a href="#">Forgot Your Password ?</a>
 					</form>
 				</div>
+				
+				
 				<div class="col-md-6">
 					<div class="heading"><h2>New User ? Create An Account.</h2></div>
-					<form name="form2" id="ff2" method="post" action="register.php">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="First Name :" name="firstname" id="firstname" required>
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Last Name :" name="lastname" id="lastname" required>
-						</div>
-						<div class="form-group">
-							<input type="tel" class="form-control" placeholder="Email Address :" name="email" id="email" required>
-						</div>
-						<div class="form-group">
-							<input type="tel" class="form-control" placeholder="Mobile :" name="phone" id="phone" required>
-						</div>
-						<div class="form-group">
-							<input name="gender" id="gender" type="radio"> Male <input name="gender" id="gender" type="radio"> Female 
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password :" name="password" id="password" required>
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Retype Password :" name="repassword" id="repassword" required>
-						</div>
-						<div class="form-group">
-							<input name="agree" id="agree" type="checkbox" > I agree to your website.
-						</div>
-						<button type="submit" class="btn btn-4">Create</button>
+					<form name="form2" id="ff2" method="POST" action="{{ route('register') }}">
+					@csrf
+					<div class="form-group">
+    			<input type="text" class="form-control" placeholder="First Name :" name="firstname" id="firstname" required>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Last Name :" name="lastname" id="lastname" required>
+				</div>
+				<div class="form-group">
+					<input type="email" class="form-control" placeholder="Email Address :" name="email" id="email" required>
+				</div>
+				<div class="form-group">
+					<input type="tel" class="form-control" placeholder="Mobile :" name="phone" id="phone" required>
+				</div>
+				<div class="form-group">
+					<label>Gender:</label>
+					<input name="gender" id="gender_male" type="radio" value="male"> Male
+					<input name="gender" id="gender_female" type="radio" value="female"> Female 
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="Password :" name="password" id="password" required>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="Retype Password :" name="repassword" id="repassword" required>
+				</div>
+				<div class="form-group">
+					<input name="agree" id="agree" type="checkbox" > I agree to your website.
+				</div>
+				<button type="submit" class="btn btn-4">Create</button>
+
 					</form>
 				</div>
+				@if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 			</div>
 		</div>
 	</div>
