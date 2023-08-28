@@ -10,6 +10,8 @@ use App\Models\Materiel;
 use App\Models\Reference;
 use App\Models\Tailles;
 use App\Models\Stock;
+use ColorJizz\ColorJizz;
+use ColorJizz\Formats\RGB;
 
 class FrontProduitController extends Controller
 {
@@ -28,13 +30,54 @@ class FrontProduitController extends Controller
         ->paginate(10)
         ->onEachSide(0);
 
-    return view('frontend.category', [
+    return view('frontend.index', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
         'categories' => $categories,
         'materiels' => $materiels,
     ]);
     }
+
+    public function produitSite()
+    {
+    $marques = Marque::all();
+    $categories = Categorie::all();
+    $materiels = Materiel::all();
+    $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
+        ->where('statutP', 'publié') // Filtrer les produits publiés
+        ->paginate(10)
+        ->onEachSide(0);
+
+    return view('frontend.product', [
+        'produitsPublies' => $produitsPublies,
+        'marques' => $marques,
+        'categories' => $categories,
+        'materiels' => $materiels,
+    ]);
+    }
+
+    public function show($id)
+{
+    $marques = Marque::all();
+    $categories = Categorie::all();
+    $materiels = Materiel::all();
+   
+    $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
+        ->where('statutP', 'publié')
+        ->findOrFail($id);
+
+    // Récupérer les références associées au produit
+    $references = Reference::where('idP', $id)->get();
+
+    return view('frontend.product', [
+        'produitsPublies' => $produitsPublies,
+        'marques' => $marques,
+        'categories' => $categories,
+        'materiels' => $materiels,
+        'references' => $references,
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,10 +106,7 @@ class FrontProduitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+   
 
     /**
      * Show the form for editing the specified resource.

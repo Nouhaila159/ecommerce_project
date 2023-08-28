@@ -27,6 +27,13 @@ class Produit extends Model
     {
         return $this->belongsTo(Categorie::class, 'idCategorie', 'idCategorie');
     }
+    public function references()
+{
+    return $this->hasMany(Reference::class, 'idP');
+}
+
+
+
    /*  public function validateUniqueMarque()
     {
         $existingRecord = Produit::where('produit', $this->marque)->first();

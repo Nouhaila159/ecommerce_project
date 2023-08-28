@@ -19,4 +19,9 @@ class Reference extends Model
     {
         return $this->belongsTo(Produit::class, 'idP');
     }
+    public function tailles()
+{
+    return $this->hasMany(Tailles::class, 'idR');
+}
+
 }
