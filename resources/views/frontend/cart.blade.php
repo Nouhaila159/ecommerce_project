@@ -161,49 +161,43 @@
 				<div class="product well">
 					<div class="col-md-3">
 						<div class="image">
-							<img src="images/clothing_sp19_1.jpg" />
+							<img src="{{ asset('storage/' . $product->image) }}" /> <!-- Adjust the image path based on your actual data -->
 						</div>
 					</div>
 					<div class="col-md-9">
 						<div class="caption">
-							<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
+							<div class="name"><h3><a href="product.html">{{ $product->nomP }}</a></h3></div>
 							<ul class="info">
-								<li>Brand: text</li>
-								<li>ID: 0122222</li>
+								<li>Marque: {{ $product->marque->marque }}</li> <!-- Replace with your actual brand data -->
+								<li>Matières textiles: {{ $product->materiel->materiel }}</li>
+								<li>Catégorie: {{ $product->categorie->categorie  }}</li>
 							</ul>
-							<div class="price">$122<span>$98</span></div>
-							<label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="#" class="btn btn-3 ">Update</a>
+							<div class="prixP">
+								@if ($product->reductionP > 0)
+									<span class="original-price red-text">{{ $product->prixP }} MAD</span>
+									<span class="reduced-price green-text">
+										{{ $product->prixP - ($product->reductionP * $product->prixP) / 100 }} MAD
+									</span>
+									<span class="reduction-rate">(-{{ $product->reductionP }} )</span>
+								@else
+									<span>{{ $product->prixP }} MAD</span>
+								@endif
+							</div>	
+						    <div> 
+								{{ $product->descriptionP }}
+							</div>						
+							<label>Qty: </label> <input class="form-inline quantity" type="text" value="{{ $quantity }}"><a href="#" class="btn btn-3 ">Update</a>
 							<hr>
 							<a href="#" class="btn btn-default pull-right">REMOVE</a>
 						</div>
 					</div>
 					<div class="clear"></div>
-				</div>	
+				</div>    
 			</div>
-			<div class="row">
-				<div class="product well">
-					<div class="col-md-3">
-						<div class="image">
-							<img src="images/clothing_sp12_1.jpg" />
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="caption">
-							<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-							<ul class="info">
-								<li>Brand: text</li>
-								<li>ID: 0122222</li>
-							</ul>
-							<div class="price">$122<span>$98</span></div>
-							<label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="#" class="btn btn-3 ">Update</a>
-							<hr>
-							<a href="#" class="btn btn-default pull-right">REMOVE</a>
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>	
-			</div>
-			<div class="row">
+			<!-- Repeat the above structure for each product/reference -->
+		</div>
+	</div>
+		<div class="row">
 				<div class="col-md-4 col-md-offset-8 ">
 					<center><a href="#" class="btn btn-1">Continue To Shopping</a></center>
 				</div>
@@ -332,5 +326,20 @@
 			</div>
 		</div>
 	</footer>
+<style>
+		.reference-image {
+    width: 100px; /* Adjust this to your desired width */
+    height: 100px; /* Adjust this to your desired height */
+		}	
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}
+
+</style>
+	
 </body>
 </html>

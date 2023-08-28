@@ -1,41 +1,43 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive Html5 Templates">
-    <meta name="author" content="https://www.Zerotheme.com">
-	
-    <title>Fashion Shop | Free Bootstrap Themes by Zerotheme.com</title>
-	
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css"  type="text/css">
-	
-	<!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style1.css">
-	
-	
-	<!-- Custom Fonts -->
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"  type="text/css">
-    <link rel="stylesheet" href="fonts/font-slider.css" type="text/css">
-	
-	<!-- jQuery and Modernizr-->
-	<script src="js/jquery-2.1.1.js"></script>
-	
-	<!-- Core JavaScript Files -->  	 
-    <script src="js/bootstrap.min.js"></script>
-    
-    <script src="js/photo-gallery.js"></script>
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
-</head>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive5 Templates">
+		<meta name="author" content="https://www.Zerotheme.com">
+		
+		<title>Fashion Shop | Free Bootstrap Themes by Zerotheme.com</title>
+		
+		<!-- Bootstrap Core CSS -->
+		<link rel="stylesheet" href="../css/bootstrap.min.css"  type="text/css">
+		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="../css/style1.css">
+		
+		
+		<!-- Custom Fonts -->
+		<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css"  type="text/css">
+		<link rel="stylesheet" href="../fonts/font-slider.css" type="text/css">
+		
+		<!-- jQuery and Modernizr-->
+		<script src="../js/jquery-2.1.1.js"></script>
+		
+		<!-- Core JavaScript Files -->  	 
+		<script src="../js/bootstrap.min.js"></script>
+		
+		<script src="../js/photo-gallery.js"></script>
+		
+		
+		<!--5 Shim and Respond.js IE8 support of5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="js5shiv.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	</head>
 <body>
+	
 	<!--Top-->
 	<nav id="top">
 		<div class="container">
@@ -66,7 +68,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<div id="logo"><img src="images/logo.jpeg" style="width: 100px; height: 100px;"/></div>
+					<div id="logo"><img src="../images/logo.jpeg" style="width: 100px; height: 100px;"/></div>
 				</div>
 				<div class="col-md-6 text-right">
 					<div class="phone"><span class="glyphicon glyphicon-earphone"></span>0123-456-789</div>
@@ -88,13 +90,13 @@
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="index">Home</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Women Fashion</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 101</a></li>
-									<li><a href="category.html">Text 102</a></li>
+									<li><a href="category">Text 101</a></li>
+									<li><a href="category">Text 102</a></li>
 								</ul>
 							</div>
 						</div>
@@ -103,11 +105,11 @@
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 201</a></li>
-									<li><a href="category.html">Text 202</a></li>
-									<li><a href="category.html">Text 203</a></li>
-									<li><a href="category.html">Text 204</a></li>
-									<li><a href="category.html">Text 205</a></li>
+									<li><a href="category">Text 201</a></li>
+									<li><a href="category">Text 202</a></li>
+									<li><a href="category">Text 203</a></li>
+									<li><a href="category">Text 204</a></li>
+									<li><a href="category">Text 205</a></li>
 								</ul>
 							</div> 
 						</div>
@@ -116,31 +118,31 @@
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 301</a></li>
-									<li><a href="category.html">Text 302</a></li>
-									<li><a href="category.html">Text 303</a></li>
-									<li><a href="category.html">Text 304</a></li>
-									<li><a href="category.html">Text 305</a></li>
+									<li><a href="category">Text 301</a></li>
+									<li><a href="category">Text 302</a></li>
+									<li><a href="category">Text 303</a></li>
+									<li><a href="category">Text 304</a></li>
+									<li><a href="category">Text 305</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 306</a></li>
-									<li><a href="category.html">Text 307</a></li>
-									<li><a href="category.html">Text 308</a></li>
-									<li><a href="category.html">Text 309</a></li>
-									<li><a href="category.html">Text 310</a></li>
+									<li><a href="category">Text 306</a></li>
+									<li><a href="category">Text 307</a></li>
+									<li><a href="category">Text 308</a></li>
+									<li><a href="category">Text 309</a></li>
+									<li><a href="category">Text 310</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 311</a></li>
-									<li><a href="category.html">Text 312</a></li>
-									<li><a href="category.html#">Text 313</a></li>
-									<li><a href="category.html#">Text 314</a></li>
-									<li><a href="category.html">Text 315</a></li>
+									<li><a href="category">Text 311</a></li>
+									<li><a href="category">Text 312</a></li>
+									<li><a href="category#">Text 313</a></li>
+									<li><a href="category#">Text 314</a></li>
+									<li><a href="category">Text 315</a></li>
 								</ul>
 							</div>
 						</div>
 					</li>
-					<li><a href="category.html">New Fashion</a></li>
-					<li><a href="category.html">Hot Fashion</a></li>
+					<li><a href="category">New Fashion</a></li>
+					<li><a href="category">Hot Fashion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -151,58 +153,70 @@
 	<div id="page-content" class="single-page">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="category.html">Category</a></li>
-						<li><a href="product.html">Clothes</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
 				<div id="main-content" class="col-md-8">
 					<div class="product">
 						<div class="col-md-6">
 							<div class="image">
-								<center><img style="margin-top: 50px;" src="images/clothing_sp19_1.jpg" /></center>
+								@php
+								$firstReference = $references->first();
+								@endphp
+								@if($firstReference)                                
+									<center>
+										<a href="{{ route('product.show', ['id' => $produitsPublies->idP]) }}">
+											<img style="margin-top: 50px;" src="{{ asset('storage/' . $firstReference->urlPhoto) }}" />
+										</a>
+									</center>
+								@endif
 								<div class="image-more">
-									 <ul class="row">
-										<li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/clothing_sp19_1.jpg"></a>
-										</li>
-										<li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/clothing_sp19_2.jpg"></a>
-										</li>
-										 <li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/clothing_sp19_1.jpg"></a>
-										</li>
-										<li class="col-lg-3 col-sm-3 col-xs-4">
-											<a href="#"><img class="img-responsive" src="images/clothing_sp19_2.jpg"></a>
-										</li>
+									<ul class="row">
+										@foreach($produitsPublies->references as $reference)
+											<li class="col-lg-3 col-sm-3 col-xs-4">
+												<a href="#"><img class="img-responsive reference-image" src="{{ asset('storage/' . $reference->urlPhoto) }}"></a>
+												<p>{{ $reference->referenceP }}</p>
+											</li>
+										@endforeach
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="caption">
-								<div class="name"><h3>Aliquam erat volutpat</h3></div>
+								<div class="name"><h3>{{ $produitsPublies->nomP }}</h3></div>
 								<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
 								<div class="info">
 									<ul>
-										<li>Brand: text</li>
-										<li>ID: 0122222</li>
+										<li>Marque: {{ $produitsPublies->marque->marque }}</li>
+										<li>Matières textiles: {{ $produitsPublies->materiel->materiel }}</li>
+										<li>Catégorie: {{ $produitsPublies->categorie->categorie  }}</li>
 									</ul>
 								</div>
-								<div class="price">$122<span>$98</span></div>
-								<div class="options">
-									AVAILABLE OPTIONS
-									<select>
-										<option value="" selected>----Please Select----</option>
-										<option value="red">RED</option>
-										<option value="black">BLACK</option>
-									</select>
+								<div class="prixP">
+									@if ($produitsPublies->reductionP > 0)
+										<span class="original-price red-text">{{ $produitsPublies->prixP }} MAD</span>
+										<span class="reduced-price green-text">
+											{{ $produitsPublies->prixP - ($produitsPublies->reductionP * $produitsPublies->prixP) / 100 }} MAD
+										</span>
+										<span class="reduction-rate">(-{{ $produitsPublies->reductionP }} )</span>
+									@else
+										<span>{{ $produitsPublies->prixP }} MAD</span>
+									@endif
 								</div>
-								<div class="well"><label>Qty: </label> <input class="form-inline quantity" type="text" value="1"><a href="#" class="btn btn-3 ">ADD</a></div>
+											
+								<div class="options">
+									<p>Options disponibles:</p>
+									<div class="circles-container">
+										@foreach($produitsPublies->references as $reference)
+											@foreach($reference->tailles as $taille)
+												
+													<p>{{ $reference->couleur }} {{ $taille->taille }} ( {{ $taille->quantiteT }})</p>
+													<input type="number" class="quantity-input" min="0" max="{{ $taille->quantiteT }}" value="0">
+													<p class="error-message" style="color: red; display: none;">La quantité dépasse le stock disponible.</p>
+												
+											@endforeach
+										@endforeach
+									</div>
+								</div>	
+								<a href="{{ route('cart.index', ['product_id' => $produitsPublies->idP, 'reference_id' => $firstReference->idR, 'quantity' => '1']) }}" class="btn btn-3">Go to Cart</a>
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
 									<a href="#" class="share-btn" target="_blank">
@@ -213,6 +227,9 @@
 									</a>
 									<a href="#" class="share-btn" target="_blank">
 										<i class="fa fa-linkedin"></i>
+									</a>
+									<a href="#" class="share-btn" target="_blank">
+										<i class="fa fa-instagram"></i>
 									</a>
 								</div>
 							</div>
@@ -226,10 +243,7 @@
 						</ul>
 						<div class="tab-content">
 							<div id="description" class="tab-pane fade in active">
-								<h4>Sample Lorem Ipsum Text</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at ante. Mauris eleifend, quam a vulputate dictum, massa quam dapibus leo, eget vulputate orci purus ut lorem. In fringilla mi in ligula. Pellentesque aliquam quam vel dolor. Nunc adipiscing. Sed quam odio, tempus ac, aliquam molestie, varius ac, tellus. Vestibulum ut nulla aliquam risus rutrum interdum. Pellentesque lorem. Curabitur sit amet erat quis risus feugiat viverra. Pellentesque augue justo, sagittis et, lacinia at, venenatis non, arcu. Nunc nec libero. In cursus dictum risus. Etiam tristique nisl a</p>
-								<h4>Sample Lorem Ipsum Text</h4>
-								<p>Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque aliquet lacus vitae pede. Nullam mollis dolor ac nisi. Phasellus sit amet urna. Praesent pellentesque sapien sed lacus. Donec lacinia odio in odio. In sit amet elit. Maecenas gravida interdum urna. Integer pretium, arcu vitae imperdiet facilisis, elit tellus tempor nisi, vel feugiat ante velit sit amet mauris. Vivamus arcu. Integer pharetra magna ac lacus. Aliquam vitae sapien in nibh vehicula auctor. Suspendisse leo mauris, pulvinar sed, tempor et, consequat ac, lacus. Proin velit. Nulla semper lobortis mauris. Duis urna erat, ornare et, imperdiet eu, suscipit sit amet, massa. Nulla nulla nisi, pellentesque at, egestas quis, fringilla eu, diam.</p>
+							<p>{{ $produitsPublies->descriptionP }}</p>						
 							</div>
 							<div id="review" class="tab-pane fade">
 							  <div class="review-text">
@@ -252,157 +266,46 @@
 							</div>
 						</div>
 					</div>
-					<div class="product-related">
-						<div class="heading"><h2>RELATED PRODUCTS</h2></div>
-						<div class="products">
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp19_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp12_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp5_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp6_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
+					
 				</div>
 				<div id="sidebar" class="col-md-4">
 					<div class="widget wid-categories">
 						<div class="heading"><h4>CATEGORIES</h4></div>
 						<div class="content">
 							<ul>
-								<li><a href="#">Men Fashion</a></li>
-								<li><a href="#">New Fashion</a></li>
-								<li><a href="#">Hot Fashion</a></li>
+								@foreach($categories as $categorie)
+									<li><a href="#">{{ $categorie->categorie }}</a></li>
+								@endforeach
 							</ul>
 						</div>
 					</div>
-					<div class="widget wid-type">
-						<div class="heading"><h4>TYPE</h4></div>
+					<div class="widget wid-categories">
+						<div class="heading"><h4>Matières textiles</h4></div>
 						<div class="content">
-							<select>
-								<option value="audi" selected>Electronics</option>
-								<option value="volvo">Mice and Trackballs</option>
-								<option value="saab">Web Cameras</option>
-								<option value="saab">Tablates</option>
-								<option value="saab">Audio Parts</option>
-							</select>
+							<ul>
+								@foreach($materiels as $materiel)
+									<li><a href="#">{{ $materiel->materiel }}</a></li>
+								@endforeach
+							</ul>
 						</div>
 					</div>
-					<div class="widget wid-discouts">
-						<div class="heading"><h4>DISCOUNTS</h4></div>
-						<div class="content">
-							<label class="checkbox"><input type="checkbox" name="discount" checked="">Upto - 10% (20)</label>
-							<label class="checkbox"><input type="checkbox" name="discount">40% - 50% (5)</label>
-							<label class="checkbox"><input type="checkbox" name="discount">30% - 20% (7)</label>
-							<label class="checkbox"><input type="checkbox" name="discount">10% - 5% (2)</label>
-							<label class="checkbox"><input type="checkbox" name="discount">Other(50)</label>
-						</div>
-					</div>
+					
 					<div class="widget wid-brand">
-						<div class="heading"><h4>BRAND</h4></div>
+						<div class="heading"><h4>Marque</h4></div>
 						<div class="content">
-							<label class="checkbox"><input type="checkbox" name="brand">Tornado</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Kissan</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Oakley</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Manga</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Wega</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Kings</label>
-							<label class="checkbox"><input type="checkbox" name="brand">Zumba</label>	
+							@foreach($marques as $marque)
+								<label class="checkbox">
+									<input type="checkbox" name="brand">{{ $marque->marque }}
+								</label>
+							@endforeach
 						</div>
 					</div>
-					<div class="widget wid-product">
-						<div class="heading"><h4>LATEST</h4></div>
-						<div class="content">
-							<div class="product">
-								<a href="#"><img src="images/clothing_sp6_1.jpg" /></a>
-								<div class="wrapper">
-									<h5><a href="#">Samsung Galaxy Tab</a></h5>
-									<div class="price">$122</div>
-									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-								</div>
-							</div>
-							<div class="product">
-								<a href="#"><img src="images/clothing_sp12_1.jpg" /></a>
-								<div class="wrapper">
-									<h5><a href="#">Samsung Galaxy Tab</a></h5>
-									<div class="price">$122</div>
-									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-								</div>
-							</div>
-							<div class="product">
-								<a href="#"><img src="images/clothing_sp19_1.jpg" /></a>
-								<div class="wrapper">
-									<h5><a href="#">Samsung Galaxy Tab</a></h5>
-									<div class="price">$122</div>
-									<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-								</div>
-							</div>
-						</div>
-					</div>
+					
+					
 				</div>
 			</div>
+	    
+
 		</div>
 	</div>	
 	<footer>
@@ -410,16 +313,16 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="images/brand1-250x100.jpg" /></a>
+						<a href="#"><img src="../images/brand1-250x100.jpg" /></a>
 					</div>
 					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="images/brand2-250x100.jpg" /></a>
+						<a href="#"><img src="../images/brand2-250x100.jpg" /></a>
 					</div>
 					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="images/brand1-250x100.jpg" /></a>
+						<a href="#"><img src="../images/brand1-250x100.jpg" /></a>
 					</div>
 					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="images/brand4-250x100.jpg" /></a>
+						<a href="#"><img src="../images/brand4-250x100.jpg" /></a>
 					</div>
 				</div>
 			</div>
@@ -446,7 +349,7 @@
 			<div class="wrap-footer">
 				<div class="row">
 					<div class="col-md-3 col-footer footer-1">
-						<img src="images/logofooter.png" />
+						<img src="../images/logofooter.png" />
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 					</div>
 					<div class="col-md-3 col-footer footer-2">
@@ -489,10 +392,10 @@
 					<div class="col-md-6">
 						<div class="pull-right">
 							<ul>
-								<li><img src="images/visa-curved-32px.png" /></li>
-								<li><img src="images/paypal-curved-32px.png" /></li>
-								<li><img src="images/discover-curved-32px.png" /></li>
-								<li><img src="images/maestro-curved-32px.png" /></li>
+								<li><img src="../images/visa-curved-32px.png" /></li>
+								<li><img src="../images/paypal-curved-32px.png" /></li>
+								<li><img src="../images/discover-curved-32px.png" /></li>
+								<li><img src="../images/maestro-curved-32px.png" /></li>
 							</ul>
 						</div>
 					</div>
@@ -510,7 +413,23 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-	
+
+
+<style>
+		.reference-image {
+    width: 100px; /* Adjust this to your desired width */
+    height: 100px; /* Adjust this to your desired height */
+		}	
+.red-text {
+    color: red;
+}
+
+.green-text {
+    color: green;
+}
+
+
+</style>
 	<script>
 	$(document).ready(function(){
 		$(".nav-tabs a").click(function(){
@@ -524,5 +443,24 @@
 		});
 	});
 	</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".quantity-input").on("change", function() {
+            var input = $(this);
+            var maxQuantity = parseInt(input.attr("max"));
+            var selectedQuantity = parseInt(input.val());
+
+            var errorMessage = input.next(".error-message");
+
+            if (selectedQuantity > maxQuantity) {
+                errorMessage.show();
+            } else {
+                errorMessage.hide();
+            }
+        });
+    });
+</script>
+
 </body>
-</html>
+<>

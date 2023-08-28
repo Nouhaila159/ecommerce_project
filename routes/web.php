@@ -12,6 +12,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\InfoSiteController;
 use App\Http\Controllers\FrontProduitController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -95,6 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/vente', function () {
         return view('vente');
     });
+    
     
 
  
@@ -192,8 +194,13 @@ Route::get('/settings', [InfoSiteController::class, 'index'])->name('settings.in
 Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->name('settings.update');
 
 //crud category 
-Route::get('/category', [FrontProduitController::class, 'index'])->name('frontend.category');
+Route::get('/index', [FrontProduitController::class, 'index'])->name('frontend.index');
+Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('product.show');
 
+//crud cart 
+
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');

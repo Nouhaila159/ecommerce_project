@@ -145,7 +145,6 @@
 		</div>
 	</div>
 	
-	</div>	
 	<footer>
 		<div class="brand">
 			<div class="container">
