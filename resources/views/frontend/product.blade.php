@@ -7,7 +7,7 @@
 		<meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive5 Templates">
 		<meta name="author" content="https://www.Zerotheme.com">
 		
-		<title>Fashion Shop | Free Bootstrap Themes by Zerotheme.com</title>
+		<title>RedlySS</title>
 		
 		<!-- Bootstrap Core CSS -->
 		<link rel="stylesheet" href="../css/bootstrap.min.css"  type="text/css">
@@ -55,33 +55,21 @@
 					</select>
 				</div>
 				<div class="col-xs-6">
-					<ul class="top-link">
-						<li><a href="account"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-						<li><a href="contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-					</ul>
+				<ul class="top-link">
+        @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
+        @else
+            <li><a href="{{ route('account') }}"><span class="glyphicon glyphicon-user"></span> My account</a></li>
+        @endif
+        <li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+    </ul>
 				</div>
 			</div>
 		</div>
 	</nav>
 	<!--Header-->
-	<header >
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<div id="logo"><img src="../images/logo.jpeg" style="width: 100px; height: 100px;"/></div>
-				</div>
-				<div class="col-md-6 text-right">
-					<div class="phone"><span class="glyphicon glyphicon-earphone"></span>0123-456-789</div>
-					<div class="mail"><span class="glyphicon glyphicon-envelope"></span>infor@yoursite.com</div>
-					<form class="form-search">  
-						<input type="text" class="input-medium search-query">  
-						<button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>  
-					</form>
-				</div>
-				<div id="cart"><a class="btn btn-cart" href="cart"><span class="glyphicon glyphicon-shopping-cart"></span>CART<strong>0</strong></a></div>
-			</div>
-		</div>
-	</header>
+	@include('partials._header')
+
 	<!--Navigation-->
 	<nav id="menu" class="navbar">
 		<div class="container">
@@ -90,17 +78,7 @@
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Home</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Women Fashion</a>
-						<div class="dropdown-menu">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 101</a></li>
-									<li><a href="category.html">Text 102</a></li>
-								</ul>
-							</div>
-						</div>
-					</li>
+					<li><a href="{{ route('accueil') }}">Home</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
@@ -114,35 +92,6 @@
 							</div> 
 						</div>
 					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Kids Fashion</a>
-						<div class="dropdown-menu" style="margin-left: -203.625px;">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 301</a></li>
-									<li><a href="category.html">Text 302</a></li>
-									<li><a href="category.html">Text 303</a></li>
-									<li><a href="category.html">Text 304</a></li>
-									<li><a href="category.html">Text 305</a></li>
-								</ul>
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 306</a></li>
-									<li><a href="category.html">Text 307</a></li>
-									<li><a href="category.html">Text 308</a></li>
-									<li><a href="category.html">Text 309</a></li>
-									<li><a href="category.html">Text 310</a></li>
-								</ul>
-								<ul class="list-unstyled">
-									<li><a href="category.html">Text 311</a></li>
-									<li><a href="category.html">Text 312</a></li>
-									<li><a href="category.html#">Text 313</a></li>
-									<li><a href="category.html#">Text 314</a></li>
-									<li><a href="category.html">Text 315</a></li>
-								</ul>
-							</div>
-						</div>
-					</li>
-					<li><a href="category.html">New Fashion</a></li>
-					<li><a href="category.html">Hot Fashion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -155,9 +104,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="category.html">Category</a></li>
-						<li><a href="product.html">Clothes</a></li>
+						<li><a href="{{ route('accueil') }}">Home</a></li>
+						<li><a href="category">Category</a></li>
+						<li><a href="product">Clothes</a></li>
 					</ul>
 				</div>
 			</div>
@@ -179,9 +128,9 @@
 								<div class="image-more">
 									<ul class="row">
 										@foreach($produitsPublies->references as $reference)
-											<li class="col-lg-3 col-sm-3 col-xs-4">
+											<li class="col-lg-4 col-sm-2">
 												<a href="#"><img class="img-responsive reference-image" src="{{ asset('storage/' . $reference->urlPhoto) }}"></a>
-												<p>{{ $reference->referenceP }}</p>
+												<p style="font-size: 10px">{{ $reference->referenceP }}</p>
 											</li>
 										@endforeach
 									</ul>
@@ -201,31 +150,33 @@
 								</div>
 								<div class="prixP">
 									@if ($produitsPublies->reductionP > 0)
-										<span class="original-price red-text">{{ $produitsPublies->prixP }} MAD</span>
-										<span class="reduced-price green-text">
-											{{ $produitsPublies->prixP - ($produitsPublies->reductionP * $produitsPublies->prixP) / 100 }} MAD
-										</span>
-										<span class="reduction-rate">(-{{ $produitsPublies->reductionP }} )</span>
-									@else
+									<span class="reduced-price green-text">
+                                                                        {{ $produitsPublies->prixP - ($produitsPublies->reductionP * $produitsPublies->prixP) / 100 }}MAD
+                                                                    </span>
+                                                                    <del class="original-price red-text">{{ $produitsPublies->prixP }}MAD</del>
+                                                                    <span class="reduction-rate">(-{{ $produitsPublies->reductionP }}%)</span>
+                                            @else
 										<span>{{ $produitsPublies->prixP }} MAD</span>
 									@endif
 								</div>
 											
 								<div class="options">
-									<p>Options disponibles:</p>
-									<div class="circles-container">
-										@foreach($produitsPublies->references as $reference)
-											@foreach($reference->tailles as $taille)
-												
-													<p>{{ $reference->couleur }} {{ $taille->taille }} ( {{ $taille->quantiteT }})</p>
-													<input type="number" class="quantity-input" min="0" max="{{ $taille->quantiteT }}" value="0">
-													<p class="error-message" style="color: red; display: none;">La quantité dépasse le stock disponible.</p>
-												
-											@endforeach
-										@endforeach
-									</div>
-								</div>	
-								<a href="{{ route('cart.index', ['product_id' => $produitsPublies->idP, 'reference_id' => $firstReference->idR, 'quantity' => '1']) }}" class="btn btn-3">Go to Cart</a>
+    <p>Options disponibles:</p>
+    <div class="circles-container">
+        @foreach($produitsPublies->references as $reference)
+            <div class="color-row">
+                @foreach($reference->tailles as $taille)
+                    <div class="color-item" data-couleur="{{ $reference->couleur }}" data-taille="{{ $taille->taille }}">
+                        <div> <a class="product-intro__color-radio" style="background-color: {{ $reference->couleur }};" href=""></a></div>
+                        {{ $taille->taille }} ({{ $taille->quantiteT }})
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+</div>
+<a href="{{ route('cart', ['product_id' => $produitsPublies->idP]) }}" id="addToCartBtn" class="btn btn-3" style="margin-bottom:10px">Ajouter au panier</a>
+
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
 									<a href="#" class="share-btn" target="_blank">
@@ -260,7 +211,7 @@
 							  </div>
 							  <div class="review-form">
 								<h4>Write a review</h4>
-									<form name="form1" id="ff" method="post" action="contact.php">
+									<form name="form1" id="ff" method="post" action="contact">
 										<label>
 										<span>Enter your name:</span>
 										<input type="text"  name="name" id="name" required>
@@ -273,80 +224,6 @@
 									</form>
 							  </div>
 							</div>
-						</div>
-					</div>
-					<div class="product-related">
-						<div class="heading"><h2>RELATED PRODUCTS</h2></div>
-						<div class="products">
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp19_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp12_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp5_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp6_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
 						</div>
 					</div>
 				</div>
@@ -390,104 +267,9 @@
 
 		</div>
 	</div>	
-	<footer>
-		<div class="brand">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="../images/brand1-250x100.jpg" /></a>
-					</div>
-					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="../images/brand2-250x100.jpg" /></a>
-					</div>
-					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="../images/brand1-250x100.jpg" /></a>
-					</div>
-					<div class="col-lg-3 col-xs-6">
-						<a href="#"><img src="../images/brand4-250x100.jpg" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="top-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 text-right">
-						<h4>Subcribe Email</h4>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					</div>
-					<div class="col-md-6">
-						<form name="subcribe-email" action="subcribe.php">
-							<div class="subcribe-form form-group">
-								<input class="form-inline" type="text" name="email" value="1"><button href="#" class="btn btn-4" type="submit">Subcribe</button>
-							</div>
-						</form>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="wrap-footer">
-				<div class="row">
-					<div class="col-md-3 col-footer footer-1">
-						<img src="images/logofooter.png" />
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-					</div>
-					<div class="col-md-3 col-footer footer-2">
-						<div class="heading"><h4>Customer Services</h4></div>
-						<ul>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Delivery Information</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
-							<li><a href="#">Contact Us</a></li>
-						</ul>
-					</div>
-					<div class="col-md-3 col-footer footer-3">
-						<div class="heading"><h4>My Account</h4></div>
-						<ul>
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Brands</a></li>
-							<li><a href="#">Gift Vouchers</a></li>
-							<li><a href="#">Specials</a></li>
-							<li><a href="#">Site Map</a></li>
-						</ul>
-					</div>
-					<div class="col-md-3 col-footer footer-4">
-						<div class="heading"><h4>Contact Us</h4></div>
-						<ul>
-							<li><span class="glyphicon glyphicon-home"></span>California, United States 3000009</li>
-							<li><span class="glyphicon glyphicon-earphone"></span>+91 8866888111</li>
-							<li><span class="glyphicon glyphicon-envelope"></span>infor@yoursite.com</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="copyright">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						Your Store ?? 20xx - Designed by <a href="https://www.Zerotheme.com" target="_blank">Zerotheme</a>
-					</div>
-					<div class="col-md-6">
-						<div class="pull-right">
-							<ul>
-								<li><img src="../images/visa-curved-32px.png" /></li>
-								<li><img src="../images/paypal-curved-32px.png" /></li>
-								<li><img src="../images/discover-curved-32px.png" /></li>
-								<li><img src="../images/maestro-curved-32px.png" /></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
 	
 	<!-- IMG-thumb -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="myModal" tabaccueil="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">         
           <div class="modal-body">                
@@ -502,13 +284,13 @@
     width: 100px; /* Adjust this to your desired width */
     height: 100px; /* Adjust this to your desired height */
 		}	
-.red-text {
-    color: red;
-}
+	.red-text {
+		color: red;
+	}
 
-.green-text {
-    color: green;
-}
+	.green-text {
+		color: green;
+	}
 
 
 </style>
@@ -526,23 +308,48 @@
 	});
 	</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        $(".quantity-input").on("change", function() {
-            var input = $(this);
-            var maxQuantity = parseInt(input.attr("max"));
-            var selectedQuantity = parseInt(input.val());
+    const colorItems = document.querySelectorAll('.color-item');
+    const addToCartBtn = document.getElementById('addToCartBtn');
 
-            var errorMessage = input.next(".error-message");
+    // Variables pour stocker la couleur et la taille sélectionnées
+    let selectedCouleur = null;
+    let selectedTaille = null;
 
-            if (selectedQuantity > maxQuantity) {
-                errorMessage.show();
-            } else {
-                errorMessage.hide();
+    // Ajouter un gestionnaire d'événement click à chaque élément
+    colorItems.forEach(colorItem => {
+        colorItem.addEventListener('click', () => {
+            // Désélectionner l'élément précédemment sélectionné
+            if (selectedCouleur) {
+                selectedCouleur.classList.remove('selected');
             }
+
+            // Sélectionner l'élément actuel
+            colorItem.classList.add('selected');
+            selectedCouleur = colorItem;
+
+            selectedTaille = colorItem.getAttribute('data-taille');
         });
     });
+
+    // Ajouter un gestionnaire d'événement click au bouton "Ajouter au panier"
+    addToCartBtn.addEventListener('click', () => {
+        if (selectedCouleur && selectedTaille) {
+            const couleur = selectedCouleur.getAttribute('data-couleur');
+            // Ici, vous pouvez appeler la fonction pour ajouter le produit au panier
+            addProductToCart(couleur, selectedTaille);
+        } else {
+            alert("Veuillez sélectionner une couleur et une taille avant d'ajouter au panier.");
+        }
+    });
+
+    function addProductToCart(couleur, taille) {
+        // Ici, vous pouvez implémenter la logique pour ajouter le produit au panier
+        console.log(`Produit ajouté au panier : Couleur - ${couleur}, Taille - ${taille}`);
+        // Rediriger vers la page du panier ou effectuer d'autres actions si nécessaires
+    }
 </script>
 
 </body>
-<>
+</html>

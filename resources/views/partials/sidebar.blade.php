@@ -33,5 +33,8 @@
        <li class="list-unstyled px-3 py-1 mb-1">
           <a class="text-decoration-none text-white fs-6 fw-bold" href="./settings">Paramètres</a>
        </li>
+       <li class="list-unstyled px-3 py-1 mb-1">
+          <a class="text-decoration-none text-white fs-6 fw-bold" href="{{ route('frontend.index') }}">Accéder au Site</a>
+       </li>
     </ul>
- </div>
+ </div> 

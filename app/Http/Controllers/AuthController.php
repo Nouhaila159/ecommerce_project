@@ -10,8 +10,6 @@ use App\Models\FrontendUser;
 class AuthController extends Controller
 {
 
-    protected $redirectTo = '/index';
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
