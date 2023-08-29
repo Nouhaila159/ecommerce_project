@@ -83,20 +83,20 @@
 		</div>
 	</header>
 	<!--Navigation-->
-	<nav id="menu" class="navbar">
+    <nav id="menu" class="navbar">
 		<div class="container">
 			<div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
 			  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="index">Home</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Women Fashion</a>
 						<div class="dropdown-menu">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 101</a></li>
-									<li><a href="category.html">Text 102</a></li>
+									<li><a href="category">Text 101</a></li>
+									<li><a href="category">Text 102</a></li>
 								</ul>
 							</div>
 						</div>
@@ -118,31 +118,31 @@
 						<div class="dropdown-menu" style="margin-left: -203.625px;">
 							<div class="dropdown-inner">
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 301</a></li>
-									<li><a href="category.html">Text 302</a></li>
-									<li><a href="category.html">Text 303</a></li>
-									<li><a href="category.html">Text 304</a></li>
-									<li><a href="category.html">Text 305</a></li>
+									<li><a href="category">Text 301</a></li>
+									<li><a href="category">Text 302</a></li>
+									<li><a href="category">Text 303</a></li>
+									<li><a href="category">Text 304</a></li>
+									<li><a href="category">Text 305</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 306</a></li>
-									<li><a href="category.html">Text 307</a></li>
-									<li><a href="category.html">Text 308</a></li>
-									<li><a href="category.html">Text 309</a></li>
-									<li><a href="category.html">Text 310</a></li>
+									<li><a href="category">Text 306</a></li>
+									<li><a href="category">Text 307</a></li>
+									<li><a href="category">Text 308</a></li>
+									<li><a href="category">Text 309</a></li>
+									<li><a href="category">Text 310</a></li>
 								</ul>
 								<ul class="list-unstyled">
-									<li><a href="category.html">Text 311</a></li>
-									<li><a href="category.html">Text 312</a></li>
-									<li><a href="category.html#">Text 313</a></li>
-									<li><a href="category.html#">Text 314</a></li>
-									<li><a href="category.html">Text 315</a></li>
+									<li><a href="category">Text 311</a></li>
+									<li><a href="category">Text 312</a></li>
+									<li><a href="category#">Text 313</a></li>
+									<li><a href="category#">Text 314</a></li>
+									<li><a href="category">Text 315</a></li>
 								</ul>
 							</div>
 						</div>
 					</li>
-					<li><a href="category.html">New Fashion</a></li>
-					<li><a href="category.html">Hot Fashion</a></li>
+					<li><a href="category">New Fashion</a></li>
+					<li><a href="category">Hot Fashion</a></li>
 				</ul>
 			</div>
 		</div>
@@ -152,15 +152,6 @@
 	<!--//////////////////////////////////////////////////-->
 	<div id="page-content" class="single-page">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="category.html">Category</a></li>
-						<li><a href="product.html">Clothes</a></li>
-					</ul>
-				</div>
-			</div>
 			<div class="row">
 				<div id="main-content" class="col-md-8">
 					<div class="product">
@@ -275,80 +266,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="product-related">
-						<div class="heading"><h2>RELATED PRODUCTS</h2></div>
-						<div class="products">
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp19_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp12_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp5_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></h3></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-								<div class="product">
-									<div class="image">
-										<a href="product.html"><img src="images/clothing_sp6_1.jpg" /></a>
-										<ul class="buttons">
-											<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-											<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-											<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-										</ul>
-									</div>
-									<div class="caption">
-										<div class="name"><h3><a href="product.html">Aliquam erat volutpat</a></div>
-										<div class="price">$122<span>$98</span></div>
-										<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
+					
 				</div>
 				<div id="sidebar" class="col-md-4">
 					<div class="widget wid-categories">
@@ -431,7 +349,7 @@
 			<div class="wrap-footer">
 				<div class="row">
 					<div class="col-md-3 col-footer footer-1">
-						<img src="images/logofooter.png" />
+						<img src="../images/logofooter.png" />
 						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 					</div>
 					<div class="col-md-3 col-footer footer-2">
