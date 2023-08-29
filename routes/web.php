@@ -13,6 +13,8 @@ use App\Http\Controllers\VenteController;
 use App\Http\Controllers\InfoSiteController;
 use App\Http\Controllers\FrontProduitController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HeaderController;
+
 
 
 
@@ -25,40 +27,23 @@ use App\Http\Controllers\CartController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-
 */
-Route::get('/category', function () {
-    return view('frontend.category');
-});
-
-Route::get('/account', function () {
-    return view('frontend.account');
-})->name('register');
-Route::get('/cart', function () {
-    return view('frontend.cart');
-});
-Route::get('/product', function () {
-    return view('frontend.product');
-});
-Route::get('/index', function () {
-    return view('frontend.index');
-});
-Route::get('/contact', function () {
-    return view('frontend.contact');
-});
-
+/*
 Route::post('/login', [AuthController::class, 'login'])->name('login');
     
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-
+*/
 // Routes protégées nécessitant une authentification
 Route::get('/', function () {
     return view('master');
 });
+
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
+/////////////////////////////////////////////////////////ADMIN::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 
     Route::get('/orders', function () {
@@ -91,6 +76,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/brands', function () {
         return view('brands');
     });
+
+    Route::get('/index',
+    [FrontProduitController::class, 'index'])->name('frontend.index');
 
     Route::get('/materiel', function () {
         return view('materiel');
@@ -196,17 +184,44 @@ Route::put('/updateDetailVente/{idLigne}', [VenteController::class, 'updateDetai
 Route::get('/settings', [InfoSiteController::class, 'index'])->name('settings.index');
 Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->name('settings.update');
 
-//crud category 
-Route::get('/index', [FrontProduitController::class, 'index'])->name('frontend.index');
-Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('product.show');
 
 //crud cart 
-
-
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
+
+
+
 });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
+
+/////////////////////////////////////////////////////////SITEWEB::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Route::get('/category', function () {
+    return view('frontend.category');
+})->name('category');
+
+Route::get('/account', function () {
+    return view('frontend.account');
+})->name('account');
+
+//crud cart 
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+//crud category 
+Route::get('/accueil', [FrontProduitController::class, 'index'])->name('accueil');
+
+Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('product.show');
+
+
+Route::get('/product', function () {
+    return view('frontend.product')->name('product');
+});
+
+Route::get('/contact', function () {
+    return view('frontend.contact');
+})->name('contact');

@@ -1,4 +1,3 @@
-
 /*
 Free Bootstrap Themes : https://www.Zerotheme.com
 */
@@ -16,7 +15,7 @@ html, body {width:100%; padding:0; margin:0;}
 /* ---------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------- */
 html { -webkit-text-size-adjust: none;}
-.video embed,.video object,.video iframe { width: 100%;  height: auto;}
+.video embed,.video object,.video iframe {width: 100%;height: auto;}
 img{max-width:100%;	height: auto;width: auto\9; /* ie8 */}
 
 h1 {font-size: 38px;}
@@ -107,20 +106,39 @@ header .phone span, header .mail span{background: tomato;padding: 10px;margin: -
 
 .products {}
 .products:after, .products:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 0; height: 0;}
-.products .product {max-width: 205px;}
+.products .product {width:180px;}
 
-.product:after, .product:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 0; height: 0;}
+.product:after, .product:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 100; height:0;}
 .product {border: 1px solid #ccc;border-radius: 6px; margin: 0 auto; margin-bottom: 20px;}
 .product .image {position: relative;}
 .product .image-more {margin-top: 15px;}
-.product .image-more img{border: 1px solid #ccc;max-height: 85px;margin-bottom: 25px;}
+.product .image-more img{border: 1px solid #ccc;height: 85px; width: 300px ;}
 .product .image .buttons {position: absolute;top: 0px;left: 0;}
 .product .image .buttons a {margin-bottom: 10px;}
 .product .caption {padding: 10px 15px;}
-.product .image .hot {position: absolute;top: 7px;right: 10px;border-radius: 50%; background: #F83C3C;padding: 10px 0 10px 7px;height: 40px; width: 40px;color: #fff;font-size: 13px;line-height: 1.7;}
+.product .image .hot {position: absolute;
+	top: 7px;right: 10px;
+	border-radius: 50%;
+	 background: #F83C3C;
+	 padding: 10px 0 10px 7px;
+	 height: 40px; 
+	 width: 40px;
+	 color: #fff;
+	 font-size: 13px;
+	 line-height: 1.7;}
 .product .name {border-bottom: 1px solid #eee;}
-.product .name h3{font-weight: 500;font-size: 17px;color: #666;margin-top: 10px ;font-family: 'Courgette', cursive;padding-bottom: 10px;}
-.product .info li{margin: 10px 0;}
+.product .name h4 {
+	font-weight: 500;
+	font-size: 15px;
+	color: #666;
+	margin-top: 10px;
+	font-family: 'Courgette', cursive;
+	padding-bottom: 10px;
+	white-space: nowrap; /* Empêche le texte de passer à la ligne */
+	overflow: hidden; /* Masque le texte excédentaire */
+	text-overflow: ellipsis; /* Ajoute des points de suspension pour indiquer un texte tronqué */
+  }
+  .product .info li{margin: 10px 0;}
 .product .price {font-size: 24px;margin: 10px 0;color: tomato;font-family: 'Courgette', cursive;}
 .product .price span{color: #aaa;margin-left: 10px;text-decoration: line-through;font-size: 20px;} 
 .product .rating{margin: 10px 0;}
@@ -131,6 +149,17 @@ header .phone span, header .mail span{background: tomato;padding: 10px;margin: -
 .product .share .share-btn {margin-right: 25px;padding-top: 20px;}
 
 .product-desc{margin: 50px 0;}
+
+
+
+.product-intro__color-radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
 
 /* IMG thumb - product.html */
 .modal-body {padding:5px !important;}
