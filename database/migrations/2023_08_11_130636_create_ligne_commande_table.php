@@ -25,6 +25,15 @@ return new class extends Migration
             $table->foreign('idR')->references('idR')->on('reference')->onDelete('cascade');
 
         });
+        DB::table('paniers')->orderBy('idPaniers')->chunk(100, function ($paniers) {
+            foreach ($paniers as $panier) {
+                DB::table('ligne_commande')->insert([
+                    'idR' => $panier->idR,
+                    'quantite' => $panier->quantiteP,
+                    'idT'=>$panier->idT,
+                ]);
+            }
+        });
     }
 
     /**

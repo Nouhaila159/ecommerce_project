@@ -151,14 +151,34 @@ header .phone span, header .mail span{background: tomato;padding: 10px;margin: -
 .product-desc{margin: 50px 0;}
 
 
-
 .product-intro__color-radio {
     width: 20px;
     height: 20px;
     border-radius: 50%;
     display: inline-block;
     margin-right: 5px;
+    cursor: pointer; /* Ajoutez un curseur pointer pour indiquer qu'il est cliquable */
+    position: relative; /* Assurez-vous que le positionnement relatif est défini pour que les éléments internes soient positionnés correctement */
 }
+
+
+
+.selected-arc {
+    width: 30px; /* Ajustez la taille de l'arc selon vos besoins */
+    height: 30px; /* Ajustez la taille de l'arc selon vos besoins */
+    border: 2px solid #000; /* Couleur de l'arc en noir */
+    border-radius: 50%; /* Utilisez 50% pour créer un cercle */
+    position: absolute;
+    top: 50%; /* Placez l'arc verticalement au centre */
+    left: 50%; /* Placez l'arc horizontalement au centre */
+    transform: translate(-50%, -50%); /* Centrez l'arc parfaitement */
+    z-index: -1; /* Assurez-vous que l'arc est derrière le cercle de couleur */
+    pointer-events: none; /* Évitez d'interférer avec les événements de clic */
+}
+
+
+
+
 
 
 /* IMG thumb - product.html */

@@ -71,7 +71,7 @@
 	@include('partials._header')
 
 	<!--Navigation-->
-	<nav id="menu" class="navbar">
+    <nav id="menu" class="navbar">
 		<div class="container">
 			<div class="navbar-header"><span id="heading" class="visible-xs">Categories</span>
 			  <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
@@ -92,6 +92,8 @@
 							</div> 
 						</div>
 					</li>
+
+
 				</ul>
 			</div>
 		</div>
@@ -102,13 +104,7 @@
 	<div id="page-content" class="single-page">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<ul class="breadcrumb">
-						<li><a href="{{ route('accueil') }}">Home</a></li>
-						<li><a href="category">Category</a></li>
-						<li><a href="product">Clothes</a></li>
-					</ul>
-				</div>
+				
 			</div>
 			<div class="row">
 				<div id="main-content" class="col-md-8">
@@ -161,21 +157,27 @@
 								</div>
 											
 								<div class="options">
-    <p>Options disponibles:</p>
-    <div class="circles-container">
-        @foreach($produitsPublies->references as $reference)
-            <div class="color-row">
-                @foreach($reference->tailles as $taille)
-                    <div class="color-item" data-couleur="{{ $reference->couleur }}" data-taille="{{ $taille->taille }}">
-                        <div> <a class="product-intro__color-radio" style="background-color: {{ $reference->couleur }};" href=""></a></div>
-                        {{ $taille->taille }} ({{ $taille->quantiteT }})
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
-    </div>
-</div>
-<a href="{{ route('cart', ['product_id' => $produitsPublies->idP]) }}" id="addToCartBtn" class="btn btn-3" style="margin-bottom:10px">Ajouter au panier</a>
+									<p>Options disponibles:</p>
+									<div class="circles-container">
+										@foreach($produitsPublies->references as $reference)
+												<div class="color-row">
+													@foreach($reference->tailles as $taille)
+													@if($taille->quantiteT>0)
+														<div class="color-item" data-couleur="{{ $reference->couleur }}" data-taille="{{ $taille->taille }}" data-quantite="{{ $taille->quantiteT }}" data-reference="{{ $reference->idR }}">
+															<div> <a class="product-intro__color-radio" style="background-color: {{ $reference->couleur }};" href=""></a></div>
+															{{ $taille->taille }} ({{ $taille->quantiteT }})
+															<div class="selected-size" style="display: none;">{{ $taille->taille }}</div>
+														</div>
+													
+													@endif	
+													@endforeach
+												</div>
+											@endforeach
+
+									</div>
+								</div>
+								
+								<a href="{{ route('cart') }}" id="addToCartBtn" class="btn btn-3" style="margin-bottom:10px; display: none;">Ajouter au panier</a>
 
 								<div class="share well">
 									<strong style="margin-right: 13px;">Share :</strong>
@@ -291,6 +293,9 @@
 	.green-text {
 		color: green;
 	}
+	
+
+
 
 
 </style>
@@ -310,46 +315,63 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    const colorItems = document.querySelectorAll('.color-item');
-    const addToCartBtn = document.getElementById('addToCartBtn');
+    document.addEventListener('DOMContentLoaded', () => {
+        const colorItems = document.querySelectorAll('.color-item');
+        let selectedCircle = null;
+        let selectedReferenceId = null;
+        let selectedTaille = null;
+        let selectedQuantite = null;
 
-    // Variables pour stocker la couleur et la taille sélectionnées
-    let selectedCouleur = null;
-    let selectedTaille = null;
+        const selectedTailleElement = document.getElementById('selected-taille');
 
-    // Ajouter un gestionnaire d'événement click à chaque élément
-    colorItems.forEach(colorItem => {
-        colorItem.addEventListener('click', () => {
-            // Désélectionner l'élément précédemment sélectionné
-            if (selectedCouleur) {
-                selectedCouleur.classList.remove('selected');
-            }
+        colorItems.forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault();
 
-            // Sélectionner l'élément actuel
-            colorItem.classList.add('selected');
-            selectedCouleur = colorItem;
+                const circleRadio = item.querySelector('.product-intro__color-radio');
+                if (circleRadio) {
+                    if (selectedCircle) {
+                        selectedCircle.removeChild(selectedCircle.querySelector('.selected-arc'));
+                    }
 
-            selectedTaille = colorItem.getAttribute('data-taille');
+                    const selectedArc = document.createElement('div');
+                    selectedArc.classList.add('selected-arc');
+                    circleRadio.appendChild(selectedArc);
+                    selectedCircle = circleRadio;
+
+                    selectedReferenceId = item.getAttribute('data-reference');
+                    selectedTaille = item.getAttribute('data-taille');
+                    selectedQuantite = item.getAttribute('data-quantite');
+
+                    if (selectedTailleElement) {
+                        if (selectedTaille && selectedQuantite) {
+                            selectedTailleElement.textContent = `Taille sélectionnée : ${selectedTaille} (Quantité : ${selectedQuantite})`;
+                        } else {
+                            selectedTailleElement.textContent = 'Aucune taille sélectionnée';
+                        }
+                    }
+
+                    const addToCartBtn = document.getElementById('addToCartBtn');
+                    if (selectedReferenceId) {
+                        addToCartBtn.style.display = 'block';
+                        const newCartUrl = `{{ route('cart') }}?product_id={{ $produitsPublies->idP }}&reference_id=${selectedReferenceId}&selected_taille=${selectedTaille}&selected_quantite=${selectedQuantite}`;
+                        addToCartBtn.setAttribute('href', newCartUrl);
+                    } else {
+                        addToCartBtn.style.display = 'none';
+                        addToCartBtn.removeAttribute('href');
+                    }
+                }
+            });
         });
     });
-
-    // Ajouter un gestionnaire d'événement click au bouton "Ajouter au panier"
-    addToCartBtn.addEventListener('click', () => {
-        if (selectedCouleur && selectedTaille) {
-            const couleur = selectedCouleur.getAttribute('data-couleur');
-            // Ici, vous pouvez appeler la fonction pour ajouter le produit au panier
-            addProductToCart(couleur, selectedTaille);
-        } else {
-            alert("Veuillez sélectionner une couleur et une taille avant d'ajouter au panier.");
-        }
-    });
-
-    function addProductToCart(couleur, taille) {
-        // Ici, vous pouvez implémenter la logique pour ajouter le produit au panier
-        console.log(`Produit ajouté au panier : Couleur - ${couleur}, Taille - ${taille}`);
-        // Rediriger vers la page du panier ou effectuer d'autres actions si nécessaires
-    }
 </script>
+
+	
+
+
+
+
+	
 
 </body>
 </html>

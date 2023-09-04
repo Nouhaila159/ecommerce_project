@@ -192,8 +192,9 @@ public function updateStatutLivraison($id)
                 ];
     
                 $totalProduits += $ligneCommande->quantite;
-                $prixTotal += $produit->prixP * $ligneCommande->quantite;
+                $prixTotal += ($produit->prixP- ($produit->reductionP * $produit->prixP) / 100) * $ligneCommande->quantite;
             }
+            $prixTotal =$prixTotal +($commandes->prix_livraison);
         }
     
         return view('detailCommande', [
@@ -214,8 +215,71 @@ public function updateValidation(Request $request, $id)
 
     // Enregistre les modifications dans la base de données
     $commande->save();
+    if($nouvelleValidation=='annulée'){
 
+
+        $ligne = Ligne_commande::find($id);
+
+        if (!$ligne) {
+            return response()->json(['success' => false, 'message' => 'Détail introuvable']);
+        }
+    
+        // Sauvegarder les informations nécessaires avant la suppression
+    
+        $idR = $ligne->idR;
+        $tailleL = $ligne->idT;
+        $quantite = $ligne->quantite;
+    
+        // Suppression de la référence
+        $ligne->delete();
+    
+        // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
+        $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+    }
     return redirect()->back()->with('success', 'Validation mise à jour avec succès');
+
+}
+private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
+{
+    // Utiliser une transaction pour gérer les opérations atomiques
+    DB::beginTransaction();
+
+    try {
+        // Mettre à jour la quantité dans la table des tailles
+        $taille = Tailles::where('idR', $idR)
+            ->where('idT', $tailleL)
+            ->lockForUpdate() // Verrouille la ligne pour éviter les conflits de concurrence
+            ->first();
+
+        if (!$taille) {
+            throw new \Exception('Taille introuvable');
+        }
+
+        $taille->quantiteT += $quantite;
+        $taille->save();
+
+        // Mettre à jour la quantité totale de référence
+        $reference = Reference::find($idR);
+        $reference->quantiteR = Tailles::where('idR', $reference->idR)->sum('quantiteT');
+        $reference->save();
+
+        // Recalculer et mettre à jour les quantités de stock
+        $stock = Stock::where('idP', $reference->idP)->first();
+        if ($stock) {
+            $stock->quantite_disponible = Reference::where('idP', $reference->idP)->sum('quantiteR');
+            $stock->save();
+        }
+
+        // Valider et enregistrer les changements
+        DB::commit();
+        return 0;
+
+    } catch (\Exception $e) {
+        // En cas d'erreur, annuler les modifications
+        DB::rollback();
+
+        // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+    }
 }
 
 }
