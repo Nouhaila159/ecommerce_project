@@ -102,6 +102,8 @@ $AdresseS= $infoSite->adesseS;
 							</div> 
 						</div>
 					</li>
+					<li><a href="summary">Mon Panier</a></li>
+
 				</ul>
 			</div>
 		</div>

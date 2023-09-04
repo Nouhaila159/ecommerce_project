@@ -208,13 +208,19 @@ Route::get('/category', function () {
 Route::get('/account', function () {
     return view('frontend.account');
 })->name('account');
+Route::get('/summary', function () { return view('frontend.summary');})->name('summary');
 
 //crud cart 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::POST('/cartStore', [CartController::class, 'store'])->name('cart.store');
+Route::delete('/cart/{panier}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::get('/summary', [CartController::class, 'summary'])->name('summary');
+Route::post('/calculate-total-price', [CartController::class, 'calculateTotalPrice'])->name('calculate-total-price');
+Route::put('/cart/{panier}', [CartController::class,'update'])->name('cart.update');
+Route::post('/checkout', [CartController::class,'storeC'])->name('checkout');
 
 //crud category 
 Route::get('/accueil', [FrontProduitController::class, 'index'])->name('accueil');
-
 Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('product.show');
 
 
@@ -225,3 +231,5 @@ Route::get('/product', function () {
 Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
+//crud pannier
+
