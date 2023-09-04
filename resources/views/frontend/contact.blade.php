@@ -38,12 +38,6 @@ $AdresseS= $infoSite->adesseS;
 	<!-- Core JavaScript Files -->  	 
     <script src="js/bootstrap.min.js"></script>
 	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -124,7 +118,13 @@ $AdresseS= $infoSite->adesseS;
 					<div class="heading"><h1>CONTACT US</h1></div>
 				</div>
 				<div class="col-md-6" style="margin-bottom: 20px;">
-					<form name="form1" id="ff" method="post" action="contact.php">
+				@if(session('message'))
+					<div class="alert alert-success">
+						{{ session('message') }}
+					</div>
+					@endif
+				<form name="form1" id="ff" method="post" action="{{ route('contact.store') }}">
+				@csrf 
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Your Name *" name="name" id="name" required data-validation-required-message="Please enter your name.">
 						</div>

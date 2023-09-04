@@ -41,6 +41,49 @@ class VenteController extends Controller
     return view('/vente', ['commandesAvecMontantTotal' => $commandesAvecMontantTotal, 'clients' => $clients,'commandes'=>$commandes]);
 }
 
+public function search(Request $request)
+{
+    $query = $request->input('query');
+
+    $clients = Client::all();
+        
+    // Récupérer uniquement les commandes avec origine différent 'siteWeb' et qui correspondent à la recherche
+    $commandes = Commandes::with('client')
+        ->where('origine', '<>', 'siteWeb')
+        ->where(function ($q) use ($query) {
+            $q->where('idCommande', 'like', "%$query%")
+              ->orWhere('date_commande', 'like', "%$query%")
+              ->orWhere('date_livraison', 'like', "%$query%")
+              ->orWhere('adresse_livraison', 'like', "%$query%")
+              ->orWhere('prix_livraison', 'like', "%$query%")
+              ->orWhere('statut_commande', 'like', "%$query%")
+              ->orWhere('statut_livraison', 'like', "%$query%")
+              ->orWhere('validation', 'like', "%$query%")
+              ->orWhereHas('client', function ($clientQuery) use ($query) {
+                  $clientQuery->where('nomC', 'like', "%$query%")
+                              ->orWhere('prenomC', 'like', "%$query%")
+                              ->orWhere('telC', 'like', "%$query%");
+              });
+        })
+        ->paginate(4)->onEachSide(0);
+
+    $commandesAvecMontantTotal = [];
+    foreach ($commandes as $commande) {
+        $montantTotal = $commande->prixTotal + $commande->prix_livraison;
+        $commandesAvecMontantTotal[] = [
+            'commande' => $commande,
+            'montantTotal' => $montantTotal,
+        ];
+    }
+
+    return view('/vente', [
+        'commandesAvecMontantTotal' => $commandesAvecMontantTotal,
+        'clients' => $clients,
+        'commandes' => $commandes,
+    ]);
+}
+
+
 public function detailVente($id)
 {    
     $commandes = Commandes::findOrFail($id);

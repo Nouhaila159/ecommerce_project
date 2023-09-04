@@ -28,6 +28,9 @@
           <a class="text-decoration-none text-white fs-6 fw-bold" href="./out-of-stock">En rupture</a>
        </li>
        <li class="list-unstyled px-3 py-1 mb-1">
+          <a class="text-decoration-none text-white fs-6 fw-bold" href="{{ route('contact.index') }}">Messages</a>
+       </li>
+       <li class="list-unstyled px-3 py-1 mb-1">
           <a class="text-decoration-none text-white fs-6 fw-bold" href="./users">Utilisateurs</a>
        </li>
        <li class="list-unstyled px-3 py-1 mb-1">

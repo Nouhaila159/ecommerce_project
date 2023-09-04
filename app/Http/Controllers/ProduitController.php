@@ -34,8 +34,34 @@ class ProduitController extends Controller
         ]);
     }
     
-
-
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $produits = Produit::where('nomP', 'like', "%$query%")
+                            ->orWhere('descriptionP', 'like', "%$query%")
+                            ->orWhere('prixP', 'like', "%$query%")
+                            ->orWhere('reductionP', 'like', "%$query%")
+                            ->orWhere('statutP', 'like', "%$query%")
+                            ->orWhereHas('marque', function ($marqueQuery) use ($query) {
+                                $marqueQuery->where('marque', 'like', "%$query%");
+                            })
+                            ->orWhereHas('categorie', function ($categorieQuery) use ($query) {
+                                $categorieQuery->where('categorie', 'like', "%$query%");
+                            })
+                            ->orWhereHas('materiel', function ($materielQuery) use ($query) {
+                                $materielQuery->where('materiel', 'like', "%$query%");
+                            })
+                            ->paginate(10)
+                            ->onEachSide(0);
+    
+                            $marques = Marque::all();
+                            $categories = Categorie::all();
+                            $materiels = Materiel::all();
+                        
+                            return view('produit', compact('produits', 'marques', 'categories', 'materiels'));
+    }
+   
     /**
      * Show the form for creating a new resource.
      *

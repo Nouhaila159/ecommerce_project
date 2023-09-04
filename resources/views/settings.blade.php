@@ -30,7 +30,7 @@
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Settings body heading -->
             <div class="mb-2">
-               <h1 class="fs-2">Site Settings</h1>
+               <h1 class="fs-2">Paramétres du site</h1>
             </div>
             
             <!-- Settings Form  -->
@@ -84,8 +84,7 @@
    <input type="file" class="form-control form-control-sm" id="site-logo" name="urlphotoS">
 </div>
 
-                     
-
+                  
                      <!-- Current Site Logo -->
                      <div class="col-md-2">
 

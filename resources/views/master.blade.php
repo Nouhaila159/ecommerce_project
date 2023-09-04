@@ -29,7 +29,7 @@
          <!-- Side Bar ends -->
 
          <!------- Dashboard Content ----- -->
-         <div class="col-10 px-4 mt-3">
+         <div class="col-10 px-4 mt-3  product-content-container" >
             <h1 class="fs-2 mb-2">Dashboard</h1>
 
             <div class="row dashboard-content-container">

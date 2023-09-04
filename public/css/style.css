@@ -1,10 +1,17 @@
       /* Google font Roboto & Poppins  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Rubik&display=swap');
 
+
+.product-content-container {
+   /* Utilisez calc() pour calculer la largeur de la zone de contenu */
+   width: calc(100% - 15%);
+   margin-left: 15%;
+   }
+
 * {
    margin: 0;
    padding: 0;
-   box-sizing: border-box;
+   box-sizing: border-box; /* Laissez de l'espace pour la barre latérale */
 }
 :root {
    /* Css Variables */
@@ -75,16 +82,19 @@ form {}
    background-color: var(--ad-second-color-alt) !important;
 }
    /* ----- Side Bar CSS ----- */
-#sidebar-container {
-   background-color: var(--ad-first-color);
-   padding: 0;
-}
+ #sidebar-container {
+      height: 100vh; /* Hauteur de la barre latérale à 100% de la hauteur de la vue */
+      position: fixed; /* Barre latérale fixe */
+      width: 15%; /* Largeur de la barre latérale */
+      background-color: var(--ad-first-color); /* Couleur de fond de la barre latérale */
+  }
 #sidebar-container ul li:hover {
    background-color: var(--ad-second-color) !important;
    cursor: pointer;
 }
 #sidebar-container a {
    display: block;
+   
 }
 
       /* ---  DashBoard Content Css ---- */
@@ -118,12 +128,6 @@ form {}
 .pagination .page-item .page-link:hover{
    background-color: var(--ad-second-color) !important;
 }
-
-
-
-
-
-
 
 /* Active Nav  */
 .active-admin-nav ,.active-pagination{

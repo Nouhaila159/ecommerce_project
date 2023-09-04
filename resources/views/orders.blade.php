@@ -29,8 +29,13 @@
          <!------- Orders Content  ------>
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Orders body heading title -->
-               <h1 class="fs-2 mb-3">All Orders</h1>
-            
+               <h1 class="fs-2 mb-3">Toutes les Commandes du site</h1>
+               <form class="form-search" action="{{ route('orders.search') }}" method="GET">
+    <input type="text" class="fs-4 px-3" name="query">
+    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-primary">Rechercher</button>
+</form>
+<br>
+
             <!-- Orders Table  -->
             <table class="table table-bordered table-striped table-hover">
                <thead>
@@ -219,7 +224,13 @@
        }
    }
 </script>
-
+<style>
+   .form-search input,
+.form-search button {
+    display: inline-block;
+    vertical-align: middle; /* Ajustez cela selon vos besoins */
+}
+</style>
   
   
   

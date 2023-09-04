@@ -27,12 +27,19 @@
          <!-- Side Bar ends -->
 
          <!------- Products Content  ------>
+         
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Products body heading -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-               <h1 class="fs-2">Products</h1>
+               <h1 class="fs-2">Tous les produits</h1>
                <a href="#" class="btn btn-sm fs-6 px-3 fw-bold rounded-pill text-white common-btn" data-bs-toggle="modal" data-bs-target="#addnew-product-modal">Add New</a>
             </div>
+            <form class="form-search" action="{{ route('produits.search') }}" method="GET">
+            <input type="text" class="fs-4 px-3" name="query">
+            <button type="submit" class="btn fs-7 px-3 fw-bold text-white common-btn">Rechercher</button>
+            </form>
+
+                <br>
             
             <!-- Products Table  -->
             <table class="table table-bordered table-striped table-hover">
@@ -251,5 +258,12 @@
    <!-- bootstrap Js  -->
    <!-- Custom Javascript  -->
    <script type="text/javascript" src="./js/admin-script.js"></script>
+   <style>
+   .form-search input,
+.form-search button {
+    display: inline-block;
+    vertical-align: middle; /* Ajustez cela selon vos besoins */
+}
+</style>
 </body>
 </html>

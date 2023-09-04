@@ -14,8 +14,7 @@ use App\Http\Controllers\InfoSiteController;
 use App\Http\Controllers\FrontProduitController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HeaderController;
-
-
+use App\Http\Controllers\ContactController;
 
 
 /*
@@ -126,6 +125,7 @@ Route::get('/updateProduit/{id}', [ProduitController::class, 'editProduit']);
 Route::put('/produits/{id}', [ProduitController::class, 'update'])->name('produits.update');
 Route::get('/detailProduit/{id}', [ProduitController::class, 'detailProduit'])->name('produits.detail');
 Route::delete('/produits/{id}', [ProduitController::class, 'destroy'])->name('produits.destroy');
+Route::get('/search-produits', [ProduitController::class, 'search'])->name('produits.search');
 
 //CRUD REFERENCE
 Route::get('/reference/{id}', [ReferenceController::class, 'index'])->name('reference.index');
@@ -145,6 +145,8 @@ Route::get('/orders', [CommandesController::class, 'index'])->name('orders.index
 Route::put('/commandes/{id}/update-statut', [CommandesController::class, 'updateStatut'])->name('updateStatut');
 Route::put('/commandes/{id}/update-statutLivraison', [CommandesController::class, 'updateStatutLivraison'])->name('updateStatutLivraison');
 Route::get('/detailCommande/{id}', [CommandesController::class, 'detailCommande']);
+Route::get('/search-orders', [CommandesController::class, 'search'])->name('orders.search');
+
 
 //FACTURE
 Route::get('/facture/{id}', [VenteController::class, 'genererFactureV']);
@@ -167,6 +169,7 @@ Route::delete('/commande/{id}', [VenteController::class, 'destroy'])->name('dest
 Route::get('/updateVente/{id}', [VenteController::class, 'showUpdateForm'])->name('updateVente');
 Route::put('/updateVente/{id}', [VenteController::class,'updateVente'])->name('updateVente');
 Route::get('/search-client', [VenteController::class, 'searchClient'])->name('search-client');
+Route::get('/search-vente', [VenteController::class, 'search'])->name('vente.search');
 
 //CRUD DETAIL VENTE
 Route::get('/ajouter_referenceVente/{id}', [VenteController::class, 'ajouter_referenceVente_index'])->name('venteDetail.index');
@@ -184,14 +187,15 @@ Route::put('/updateDetailVente/{idLigne}', [VenteController::class, 'updateDetai
 Route::get('/settings', [InfoSiteController::class, 'index'])->name('settings.index');
 Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->name('settings.update');
 
+//Messages
+Route::get('/messages', [ContactController::class, 'index'])->name('contact.index');
+Route::delete('/messages/delete/{id}', [ContactController::class, 'delete'])->name('message.delete');
 
 //crud cart 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
-
-
 
 });
 
@@ -225,3 +229,7 @@ Route::get('/product', function () {
 Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+
