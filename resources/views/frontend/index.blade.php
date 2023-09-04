@@ -77,6 +77,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="accueil">Home</a></li>
+
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
                         <div class="dropdown-menu">
                             <div class="dropdown-inner">
@@ -90,6 +91,7 @@
                             </div> 
                         </div>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -345,74 +347,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<ul class="nav nav-tabs">
-					<li class="active"><a href="#best">BEST SALES</a></li>
-					<li><a href="#special">SPECIAL</a></li>
-				</ul>
-				<div class="tab-content">
-					<div id="best" class="tab-pane fade in active">
-						<div class="products">
-							<div class="col-sm-7 five-three">
-								<div class="row">
-								  <div class="col-sm-4">
-									<div class="product">
-											<div class="image">
-												<a href="product"><img src="images/clothing_sp3_2.jpg" /></a>
-												<ul class="buttons">
-													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-													<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-												</ul>
-											</div>
-											<div class="caption">
-												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
-												<div class="price">$122<span>$98</span></div>
-												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-											</div>
-										</div>
-								  </div>
-								  <div class="col-sm-4">
-									<div class="product">
-											<div class="image">
-												<a href="product"><img src="images/clothing_sp5_1.jpg" /></a>
-												<ul class="buttons">
-													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-													<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-												</ul>
-											</div>
-											<div class="caption">
-												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
-												<div class="price">$122<span>$98</span></div>
-												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-											</div>
-										</div>
-								  </div>
-								  <div class="col-sm-4">
-									<div class="product">
-											<div class="image">
-												<a href="product"><img src="images/clothing_sp6_1.jpg" /></a>
-												<ul class="buttons">
-													<li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-													<li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-													<li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-												</ul>
-											</div>
-											<div class="caption">
-												<div class="name"><h3><a href="product">Pretty Playsuit</a></h3></div>
-												<div class="price">$122<span>$98</span></div>
-												<div class="rating"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-											</div>
-										</div>
-								  </div><!-- end inner row -->
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 	@include('partials._footer')

@@ -89,6 +89,7 @@
 							</div> 
 						</div>
 					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -100,85 +101,81 @@
 	<div id="page-content" class="single-page">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<ul class="breadcrumb">
-						<li><a href="accueil">Home</a></li>
-						<li><a href="cart">Cart</a></li>
-					</ul>
-				</div>
+				
 			</div>
 			<div class="row">
 				<div class="product well">
 					<div class="col-md-3">
 						<div class="image">
-							<img src="{{ asset('storage/' . $product->image) }}" /> <!-- Adjust the image path based on your actual data -->
+							<img src="{{ asset('storage/' . $reference->urlPhoto) }}" /> <!-- Adjust the image path based on your actual data -->
 						</div>
 					</div>
 					<div class="col-md-9">
 						<div class="caption">
+							@php
+							$product_id = request()->query('product_id');
+							$reference_id = request()->query('reference_id');
+						@endphp
+						
 							<div class="name"><h3><a href="product">{{ $product->nomP }}</a></h3></div>
 							<ul class="info">
 								<li>Marque: {{ $product->marque->marque }}</li> <!-- Replace with your actual brand data -->
 								<li>Matières textiles: {{ $product->materiel->materiel }}</li>
 								<li>Catégorie: {{ $product->categorie->categorie  }}</li>
+							
+								<li>
+									<span id="selected-taille">
+										@if(!empty($selectedTaille) && !empty($selectedQuantite))
+											Taille choisit : {{ $selectedTaille }} (Quantité : {{ $selectedQuantite }})
+										@else
+											Aucune taille sélectionnée
+										@endif
+									</span>
+								</li>
+								
 							</ul>
 							<div class="prixP">
 								@if ($product->reductionP > 0)
-									<span class="original-price red-text">{{ $product->prixP }} MAD</span>
-									<span class="reduced-price green-text">
-										{{ $product->prixP - ($product->reductionP * $product->prixP) / 100 }} MAD
-									</span>
-									<span class="reduction-rate">(-{{ $product->reductionP }} )</span>
-								@else
-									<span>{{ $product->prixP }} MAD</span>
+								<span class="reduced-price green-text">
+									{{ $product->prixP - ($product->reductionP * $product->prixP) / 100 }} MAD																</span>
+																<del class="original-price red-text">{{ $product->prixP }}MAD</del>
+																<span class="reduction-rate">(-{{ $product->reductionP}}%)</span>
+										@else
+									<span>{{ $product->prixP  }} MAD</span>
 								@endif
-							</div>	
+							</div>
 						    <div> 
 								{{ $product->descriptionP }}
-							</div>						
-							<label>Qty: </label> <input class="form-inline quantity" type="text" value="{{ $quantity }}"><a href="#" class="btn btn-3 ">Update</a>
+							</div>	
+							<form id="addToCartForm" method="POST" action="{{ route('cart.store') }}">
+								@csrf
+								<input type="hidden" name="product_id" value="{{ $product_id }}">
+								<input type="hidden" name="reference_id" value="{{ $reference_id }}">
+								<input type="hidden" name="selected_taille" value="{{ $selectedTaille }}">
+								<input type="hidden" name="selected_quantite" value="{{ $selectedQuantite }}">
+								<!-- Le reste de votre formulaire -->
+								<label>Quantité: </label>
+									<input class="form-inline quantity" type="number" name="quantite" id="quantiteInput" value="1" min="1">
+									<p class="error" id="quantiteError" style="color: red; display: none;">La quantité dépasse la quantité disponible.</p>
+									<button type="submit" class="btn btn-3" id="submitButton">Valider</button>
+							</form>
+
 							<hr>
-							<a href="#" class="btn btn-default pull-right">REMOVE</a>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>    
 			</div>
 			<!-- Repeat the above structure for each product/reference -->
+			
 		</div>
+		
 	</div>
-		<div class="row">
-				<div class="col-md-4 col-md-offset-8 ">
-					<center><a href="#" class="btn btn-1">Continue To Shopping</a></center>
-				</div>
-			</div>
-			<div class="row">
-				<div class="pricedetails">
-					<div class="col-md-4 col-md-offset-8">
-						<table>
-							<h6>Price Details</h6>
-							<tr>
-								<td>Total</td>
-								<td>350.00</td>
-							</tr>
-							<tr>
-								<td>Discount</td>
-								<td>-----</td>
-							</tr>
-							<tr>
-								<td>Delivery Charges</td>
-								<td>100.00</td>
-							</tr>
-							<tr style="border-top: 1px solid #333">
-								<td><h5>TOTAL</h5></td>
-								<td>400.00</td>
-							</tr>
-						</table>
-						<center><a href="#" class="btn btn-1">Checkout</a></center>
-					</div>
-				</div>
-			</div>
-		</div>
+
+	<!-- Ajoutez ce formulaire à l'endroit où vous souhaitez afficher la forme -->
+
+
+		
 	</div>	
 	@include('partials._footer')
 
@@ -196,6 +193,24 @@
 }
 
 </style>
-	
+<script>
+    const quantiteInput = document.getElementById('quantiteInput');
+    const quantiteError = document.getElementById('quantiteError');
+    const submitButton = document.getElementById('submitButton');
+    const selectedQuantite = parseInt("{{ $selectedQuantite }}");
+
+    quantiteInput.addEventListener('input', () => {
+        const quantite = parseInt(quantiteInput.value);
+        if (quantite > selectedQuantite) {
+            quantiteError.style.display = 'block';
+            submitButton.disabled = true;
+        } else {
+            quantiteError.style.display = 'none';
+            submitButton.disabled = false;
+        }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>

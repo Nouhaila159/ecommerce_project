@@ -10,6 +10,7 @@ use App\Models\Materiel;
 use App\Models\Reference;
 use App\Models\Tailles;
 use App\Models\Stock;
+use App\Models\Panier;
 use ColorJizz\ColorJizz;
 use ColorJizz\Formats\RGB;
 
@@ -29,12 +30,14 @@ class FrontProduitController extends Controller
         ->where('statutP', 'publié') // Filtrer les produits publiés
         ->paginate(10)
         ->onEachSide(0);
+        $paniersCount = Panier::count();
 
     return view('frontend.index', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
         'categories' => $categories,
         'materiels' => $materiels,
+        'paniersCount'=>$paniersCount,
     ]);
     }
 
@@ -47,12 +50,14 @@ class FrontProduitController extends Controller
         ->where('statutP', 'publié') // Filtrer les produits publiés
         ->paginate(10)
         ->onEachSide(0);
+        $paniersCount = Panier::count();
 
     return view('frontend.product', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
         'categories' => $categories,
         'materiels' => $materiels,
+        'paniersCount'=>$paniersCount,
     ]);
     }
 
@@ -68,6 +73,7 @@ class FrontProduitController extends Controller
 
     // Récupérer les références associées au produit
     $references = Reference::where('idP', $id)->get();
+    $paniersCount = Panier::count();
 
     return view('frontend.product', [
         'produitsPublies' => $produitsPublies,
@@ -75,6 +81,7 @@ class FrontProduitController extends Controller
         'categories' => $categories,
         'materiels' => $materiels,
         'references' => $references,
+        'paniersCount'=>$paniersCount,
     ]);
 }
 

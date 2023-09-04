@@ -24,7 +24,8 @@ $gmailAddress = $infoSite->emailS; // Adresse email depuis la base de données
                     <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
                 </form>
             </div>
-            <div id="cart"><a class="btn btn-cart" href="cart"><span class="glyphicon glyphicon-shopping-cart"></span>CART<strong>0</strong></a></div>
+            <div id="cart"><a class="btn btn-cart" href="summary"><span class="glyphicon glyphicon-shopping-cart"></span>Mon Panier<strong>{{ $paniersCount }}</strong></a></div>
+
         </div>
     </div>
 </header>
