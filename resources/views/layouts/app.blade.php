@@ -24,7 +24,7 @@
 <body>
 
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" id="header">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <div class="admin-logo d-flex align-items-center flex-column">

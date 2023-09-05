@@ -145,6 +145,7 @@ public function detailProduit($id)
     ]);
 }
 
+
     /**
      * Display the specified resource.
      *

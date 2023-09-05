@@ -37,7 +37,7 @@
                      <input type="hidden" name="idCategorie" value="{{ $categories->idCategorie }}">
                      <div class="mb-3">
                         <label for="categorie" class="form-label">Nom de la Catégorie</label>
-                        <input type="text" class="form-control" id="categorie" name="categorie" value="{{ $categories->categorie }}">
+                        <input type="text" class="form-control" id="categorie" name="categorie" value="{{ $categories->categorie }}" required>
                      </div>
                      <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary me-2">Modifier Catégorie</button>

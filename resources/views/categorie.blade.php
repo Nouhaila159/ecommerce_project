@@ -121,7 +121,7 @@
                <!-- ADD category input  -->
                <div class="mb-3 mt-3">
                   <label for="categorie" class="form-label fw-bold">Nom de la categorie</label>
-                  <input autocomplete="off" type="text" class="form-control" id="categorie" placeholder="Nom de la categorie" name="categorie">
+                  <input autocomplete="off" type="text" class="form-control" id="categorie" placeholder="Nom de la categorie" name="categorie" required>
                </div>
             
                <!-- submit btn  -->

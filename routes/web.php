@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarqueController;
+use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\CommandesController;
 use App\Http\Controllers\MaterielController;
 use App\Http\Controllers\CategorieController;
@@ -117,6 +118,14 @@ Route::delete('/categorie/{id}', [CategorieController::class, 'destroy'])->name(
 Route::get('/update_categorie/{id}', [CategorieController::class, 'updateCategorie']);
 Route::post('/updateCategorie/traitement', [CategorieController::class, 'updateCategorieTraitement']);
 
+//CRUD Livraison  
+Route::post('/livraison', [LivraisonController::class, 'store'])->name('livraison.store');
+Route::get('/livraison', [LivraisonController::class, 'index'])->name('livraison.index');
+Route::get('/livraison/{id}/delete', [LivraisonController::class, 'showForm'])->name('livraison.delete');
+Route::delete('/livraison/{id}', [LivraisonController::class, 'destroy'])->name('livraison.destroy');
+Route::get('/update_livraison/{id}', [LivraisonController::class, 'updateLivraison']);
+Route::post('/updateLivraison/traitement', [LivraisonController::class, 'updateLivraisonTraitement']);
+
 //CRUD PRODUIT
 Route::get('/produit', [ProduitController::class, 'index'])->name('produits.index');
 Route::post('/produit', [ProduitController::class, 'store'])->name('produits.store');
@@ -146,6 +155,7 @@ Route::put('/commandes/{id}/update-statut', [CommandesController::class, 'update
 Route::put('/commandes/{id}/update-statutLivraison', [CommandesController::class, 'updateStatutLivraison'])->name('updateStatutLivraison');
 Route::get('/detailCommande/{id}', [CommandesController::class, 'detailCommande']);
 Route::get('/search-orders', [CommandesController::class, 'search'])->name('orders.search');
+Route::post('/supprimer-commandes-annulees', [CommandesController::class, 'supprimerCommandesAnnulees'])->name('supprimerCommandesAnnulees');
 
 
 //FACTURE
@@ -159,7 +169,7 @@ Route::put('/commandes/{id}/update-statutV', [VenteController::class, 'updateSta
 Route::put('/commandes/{id}/update-statutLivraisonV', [VenteController::class, 'updateStatutLivraisonV'])->name('updateStatutLivraisonV');
 
 //CRUD VENTE
-Route::get('/vente', [VenteController::class, 'index'])->name('orders.index');
+Route::get('/vente', [VenteController::class, 'index'])->name('vente.index');
 Route::get('/detailVente/{id}', [VenteController::class, 'detailVente'])->name('vente.detail');
 Route::get('/ajouterVente', [VenteController::class,'ajouterVente'])->name('ajouterVente');
 Route::post('ajouterVente', [VenteController::class,'ajouterVentePost'])->name('ajouterVente.post');
@@ -170,6 +180,7 @@ Route::get('/updateVente/{id}', [VenteController::class, 'showUpdateForm'])->nam
 Route::put('/updateVente/{id}', [VenteController::class,'updateVente'])->name('updateVente');
 Route::get('/search-client', [VenteController::class, 'searchClient'])->name('search-client');
 Route::get('/search-vente', [VenteController::class, 'search'])->name('vente.search');
+Route::post('/supprimer-commandes-annuleesV', [VenteController::class, 'supprimerCommandesAnnuleesV'])->name('supprimerCommandesAnnuleesV');
 
 //CRUD DETAIL VENTE
 Route::get('/ajouter_referenceVente/{id}', [VenteController::class, 'ajouter_referenceVente_index'])->name('venteDetail.index');

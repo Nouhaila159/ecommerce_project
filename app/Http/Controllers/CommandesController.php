@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Commandes;
+use App\Models\Stock;
 use App\Models\Client;
 use App\Models\Ligne_commande;
 use App\Models\Reference;
@@ -83,6 +85,21 @@ class CommandesController extends Controller
         ]);
     }
     
+    public function supprimerCommandesAnnulees()
+    {
+        try {
+            // Supprimez les commandes avec validation "annulée" et origine "siteWeb"
+            Commandes::where('validation', 'annulée')->where('origine', 'siteWeb')->delete();
+            
+            // Redirigez l'utilisateur vers la page des commandes (ou une autre page de votre choix)
+            return redirect()->route('orders.index');
+            
+        } catch (\Exception $e) {
+            // Gérez les erreurs ici (par exemple, journalisez-les ou affichez un message d'erreur)
+            return redirect()->route('orders.index')->with('error', 'Une erreur s\'est produite lors de la suppression des commandes.');
+        }
+    }
+
 
 public function updateStatut($id)
 {
@@ -212,31 +229,30 @@ public function updateValidation(Request $request, $id)
     $commande = Commandes::findOrFail($id);
     $nouvelleValidation = $request->input('validation'); // Récupère la nouvelle valeur de validation depuis le formulaire
     $commande->validation = $nouvelleValidation; // Met à jour la valeur de validation dans l'objet Commandes
-
     // Enregistre les modifications dans la base de données
     $commande->save();
+    
     if($nouvelleValidation=='annulée'){
+        $ligneCommandes = ligne_Commande::where('idCommande', $id)->get(); 
 
-
-        $ligne = Ligne_commande::find($id);
-
-        if (!$ligne) {
+        if (!$ligneCommandes) {
             return response()->json(['success' => false, 'message' => 'Détail introuvable']);
         }
     
-        // Sauvegarder les informations nécessaires avant la suppression
-    
-        $idR = $ligne->idR;
-        $tailleL = $ligne->idT;
-        $quantite = $ligne->quantite;
-    
-        // Suppression de la référence
-        $ligne->delete();
-    
-        // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
-        $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
-    }
-    return redirect()->back()->with('success', 'Validation mise à jour avec succès');
+        foreach ($ligneCommandes as $ligneCommande) {    
+            $idR = $ligneCommande->idR;
+            $tailleL = $ligneCommande->idT;
+            $quantite = $ligneCommande->quantite;
+        
+           
+            //$ligneCommande->delete();
+        
+            // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
+            $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+        }
+
+  }
+     return redirect()->back()->with('success', 'Validation mise à jour avec succès');
 
 }
 private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)

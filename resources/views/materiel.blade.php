@@ -122,7 +122,7 @@
                <!-- ADD category input  -->
                <div class="mb-3 mt-3">
                   <label for="materiel" class="form-label fw-bold">Nom de la matière première</label>
-                  <input autocomplete="off" type="text" class="form-control" id="materiel" placeholder="Nom de la matière première" name="materiel">
+                  <input autocomplete="off" type="text" class="form-control" id="materiel" placeholder="Nom de la matière première" name="materiel" required>
                </div>
             
                <!-- submit btn  -->

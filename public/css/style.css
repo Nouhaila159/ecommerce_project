@@ -6,6 +6,8 @@
    /* Utilisez calc() pour calculer la largeur de la zone de contenu */
    width: calc(100% - 15%);
    margin-left: 15%;
+   padding: 100px;
+
    }
 
 * {
@@ -82,7 +84,15 @@ form {}
    background-color: var(--ad-second-color-alt) !important;
 }
    /* ----- Side Bar CSS ----- */
+
+   #header {
+      position: fixed;
+      width: 100%;
+      background-color: var(--ad-first-color);
+      z-index: 1000; /* Assurez-vous que le header est au-dessus du sidebar */
+  }
  #sidebar-container {
+   margin-top: 100px;
       height: 100vh; /* Hauteur de la barre latérale à 100% de la hauteur de la vue */
       position: fixed; /* Barre latérale fixe */
       width: 15%; /* Largeur de la barre latérale */
@@ -92,6 +102,7 @@ form {}
    background-color: var(--ad-second-color) !important;
    cursor: pointer;
 }
+
 #sidebar-container a {
    display: block;
    

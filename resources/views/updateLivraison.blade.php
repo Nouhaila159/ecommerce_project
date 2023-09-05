@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Marques</title>
+        <title>Livraisons</title>
         <!-- Favicon -->
         <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
         <!-- Fontawesome Icons  -->
@@ -26,22 +26,26 @@
             <div class="card">
                 
                <div class="card-body">
-                <h1 class="card-title fs-2 mb-4 mt-4 text-center">Modifier Marque</h1>
-                @if($errors->has('marque'))
+                <h1 class="card-title fs-2 mb-4 mt-4 text-center">Modifier Livraison</h1>
+                @if($errors->has('livraison'))
                 <div class="alert alert-danger">
-                    {{ $errors->first('marque') }}
+                    {{ $errors->first('livraison') }}
                 </div>
                 @endif
-                <form action="/updateMarque/traitement" method="POST" class="mt-2">
+                <form action="/updateLivraison/traitement" method="POST" class="mt-2">
                      @csrf
-                     <input type="hidden" name="idMarque" value="{{ $marques->idMarque }}">
+                     <input type="hidden" name="idlivraison" value="{{ $livraisons->idlivraison }}">
                      <div class="mb-3">
-                        <label for="marque" class="form-label">Nom de la Marque</label>
-                        <input type="text" class="form-control" id="marque" name="marque" value="{{ $marques->marque }}" required>
+                        <label for="livraison" class="form-label">Ville de la Livraison</label>
+                        <input type="text" class="form-control" id="livraison" name="livraison" value="{{ $livraisons->livraison }}" required>
+                     </div>
+                     <div class="mb-3">
+                        <label for="prix" class="form-label">Prix de la Livraison</label>
+                        <input type="number" class="form-control" id="prix" name="prix" value="{{ $livraisons->prix }}" required>
                      </div>
                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary me-2">Modifier Marque</button>
-                        <a href="/brands" class="btn btn-danger">Liste des marques</a>
+                        <button type="submit" class="btn btn-primary me-2">Modifier Livraison</button>
+                        <a href="/livraison" class="btn btn-danger">Liste des livraisons</a>
                      </div>
                   </form>
                </div>

@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Marques</title>
+   <title>Livraisons</title>
    <!-- Favicon -->
    <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
    <!-- Fontawesome Icons  -->
@@ -31,10 +31,10 @@
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Brands body heading -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-               <h1 class="fs-2">Les Marques</h1>
-               @if($errors->has('marque'))
+               <h1 class="fs-2">Les Livraisons</h1>
+               @if($errors->has('livraison'))
 <div class="alert alert-danger">
-    {{ $errors->first('marque') }}
+    {{ $errors->first('livraison') }}
 </div>
 @endif
                <a href="#" class="btn btn-sm fs-6 px-3 fw-bold rounded-pill text-white common-btn" data-bs-toggle="modal" data-bs-target="#addnew-brand-modal">Add New</a>
@@ -44,20 +44,23 @@
             <table class="table table-bordered table-striped table-hover">
     <thead>
         <tr>
-            <th>Nom de la marque</th>
+            <th>Ville de la livraison</th>
+            <th>Prix de la livraison</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-      @foreach($marques as $marque)
+      @foreach($livraisons as $livraison)
       <tr>
-          <td>{{ $marque->marque }}</td>
+          <td>{{ $livraison->livraison }}</td>
+          <td>{{ $livraison->prix }} MAD</td>
+
           <td> 
               <!-- Actions  -->
-              <form method="POST" action="{{ route('brands.destroy', ['id' => $marque->idMarque]) }}">
+              <form method="POST" action="{{ route('livraison.destroy', ['id' => $livraison->idlivraison]) }}">
                 @csrf
                 @method('DELETE')
-                <a href="/update_brands/{{ $marque->idMarque }}" class="btn btn-primary">
+                <a href="/update_livraison/{{ $livraison->idlivraison }}" class="btn btn-primary">
                   <i class="fa-solid fa-pen-to-square"></i>
               </a>
                <button type="submit" class="btn btn-danger btn-dm">
@@ -78,25 +81,25 @@
  <div class="mt-5">
     <ul class="pagination justify-content-center">
         {{-- Previous Page Link --}}
-        @if ($marques->currentPage() > 1)
+        @if ($livraisons->currentPage() > 1)
             <li class="page-item">
-                <a class="page-link text-white fw-bold" href="{{ $marques->url(1) }}" aria-label="Previous">
+                <a class="page-link text-white fw-bold" href="{{ $livraisons->url(1) }}" aria-label="Previous">
                     Previous
                 </a>
             </li>
         @endif
 
         {{-- Page Number Links --}}
-        @for ($i = 1; $i <= $marques->lastPage(); $i++)
-            <li class="page-item {{ $i === $marques->currentPage() ? 'active' : '' }}">
-                <a class="page-link text-white fw-bold" href="{{ $marques->url($i) }}">{{ $i }}</a>
+        @for ($i = 1; $i <= $livraisons->lastPage(); $i++)
+            <li class="page-item {{ $i === $livraisons->currentPage() ? 'active' : '' }}">
+                <a class="page-link text-white fw-bold" href="{{ $livraisons->url($i) }}">{{ $i }}</a>
             </li>
         @endfor
 
         {{-- Next Page Link --}}
-        @if ($marques->hasMorePages())
+        @if ($livraisons->hasMorePages())
             <li class="page-item">
-                <a class="page-link text-white fw-bold" href="{{ $marques->url($marques->currentPage() + 1) }}" aria-label="Next">
+                <a class="page-link text-white fw-bold" href="{{ $livraisons->url($livraisons->currentPage() + 1) }}" aria-label="Next">
                     Next
                 </a>
             </li>
@@ -115,23 +118,26 @@
     
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Ajouter une marque</h4>
+            <h4 class="modal-title">Ajouter une livraison</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <!-- Modal body -->
           <div class="modal-body">
              <!--ADD category form -->
-             <form action="{{route('brands.store')}}" method="POST">
+             <form action="{{route('livraison.store')}}" method="POST">
                @csrf <!-- Add the CSRF token -->
             
                <!-- ADD category input  -->
                <div class="mb-3 mt-3">
-                  <label for="marque" class="form-label fw-bold">Nom de la marque</label>
-                  <input autocomplete="off" type="text" class="form-control" id="marque" placeholder="Nom de la marque" name="marque">
+                  <label for="livraison" class="form-label fw-bold">Ville de la livraison</label>
+                  <input autocomplete="off" type="text" class="form-control" id="livraison" placeholder="Ville de la livraison" name="livraison" required>
                </div>
-            
+               <div class="mb-3 mt-3">
+                  <label for="livraison" class="form-label fw-bold">Prix de la livraison</label>
+                  <input autocomplete="off" type="number" class="form-control" id="prix" placeholder="prix de la livraison" name="prix" required>
+               </div>
                <!-- submit btn  -->
-               <input class="btn btn-sm rounded px-5 mt-3 fs-6 fw-bold text-white common-btn" type="submit" name="addMarque" value="Add" id="add-brand-submitbtn" required>
+               <input class="btn btn-sm rounded px-5 mt-3 fs-6 fw-bold text-white common-btn" type="submit" name="addLivraison" value="Add" id="add-brand-submitbtn">
             </form>
          </div>
       </div>

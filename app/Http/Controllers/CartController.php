@@ -53,15 +53,15 @@ class CartController extends Controller
     $quantiteP = $request->input('selected_quantite');
     $user_id = auth()->user()->id;
   // Récupérer les informations de la taille en fonction de l'ID de référence et de l'ID de taille
-  $taille = Tailles::where('idR', $reference_id)
-  ->where('taille', $taille_id)
-  ->first();
-    // Rechercher un enregistrement similaire dans le panier
-$existingCartItem = Panier::where('user_id', $user_id)
-->where('idP', $product_id)
-->where('idR', $reference_id)
-->where('idT', $taille->idT)
-->first();
+    $taille = Tailles::where('idR', $reference_id)
+    ->where('taille', $taille_id)
+    ->first();
+        // Rechercher un enregistrement similaire dans le panier
+    $existingCartItem = Panier::where('user_id', $user_id)
+    ->where('idP', $product_id)
+    ->where('idR', $reference_id)
+    ->where('idT', $taille->idT)
+    ->first();
   
         $paniersCount = Panier::count();
 

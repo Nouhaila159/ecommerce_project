@@ -27,14 +27,25 @@
          <!-- Side Bar ends -->
 
          <!------- Orders Content  ------>
+         
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Orders body heading title -->
                <h1 class="fs-2 mb-3">Toutes les Commandes du site</h1>
-               <form class="form-search" action="{{ route('orders.search') }}" method="GET">
-    <input type="text" class="fs-4 px-3" name="query">
-    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-primary">Rechercher</button>
+               <div class="row">
+                <div class="col">
+                 <form class="form-search" action="{{ route('orders.search') }}" method="GET">
+                    <input type="text" class="fs-4 px-3" name="query">
+                    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-primary">Rechercher</button>
+                 </form>
+                 </div>
+                 <div class="col text-end">
+<form action="{{ route('supprimerCommandesAnnulees') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-danger">Supprimer les Commandes annulées</button>
 </form>
-<br>
+</div>
+                <div>
+            <br>
 
             <!-- Orders Table  -->
             <table class="table table-bordered table-striped table-hover">
@@ -230,10 +241,9 @@
     display: inline-block;
     vertical-align: middle; /* Ajustez cela selon vos besoins */
 }
+
 </style>
-  
-  
-  
+
 
    <!-- bootstrap Js  -->
    <!-- Custom Javascript  -->

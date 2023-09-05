@@ -16,6 +16,9 @@
           <a class="text-decoration-none text-white fs-6 fw-bold" href="./categorie">Catégories</a>
        </li>
        <li class="list-unstyled px-3 py-1 mb-1">
+          <a class="text-decoration-none text-white fs-6 fw-bold" href="./livraison">Livraison</a>
+       </li>
+       <li class="list-unstyled px-3 py-1 mb-1">
           <a class="text-decoration-none text-white fs-6 fw-bold" href="./vente">Vente Magasin</a>
        </li>
        <li class="list-unstyled px-3 py-1 mb-1">

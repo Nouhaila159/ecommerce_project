@@ -38,6 +38,11 @@
             <div class="text-end mb-3">
                <a href="{{ route('ajouterVente') }}" class="btn btn-primary">Ajouter une commande</a>
            </div>
+             <div class="col text-end">
+             <form action="{{ route('supprimerCommandesAnnuleesV') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-danger">Supprimer les Commandes annulées</button>
+</form></div>
            <form class="form-search" action="{{ route('vente.search') }}" method="GET">
             <input type="text" class="fs-4 px-3" name="query">
             <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-primary">Rechercher</button>

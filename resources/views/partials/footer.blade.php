@@ -1,5 +1,5 @@
 <footer>
-  <div class="footer-bottom" style="text-align: center;">
+  <div class="footer-bottom" style="text-align: center; margin-bottom: 20px;">
       @php
           // Utilisez la classe InfoSite pour récupérer les informations du footer depuis la base de données
           $infoSite = \App\Models\InfoSite::find(1); // Assurez-vous que 1 est l'ID correct de votre enregistrement

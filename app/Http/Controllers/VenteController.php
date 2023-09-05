@@ -39,8 +39,34 @@ class VenteController extends Controller
     }
 
     return view('/vente', ['commandesAvecMontantTotal' => $commandesAvecMontantTotal, 'clients' => $clients,'commandes'=>$commandes]);
+
 }
 
+public function supprimerCommandesAnnuleesV()
+{
+        // Supprimez les commandes avec validation "annulée" et origine "siteWeb"
+        Commandes::where('validation', 'annulée')->where('origine', '<>', 'siteWeb')->delete();
+        $clients = Client::all();
+        
+        // Récupérer uniquement les commandes avec origine différent 'siteWeb'
+        $commandes = Commandes::with('client')
+            ->where('origine', '<>', 'siteWeb')
+            ->paginate(4)->onEachSide(0);
+    
+        $commandesAvecMontantTotal = [];
+        foreach ($commandes as $commande) {
+            $montantTotal = $commande->prixTotal + $commande->prix_livraison;
+            $commandesAvecMontantTotal[] = [
+                'commande' => $commande,
+                'montantTotal' => $montantTotal,
+            ];
+        }
+    
+        return view('/vente', ['commandesAvecMontantTotal' => $commandesAvecMontantTotal, 'clients' => $clients,'commandes'=>$commandes]);
+    
+        // Redirigez l'utilisateur vers la page des commandes (ou une autre page de votre choix)
+        
+}
 public function search(Request $request)
 {
     $query = $request->input('query');
@@ -210,7 +236,26 @@ public function detailVente($id)
 
     // Enregistre les modifications dans la base de données
     $commande->save();
-    return redirect()->back()->with('success', 'Validation mise à jour avec succès');
+    if($nouvelleValidation=='annulée'){
+        $ligneCommandes = ligne_Commande::where('idCommande', $id)->get(); 
+
+        if (!$ligneCommandes) {
+            return response()->json(['success' => false, 'message' => 'Détail introuvable']);
+        }
+    
+        foreach ($ligneCommandes as $ligneCommande) {    
+            $idR = $ligneCommande->idR;
+            $tailleL = $ligneCommande->idT;
+            $quantite = $ligneCommande->quantite;
+        
+            //$ligneCommande->delete();
+        
+            // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
+            $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+        }
+
+}
+      return redirect()->back()->with('success', 'Validation mise à jour avec succès');
 
 }
 
@@ -284,14 +329,6 @@ public function telechargerFactureV($id)
     } catch (\Exception $e) {
         return back()->with('error', 'Une erreur s\'est produite lors de la génération de la facture.');
     }
-}
-public function updateValidation(Request $request, $id)
-{
-    $commande = Commandes::findOrFail($id);
-    // Enregistre les modifications dans la base de données
-    $commande->save();
-
-    return redirect()->back()->with('success', 'Validation mise à jour avec succès');
 }
 
 public function ajouterVente()
@@ -420,8 +457,6 @@ public function getReferenceSizes($id)
     return response()->json(['sizes' => $sizes]);
 }
 
-
-
 public function ajouter_referenceVente(Request $request)
 {
     $idCommande = $request->input('idVente');
@@ -539,8 +574,6 @@ public function ajouter_referenceVente(Request $request)
         // En cas d'erreur, annuler les modifications
         DB::rollback();}
 }
-
-
 
 public function supprimerLigneCommande($id)
 {

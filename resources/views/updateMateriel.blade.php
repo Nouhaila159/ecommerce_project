@@ -36,7 +36,7 @@
                      <input type="hidden" name="idMateriel" value="{{ $materiels->idMateriel }}">
                      <div class="mb-3">
                         <label for="materiel" class="form-label">Nom de la Matière première</label>
-                        <input type="text" class="form-control" id="materiel" name="materiel" value="{{ $materiels->materiel }}">
+                        <input type="text" class="form-control" id="materiel" name="materiel" value="{{ $materiels->materiel }}" required>
                      </div>
                      <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary me-2">Modifier Matière première</button>
