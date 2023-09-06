@@ -246,7 +246,8 @@ Route::get('/product', function () {
 Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
-
+Route::get('/historique', function () {return view('frontend.historique');})->name('historique');
+Route::get('/historique', [CartController::class, 'historiqueCommandes'])->name('historique');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
