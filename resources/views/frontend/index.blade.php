@@ -91,6 +91,8 @@
                             </div> 
                         </div>
                     </li>
+                    <li><a href="historique">Mon Historique</a></li>
+
 
                 </ul>
             </div>
@@ -163,74 +165,101 @@
                 </div>
             </div>
             <div class="row">
-    <h4>Les produits disponibles</h4>
-    <div class="tab-content">
-        <div id="featured" class="tab-pane fade in active">
-            <div class="products">
-                <div class="col-sm-7 five-three">
-                    @php
-                        $chunkedProducts = $produitsPublies->chunk(2); // Divisez les produits en groupes de 4
-                    @endphp
-                    
-                    @foreach($chunkedProducts as $chunk)
-                        <div class="row">
-                            @foreach($chunk as $produit)
-                                <div class="col-sm-4">
-                                                <div class="product">
-                                                    <div class="product-info"> <!-- Ajout de la classe product-info -->
-                                                        <div class="image">
-                                                            @php
-                                                                $firstReference = $produit->references->first();
-                                                            @endphp
-                                                            @if($firstReference)
+                <h4>Les produits disponibles</h4>
+                <div class="tab-content">
+                    <div id="featured" class="tab-pane fade in active">
+                        <div class="products">
+                            <div class="col-sm-7 five-three">
+                                @php
+                                $chunkedProducts = $produitsPublies->sortBy('created_at')->chunk(3);
+                                @endphp
+            
+                                @foreach($chunkedProducts as $chunk)
+                                    @foreach($chunk as $produit)
+                                        <div class="col-sm-3 product-margin">
+                                            <div class="product">
+                                                <div class="product-info"> <!-- Ajout de la classe product-info -->
+                                                    <div class="image">
+                                                        @php
+                                                            $firstReference = $produit->references->first();
+                                                        @endphp
+                                                        @if($firstReference)
                                                             <a href="{{ route('product.show', ['id' => $produit->idP]) }}">
                                                                 <img src="{{ asset('storage/' . $firstReference->urlPhoto) }}"  alt="Product Image"/>
                                                             </a>
-                                                            
+                                                        @endif
+                                                        <ul class="buttons">
+                                                            <li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                                                            <li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
+                                                            <li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
+                                                        </ul>
+                                                    </div>
+            
+                                                    <div class="caption">
+                                                        <div class="name"><h4>{{ $produit->nomP }}</h4></div>
+                                                        <div>
+                                                            @if ($produit->reductionP > 0)
+                                                                <span class="reduced-price green-text">
+                                                                    {{ $produit->prixP - ($produit->reductionP * $produit->prixP) / 100 }}MAD
+                                                                </span>
+                                                                <del class="original-price red-text">{{ $produit->prixP }}MAD</del>
+                                                                <span class="reduction-rate">(-{{ $produit->reductionP }}%)</span>
+                                                            @else
+                                                                <span>{{ $produit->prixP }} MAD</span>
                                                             @endif
-                                                            <ul class="buttons">
-                                                                <li><a class="btn btn-2 cart" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
-                                                                <li><a class="btn btn-2 wishlist" href="#"><span class="glyphicon glyphicon-heart"></span></a></li>
-                                                                <li><a class="btn btn-2 compare" href="#"><span class="glyphicon glyphicon-transfer"></span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                        
-                                                        <div class="caption">
-                                                            <div class="name"><h4>{{ $produit->nomP }}</h4></div>
-                                                            <div>
-                                                                @if ($produit->reductionP > 0)
-																<span class="reduced-price green-text">
-                                                                        {{ $produit->prixP - ($produit->reductionP * $produit->prixP) / 100 }}MAD
-                                                                    </span>
-                                                                    <del class="original-price red-text">{{ $produit->prixP }}MAD</del>
-                                                                    <span class="reduction-rate">(-{{ $produit->reductionP }}%)</span>
-                                                                @else
-                                                                    <span>{{ $produit->prixP }} MAD</span>
-                                                                @endif
-                                                            </div>
-                                                            <div class="rating">
-                                                                <span class="glyphicon glyphicon-star"></span>
-                                                                <span class="glyphicon glyphicon-star"></span>
-                                                                <span class="glyphicon glyphicon-star"></span>
-                                                                <span class="glyphicon glyphicon-star"></span>
-                                                                <span class="glyphicon glyphicon-star-empty"></span>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-											
-
+                                        </div>
+                                    @endforeach
+                                @endforeach
+                            </div>
+                            <div id="sidebar" class="col-md-4">
+                                <div class="widget wid-categories">
+                                    <div class="heading"><h4>CATEGORIES</h4></div>
+                                    <div class="content">
+                                        <ul>
+                                            @foreach($categories as $categorie)
+                                                <li><a href="#">{{ $categorie->categorie }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget wid-categories">
+                                    <div class="heading"><h4>Matières textiles</h4></div>
+                                    <div class="content">
+                                        <ul>
+                                            @foreach($materiels as $materiel)
+                                                <li><a href="#">{{ $materiel->materiel }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="widget wid-brand">
+                                    <div class="heading"><h4>Marque</h4></div>
+                                    <div class="content">
+                                        @foreach($marques as $marque)
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="brand">{{ $marque->marque }}
+                                            </label>
                                         @endforeach
                                     </div>
-                    @endforeach
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+            
 
-							<div class="clear"></div>
+							
+<div class="clear">
+
+</div>
 						</div>
 					</div>
 					<div id="new" class="tab-pane fade">
@@ -392,6 +421,9 @@
 
 .green-text {
     color: green;
+}
+.product-margin {
+    margin-right: 50px; /* Ajoutez la marge à droite de chaque élément */
 }
 
 	</style>

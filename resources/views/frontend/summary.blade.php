@@ -84,6 +84,8 @@
 							</div> 
 						</div>
 					</li>
+					<li><a href="historique">Mon Historique</a></li>
+
 
 				</ul>
 			</div>
@@ -174,32 +176,27 @@
 					
 						
 						<table>
-
 							<h6>Facture</h6>
 							<form method="POST" action="{{ route('calculate-total-price') }}" id="delivery-form">
 								@csrf
 								<label for="delivery_charge">Frais de livraison par ville :</label>
 								<select id="delivery_charge" name="delivery_charge">
-									<option value="20">Marrakech (20 MAD)</option>
-									<option value="30">Casablanca (30 MAD)</option>
-									<option value="50">Autres villes (50 MAD)</option>
+									@foreach ($livraison as $city)
+										<option value="{{ $city->prix }}">{{ $city->livraison }} ({{ $city->prix }})</option>
+									@endforeach
 								</select>
-							
 								<!-- Champ caché pour stocker le nom de la ville -->
-								<input type="hidden" id="selected_city_input" name="selected_city" value="">
-								
-								<button type="submit" class="btn btn-primary">choisir une ville</button>
+								<input type="hidden" id="selected_city" name="selected_city" value="">
+								<!-- Champ caché pour stocker le prix de livraison -->
+								<input type="hidden" id="delivery-price" name="delivery-price" value="">
+								<button type="submit" class="btn btn-primary">valider</button>
 							</form>
 							
-							
 							<div>
-								@if(session()->has('selected_city'))
-									<p>Le prix de livraison : {{ session('delivery_charge') }} MAD</p>
-									<p>Ville de livraison : {{ session('selected_city') }}</p>
-								@endif
+								<p id="displayed-delivery-price">Le prix de livraison : {{ session('delivery-charge') }} MAD</p>
+								<p id="displayed-selected-city">Ville de livraison : {{ session('selected_city') }}</p>
 							</div>
-							
-							
+
 							@php
 								$totalPrice = 0; // Initialisez le total à zéro
 							@endphp
@@ -221,7 +218,7 @@
 								</tr>
 							@endforeach
 						   
-							<tr style="border-top: 1px solid #333">
+							<tr style="border-top: 1px solid #000">
 								<td><h5>TOTAL</h5></td>
 								<td>
 									@if(session('totalPrice'))
@@ -233,7 +230,8 @@
 							</tr>
 						</table>
 						
-						<center><a href="#" class="btn btn-1" data-toggle="modal" data-target="#checkoutModal">Checkout</a></center>
+						<center><a href="#" class="btn btn-1" data-toggle="modal" data-target="#checkoutModal" id="checkout-button">Checkout</a></center>
+
 					</div>
 				</div>
 			</div>
@@ -297,8 +295,9 @@
 							</div>
 							<div class="form-group">
 								<label for="prix_livraison">Prix de livraison :</label>
-								<input type="number" name="prix_livraison" id="prix_livraison" class="form-control" value="{{ session('delivery_charge') }}">
-							</div>     
+								<input type="number" name="prix_livraison" id="prix_livraison" class="form-control" value="{{ session('delivery-charge') }}" readonly>
+							</div>
+							   
 							<button type="button" id="prev-button" class="btn btn-secondary">Précédent</button>
 							<button type="submit" class="btn btn-primary">Valider</button>              
 						 </form>
@@ -330,47 +329,22 @@
 }
 </style>
 <script>
-    // Variable JavaScript pour stocker le nom de la ville
-    var selectedCity = "{{ session('selected_city') }}";
+    const deliveryForm = document.getElementById('delivery-form');
 
-    // Fonction pour mettre à jour le nom de la ville
-    function updateSelectedCity(cityName) {
-        document.getElementById("selected_city").textContent = cityName;
-    }
+    deliveryForm.addEventListener('submit', function(event) {
+        // Récupérez la valeur sélectionnée dans le menu déroulant
+        const selectedOption = document.getElementById('delivery_charge').options[document.getElementById('delivery_charge').selectedIndex];
+        const selectedCity = selectedOption.textContent.split('(')[0].trim();
+        const selectedPrice = selectedOption.value;
 
-    // Mettez à jour le nom de la ville lorsque la page est chargée
-    updateSelectedCity(selectedCity);
-
-    // Fonction pour gérer le changement de sélection
-    document.getElementById("delivery_charge").addEventListener("change", function() {
-        var selectedValue = this.value;
-        var cityName = "";
-
-        // Associez la valeur à un nom de ville
-        switch (selectedValue) {
-            case "20":
-                cityName = "Marrakech";
-                break;
-            case "30":
-                cityName = "Casablanca";
-                break;
-            case "50":
-                cityName = "Autres villes";
-                break;
-            default:
-                cityName = "Inconnu";
-        }
-
-        // Mettez à jour le nom de la ville dans la variable JavaScript
-        selectedCity = cityName;
-
-        // Affichez le nom de la ville sur la page
-        updateSelectedCity(cityName);
-
-        // Mettez à jour la valeur du champ caché
-        document.getElementById("selected_city_input").value = cityName;
+        // Mettez à jour les champs cachés avec la ville sélectionnée et le prix de livraison
+        document.getElementById('selected_city').value = selectedCity;
+        document.getElementById('delivery-price').value = selectedPrice;
     });
 </script>
+
+
+
 <script>
 $(document).ready(function() {
     // Masquer la deuxième étape au chargement de la page
@@ -389,6 +363,7 @@ $(document).ready(function() {
     });
 });
 </script>
+
 
 </body>
 </html>

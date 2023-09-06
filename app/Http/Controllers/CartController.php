@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Commandes;
 use App\Models\Ligne_commande;
+use App\Models\Livraison;
 
 use Carbon\Carbon;
 class CartController extends Controller
@@ -99,7 +100,7 @@ return redirect()->route('summary')->with('error', 'Les détails de ce produit s
 {
     // Obtenez l'ID de l'utilisateur connecté
     $user_id = auth()->user()->id;
-
+$livraison=Livraison::all();
     // Récupérez tous les éléments du panier de l'utilisateur connecté avec leurs données associées
     $paniers = Panier::with('produit', 'reference', 'taille')
         ->where('user_id', $user_id)
@@ -119,7 +120,7 @@ return redirect()->route('summary')->with('error', 'Les détails de ce produit s
     // Retournez la vue "frontend.summary" avec les données
     return view('frontend.summary', [
         'paniers' => $paniers,
-        'produit' => $produit,'paniersCount'=>$paniersCount,
+        'produit' => $produit,'paniersCount'=>$paniersCount,'livraison'=>$livraison,
         // Ajoutez d'autres données si nécessaire
     ]);
 }
@@ -127,25 +128,9 @@ return redirect()->route('summary')->with('error', 'Les détails de ce produit s
 public function calculateTotalPrice(Request $request)
 {
     // Récupérez le montant des frais de livraison depuis la requête
-    $deliveryCharge = (float) $request->input('delivery_charge');
-
-    // Obtenez le nom de la ville sélectionnée
-    $cityName = "";
+    $selectedCity = $request->input('selected_city');
+    $deliveryCharge = (float) $request->input('delivery-price');
     
-    switch ($request->input('delivery_charge')) {
-        case "20":
-            $cityName = "Marrakech";
-            break;
-        case "30":
-            $cityName = "Casablanca";
-            break;
-        case "50":
-            $cityName = "Autres villes";
-            break;
-        default:
-            $cityName = "Inconnu";
-    }
-
     // Obtenez l'ID de l'utilisateur connecté
     $user_id = auth()->user()->id;
 
@@ -171,11 +156,10 @@ public function calculateTotalPrice(Request $request)
     $totalPrice += $deliveryCharge;
 
     // Stockez le nom de la ville et le montant de la livraison dans la session
-    $request->session()->put('selected_city', $cityName);
-    $request->session()->put('delivery_charge', $deliveryCharge);
-
+    $request->session()->put('selected_city', $selectedCity);
+    $request->session()->put('delivery-charge', $deliveryCharge);
     // Redirigez vers la page avec le nouveau prix total
-    return redirect()->route('summary')->with('totalPrice', $totalPrice);
+    return redirect()->route('summary')->with('totalPrice', $totalPrice,);
 }
 
 
@@ -216,14 +200,7 @@ public function destroy(Panier $panier)
 
     // Supprimez le panier
     $panier->delete();
-// Mettez à jour la quantité de stock de la taille correspondante
 
-// Recherchez la taille correspondante dans la table "tailles"
-//$taille = Tailles::find($tailleId);
-
-// Incrémentez la quantité de stock
-//$taille->quantiteT += $quantiteSupprimee;
-//$taille->save();
 // Utilisez redirect() pour rediriger vers la vue "summary"
     return redirect()->route('summary');
 }
@@ -329,20 +306,35 @@ public function destroy(Panier $panier)
     return redirect()->route('summary', ['success' => 'Votre commande a été envoyée avec succès. Nous vous contacterons bientôt.']);
 }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-   
+public function historiqueCommandes()
+{
+    // Récupérez l'utilisateur connecté
+    $user = Auth::user();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-   
+    // Récupérez le client associé à l'email de l'utilisateur
+    $client = Client::where('emailC', $user->email)->first();
+    $cnt = 0; 
+    if ($client) {
+        // Récupérez toutes les commandes du client en fonction de son idC
+        $commandes = Commandes::where('idC', $client->idC)->get();
+
+        $lignesCommande = [];
+
+        // Parcourez chaque commande pour récupérer ses lignes de commande
+        foreach ($commandes as $commande) {
+            // Récupérez les lignes de commande pour cette commande spécifique
+            $lignes = Ligne_commande::where('idCommande', $commande->idCommande)->get();
+            
+            // Ajoutez les lignes de commande à un tableau associatif avec la clé étant l'id de la commande
+            $lignesCommande[$commande->idCommande] = $lignes;
+        }
+
+        // Renvoyez la vue après avoir récupéré toutes les lignes de commande
+        return view('frontend.historique', ['commandes' => $commandes, 'lignesCommande' => $lignesCommande,'cnt'=>$cnt]);
+    }
+    else
+    return view('frontend.historique');
+
+}
+
 }

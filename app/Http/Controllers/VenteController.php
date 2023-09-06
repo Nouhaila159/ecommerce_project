@@ -31,6 +31,7 @@ class VenteController extends Controller
 
     $commandesAvecMontantTotal = [];
     foreach ($commandes as $commande) {
+        
         $montantTotal = $commande->prixTotal + $commande->prix_livraison;
         $commandesAvecMontantTotal[] = [
             'commande' => $commande,
@@ -143,7 +144,8 @@ public function detailVente($id)
             ];
 
             $totalProduits += $ligneCommande->quantite;
-            $prixTotal += $produit->prixP * $ligneCommande->quantite;
+            $prixTotal += ($produit->prixP- ($produit->reductionP * $produit->prixP) / 100) * $ligneCommande->quantite;
+
         }
     }
 
@@ -303,7 +305,8 @@ public function genererFactureV($id){
             ];
     
             $totalProduits += $ligneCommande->quantite;
-            $prixTotal += $produit->prixP * $ligneCommande->quantite;
+            $prixTotal += ($produit->prixP- ($produit->reductionP * $produit->prixP) / 100) * $ligneCommande->quantite;
+
         }
     }
     
