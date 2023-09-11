@@ -57,6 +57,15 @@
         @else
             <li><a href="account"><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
+		<li>	<div aria-labelledby="navbarDropdown">
+			<a class="dropdown-item" href="#" onclick="logout();">
+				{{ __('Logout') }}
+			</a>
+			<!-- Le champ bouton submit pour le formulaire de déconnexion -->
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+				@csrf
+			</form>
+		</div></li>
         <li><a href="contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
     </ul>
 				</div>
@@ -212,6 +221,11 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script>
+	function logout() {
+		// Envoie de la requête de déconnexion au serveur
+		document.getElementById('logout-form').submit();
+	}
+	</script>
 </body>
 </html>

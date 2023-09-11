@@ -64,6 +64,15 @@ $AdresseS= $infoSite->adesseS;
         @else
             <li><a href="account"><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
+		<li>	<div aria-labelledby="navbarDropdown">
+			<a class="dropdown-item" href="#" onclick="logout();">
+				{{ __('Logout') }}
+			</a>
+			<!-- Le champ bouton submit pour le formulaire de déconnexion -->
+			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+				@csrf
+			</form>
+		</div></li>
         <li><a href="contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
     </ul>
 				</div>
@@ -152,5 +161,11 @@ $AdresseS= $infoSite->adesseS;
 		</div>
 	</div>
 	@include('partials._footer')
+	<script>
+		function logout() {
+			// Envoie de la requête de déconnexion au serveur
+			document.getElementById('logout-form').submit();
+		}
+		</script>
 </body>
 </html>

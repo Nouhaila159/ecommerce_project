@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\Marque;
@@ -30,8 +31,18 @@ class FrontProduitController extends Controller
         ->where('statutP', 'publié') // Filtrer les produits publiés
         ->paginate(10)
         ->onEachSide(0);
-        $paniersCount = Panier::count();
-
+        if (Auth::check()) {
+            // Récupérez l'utilisateur connecté
+            $user = Auth::user();
+        
+            // Ensuite, récupérez le nombre d'articles dans son panier
+            $paniersCount = Panier::where('user_id', $user->id)->count();
+        
+            // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+        } else {
+            // Aucun utilisateur n'est connecté, gérez-le en conséquence
+            $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+        }
     return view('frontend.index', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
@@ -41,26 +52,7 @@ class FrontProduitController extends Controller
     ]);
     }
 
-    public function produitSite()
-    {
-    $marques = Marque::all();
-    $categories = Categorie::all();
-    $materiels = Materiel::all();
-    $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
-        ->where('statutP', 'publié') // Filtrer les produits publiés
-        ->paginate(10)
-        ->onEachSide(0);
-        $paniersCount = Panier::count();
-
-    return view('frontend.product', [
-        'produitsPublies' => $produitsPublies,
-        'marques' => $marques,
-        'categories' => $categories,
-        'materiels' => $materiels,
-        'paniersCount'=>$paniersCount,
-    ]);
-    }
-
+    
     public function show($id)
 {
     $marques = Marque::all();
@@ -73,8 +65,18 @@ class FrontProduitController extends Controller
 
     // Récupérer les références associées au produit
     $references = Reference::where('idP', $id)->get();
-    $paniersCount = Panier::count();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     return view('frontend.product', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
