@@ -16,7 +16,10 @@ use App\Http\Controllers\FrontProduitController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserC;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,17 +37,24 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 */
 // Routes protégées nécessitant une authentification
+Auth::routes();
 Route::get('/', function () {
     return view('master');
 });
+Route::get('/blocked', function () {
+    return view('blocked');
+})->name('blocked');
+Route::POST('/blocked{userId}', [UserController::class, 'blocked'])->name('blocked.user');
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
 
 /////////////////////////////////////////////////////////ADMIN::::::::::::::::::::::::::::::::::::::::::::::::::::
 Route::middleware('auth')->group(function () {
 
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+//Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
+Route::middleware(["isAdmin"])->group(function (){
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
     Route::get('/orders', function () {
         return view('orders');
@@ -72,13 +82,13 @@ Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logou
     Route::get('/users', function () {
         return view('users');
     });
-    
+    Route::post('/add_admin', [UserController::class, 'store'])->name('user.store');
+
     Route::get('/brands', function () {
         return view('brands');
     });
 
-    Route::get('/index',
-    [FrontProduitController::class, 'index'])->name('frontend.index');
+    
 
     Route::get('/materiel', function () {
         return view('materiel');
@@ -202,17 +212,19 @@ Route::put('/settings/{id}', [InfoSiteController::class, 'updateInfoSite'])->nam
 Route::get('/messages', [ContactController::class, 'index'])->name('contact.index');
 Route::delete('/messages/delete/{id}', [ContactController::class, 'delete'])->name('message.delete');
 
-//crud cart 
-Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
 
 //CRUD USER
 Route::get('/users', [HomeController::class, 'indexUsers'])->name('users.index');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
 
+//crud cart 
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/index',
+    [FrontProduitController::class, 'index'])->name('frontend.index');
 /////////////////////////////////////////////////////////SITEWEB::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
@@ -251,3 +263,4 @@ Route::get('/historique', [CartController::class, 'historiqueCommandes'])->name(
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
+});

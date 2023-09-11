@@ -38,8 +38,18 @@ class CartController extends Controller
         // Récupérer la taille et la quantité depuis les données de la requête
         $selectedTaille = $request->get('selected_taille');
         $selectedQuantite = $request->get('selected_quantite');
-        $paniersCount = Panier::count();
-
+        if (Auth::check()) {
+            // Récupérez l'utilisateur connecté
+            $user = Auth::user();
+        
+            // Ensuite, récupérez le nombre d'articles dans son panier
+            $paniersCount = Panier::where('user_id', $user->id)->count();
+        
+            // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+        } else {
+            // Aucun utilisateur n'est connecté, gérez-le en conséquence
+            $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+        }
         return view('frontend.cart', compact('product', 'reference',  'selectedTaille', 'selectedQuantite','paniersCount'));
     }
 
@@ -64,8 +74,18 @@ class CartController extends Controller
     ->where('idT', $taille->idT)
     ->first();
   
-        $paniersCount = Panier::count();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     // Calculer la nouvelle quantité en stock
     //$nouvelleQuantiteStock = $taille->quantiteT - $quantite;
 
@@ -107,8 +127,18 @@ $livraison=Livraison::all();
         ->get();
 
     // Vous pouvez également ajouter d'autres opérations si nécessaire, comme le calcul du total, etc.
-    $paniersCount = Panier::count();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     // Vous devrez peut-être récupérer les informations du produit ici
     // par exemple, si vous voulez obtenir le premier panier (car les produits devraient être les mêmes)
     // et accéder au produit à partir de là
@@ -167,8 +197,18 @@ public function update(Request $request, $idPaniers)
 {
     // Retrieve the shopping cart item
     $panier = Panier::findOrFail($idPaniers);
-    $paniersCount = Panier::count();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     // Retrieve the selected size and its available stock quantity
     $selectedSize = Tailles::findOrFail($panier->idT);
     $availableStock = $selectedSize->quantiteT;
@@ -196,8 +236,18 @@ if ($enteredQuantity > $availableStock) {
 public function destroy(Panier $panier)
 {    $quantiteSupprimee = $panier->quantiteP;
     $tailleId = $panier->idT;
-    $paniersCount = Panier::count();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     // Supprimez le panier
     $panier->delete();
 
@@ -310,7 +360,18 @@ public function historiqueCommandes()
 {
     // Récupérez l'utilisateur connecté
     $user = Auth::user();
-
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
     // Récupérez le client associé à l'email de l'utilisateur
     $client = Client::where('emailC', $user->email)->first();
     $cnt = 0; 
@@ -330,7 +391,7 @@ public function historiqueCommandes()
         }
 
         // Renvoyez la vue après avoir récupéré toutes les lignes de commande
-        return view('frontend.historique', ['commandes' => $commandes, 'lignesCommande' => $lignesCommande,'cnt'=>$cnt]);
+        return view('frontend.historique', ['commandes' => $commandes, 'lignesCommande' => $lignesCommande,'cnt'=>$cnt,'paniersCount'=>$paniersCount]);
     }
     else
     return view('frontend.historique');
