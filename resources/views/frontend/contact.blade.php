@@ -62,7 +62,7 @@ $AdresseS= $infoSite->adesseS;
         @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
         @else
-            <li><a href="account"><span class="glyphicon glyphicon-user"></span> My account</a></li>
+            <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
 		<li>	<div aria-labelledby="navbarDropdown">
 			<a class="dropdown-item" href="#" onclick="logout();">

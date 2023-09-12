@@ -50,7 +50,7 @@
                    <th>Description</th>
                    <th>Marque</th>
                    <th>Matériel</th>
-                   <th>Ctégorie</th>
+                   <th>Catégorie</th>
                    <th>Prix</th>
                    <th>Réduction</th>
                    <th>Detail</th>

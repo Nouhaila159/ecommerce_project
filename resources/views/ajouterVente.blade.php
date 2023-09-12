@@ -109,7 +109,7 @@
                         <div class="mb-3">
                             <label for="prix_livraison" class="form-label">Origine</label>
                             <select class="form-select" id="origine" name="origine" required>
-                                <option value="Magazin">Magazin</option>
+                                <option value="Magasin">Magasin</option>
                                 <option value="SiteWeb">SiteWeb</option>
                             </select>
                         </div>

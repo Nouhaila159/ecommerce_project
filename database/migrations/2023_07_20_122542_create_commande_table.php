@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->increments('idCommande');
             $table->integer('idC')->unsigned()->nullable();
+            $table->unsignedBigInteger('id')->nullable();
             $table->date('date_commande')->nullable();
             $table->date('date_livraison');
             $table->string('adresse_livraison', 500);
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('idC')->references('idC')->on('client')->onDelete('cascade');
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

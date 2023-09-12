@@ -278,6 +278,7 @@ public function destroy(Panier $panier)
     }
     public function storeC(Request $request)
 {
+    $user = Auth::user();
     // Validez les données du formulaire ici si nécessaire
 
     // Créez un nouvel enregistrement Client avec les données du formulaire
@@ -292,9 +293,11 @@ public function destroy(Panier $panier)
     // Ajoutez d'autres champs du formulaire ici
     $client->save();
     $latestClient = Client::latest()->first();
+      
 
     $commande = new Commandes();
     $commande->idC = $latestClient->idC;
+    $commande->id = $user->id;
     $commande->date_commande = Carbon::now();
     $commande->adresse_livraison = $request->input('adresse_livraison');
     $commande->date_livraison = $request->input('date_livraison');
@@ -373,11 +376,12 @@ public function historiqueCommandes()
         $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
     }
     // Récupérez le client associé à l'email de l'utilisateur
-    $client = Client::where('emailC', $user->email)->first();
+    $ConnectedUser = User::where('id', $user->id)->first();
     $cnt = 0; 
-    if ($client) {
+    if ($ConnectedUser) {
+        $clients = Client::all();
         // Récupérez toutes les commandes du client en fonction de son idC
-        $commandes = Commandes::where('idC', $client->idC)->get();
+        $commandes = Commandes::where('id', $ConnectedUser->id)->get();
 
         $lignesCommande = [];
 
@@ -394,7 +398,7 @@ public function historiqueCommandes()
         return view('frontend.historique', ['commandes' => $commandes, 'lignesCommande' => $lignesCommande,'cnt'=>$cnt,'paniersCount'=>$paniersCount]);
     }
     else
-    return view('frontend.historique');
+     return view('frontend.historique');
 
 }
 

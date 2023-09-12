@@ -25,7 +25,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title fs-3 mb-4 text-center">Détails de Produit de magazin</h1>
+                        <h1 class="card-title fs-3 mb-4 text-center">Détails de Produit de magasin</h1>
     <div class="mb-3">
         <input type="text" class="form-control"  value="Numéro de commande :{{ $idCommande }}" readonly>
     </div>

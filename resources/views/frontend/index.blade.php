@@ -57,7 +57,7 @@
 			@if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
 			  <li><a href=""><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
 			@else
-			  <li><a href="{{ route('account') }}"><span class="glyphicon glyphicon-user"></span> My account</a></li>
+			  <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
 			@endif
             <li>	<div aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" onclick="logout();">
@@ -88,19 +88,8 @@
                     <li><a href="accueil">Home</a></li>
 
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-inner">
-                                <ul class="list-unstyled">
-                                    <li><a href="category">Text 201</a></li>
-                                    <li><a href="category">Text 202</a></li>
-                                    <li><a href="category">Text 203</a></li>
-                                    <li><a href="category">Text 204</a></li>
-                                    <li><a href="category">Text 205</a></li>
-                                </ul>
-                            </div> 
-                        </div>
                     </li>
-                    <li><a href="historique">Mon Historique</a></li>
+                    <li><a href="{{ route('historique') }}">Mon Historique</a></li>
 
 
                 </ul>
@@ -134,7 +123,7 @@
                                 </div><!-- /header-text -->
                             </div>
                             <div class="item">
-                                <img src="images/main-banner2-1440x550.jpg" alt="Second slide">
+                                <img src="images/main-banner2-1440x550.jpg" style="height:400; width:1200" alt="Second slide">
                                 <!-- Static Header -->
                                 <div class="header-text hidden-xs">
                                     <div class="col-md-12 text-center">
@@ -142,7 +131,7 @@
                                 </div><!-- /header-text -->
                             </div>
                             <div class="item">
-                                <img src="images/main-banner3-1440x550.jpg" alt="Third slide">
+                                <img src="images/main-banner3-1440x550.jpg" style="height:400; width:1200" alt="Third slide">
                                 <!-- Static Header -->
                                 <div class="header-text hidden-xs">
                                     <div class="col-md-12 text-center">

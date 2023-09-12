@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('commentaire', function (Blueprint $table) {
             $table->increments('idCommentaire');
-            $table->integer('idC')->unsigned();
+            $table->unsignedBigInteger('id')->nullable();
             $table->integer('idP')->unsigned();
             $table->string('commentaire', 500);
-            $table->integer('note');
+            $table->boolean('statut')->default(false);
             $table->timestamps();
 
-            $table->foreign('idC')->references('idC')->on('client');
+            $table->foreign('id')->references('id')->on('users');
             $table->foreign('idP')->references('idP')->on('produit');
         });
     }

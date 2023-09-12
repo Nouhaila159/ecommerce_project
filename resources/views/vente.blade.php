@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Commande de magazin</title>
+   <title>Commande de magasin</title>
    <!-- Favicon -->
    <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
    <!-- Fontawesome Icons  -->
@@ -29,7 +29,7 @@
          <!------- Orders Content  ------>
          <div class="col-10 px-4 mt-3 product-content-container">
             <!-- Orders body heading title -->
-               <h1 class="fs-2 mb-3">Toutes les Commandes dans le magazin</h1>
+               <h1 class="fs-2 mb-3">Toutes les Commandes dans le magasin</h1>
             
             <!-- Orders Table  -->
             <!-- Orders Table  -->

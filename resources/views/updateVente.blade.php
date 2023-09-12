@@ -63,7 +63,7 @@
                         <div class="mb-3">
                             <label for="prix_livraison" class="form-label">Origine</label>
                             <select class="form-select" id="origine" name="origine" required>
-                                <option value="magazin" {{ $commande->origine === 'magazin' ? 'selected' : '' }}>Magazin</option>
+                                <option value="magasin" {{ $commande->origine === 'magasin' ? 'selected' : '' }}>Magasin</option>
                                 <option value="siteWeb" {{ $commande->origine === 'siteWeb' ? 'selected' : '' }}>SiteWeb</option>
                             </select>
                         </div>

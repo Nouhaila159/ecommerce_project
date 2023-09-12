@@ -51,7 +51,7 @@
         @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a></li>
         @else
-            <li><a href="account"><span class="glyphicon glyphicon-user"></span> My account</a></li>
+            <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
 		<li>	<div aria-labelledby="navbarDropdown">
 			<a class="dropdown-item" href="#" onclick="logout();">
@@ -93,7 +93,7 @@
 							</div> 
 						</div>
 					</li>
-					<li><a href="historique">Mon Historique</a></li>
+					<li><a href="{{ route('historique') }}">Mon Historique</a></li>
 
 
 				</ul>
@@ -118,6 +118,7 @@
 			<p>Commande : {{ $cnt }}</p>
 			 
 					<p>Date de commande : {{ $commande->date_commande }}</p>
+					<p>Nom du client : {{ $commande->client->nomC }} {{ $commande->client->prenomC }}</p>
 					<p>Date de livraison : {{ $commande->date_livraison }}</p>
 					<p>Prix de livraison  : {{ $commande->prix_livraison }}</p>
 					<p>l'état du commande  : {{ $commande->validation }}</p>
