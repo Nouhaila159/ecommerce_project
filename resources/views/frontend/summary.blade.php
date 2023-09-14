@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
     <meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive Html5 Templates">
     <meta name="author" content="https://www.Zerotheme.com">
 	
@@ -81,19 +82,7 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="accueil">Home</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
-						<div class="dropdown-menu">
-							<div class="dropdown-inner">
-								<ul class="list-unstyled">
-									<li><a href="category">Text 201</a></li>
-									<li><a href="category">Text 202</a></li>
-									<li><a href="category">Text 203</a></li>
-									<li><a href="category">Text 204</a></li>
-									<li><a href="category">Text 205</a></li>
-								</ul>
-							</div> 
-						</div>
-					</li>
+					
 					<li><a href="{{ route('historique') }}">Mon Historique</a></li>
 
 

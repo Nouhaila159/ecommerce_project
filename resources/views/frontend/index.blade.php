@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
     <meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive5 Templates">
     <meta name="author" content="https://www.Zerotheme.com">
     
@@ -59,17 +60,26 @@
 			@else
 			  <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
 			@endif
+            
+			<li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+            @if(Auth::check() && Auth::user()->roleId === 1)
+            <li><a href="{{ route('home.index') }}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            @endif
+
             <li>	<div aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" onclick="logout();">
-                    {{ __('Logout') }}
-                </a>
+            
+            @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-out"> {{ __('Logout') }}</a>
+			@else
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-in"> Login</a>
+			@endif
                 <!-- Le champ bouton submit pour le formulaire de déconnexion -->
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
-            </div></li>
-			<li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-		</ul>
+            </div>
+        </li>
+        </ul>
 	</div>
             </div>
         </div>
@@ -87,8 +97,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="accueil">Home</a></li>
 
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Men Fashion</a>
-                    </li>
                     <li><a href="{{ route('historique') }}">Mon Historique</a></li>
 
 

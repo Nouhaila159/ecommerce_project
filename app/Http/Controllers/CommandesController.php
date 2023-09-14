@@ -29,7 +29,7 @@ class CommandesController extends Controller
         // Récupérer uniquement les commandes avec origine = 'siteWeb'
         $commandes = Commandes::with('client')
             ->where('origine', 'siteWeb')
-            ->paginate(6)->onEachSide(0);
+            ->paginate(5)->onEachSide(0);
 
         $commandesAvecMontantTotal = [];
         foreach ($commandes as $commande) {
@@ -67,7 +67,7 @@ class CommandesController extends Controller
                                   ->orWhere('telC', 'like', "%$query%");
                   });
             })
-            ->paginate(6)->onEachSide(0);
+            ->paginate(5)->onEachSide(0);
     
         $commandesAvecMontantTotal = [];
         foreach ($commandes as $commande) {

@@ -263,4 +263,7 @@ Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('prod
 Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
+Route::get('/contact', [ContactController::class, 'showContactForm'])->name('contact');
+
+
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

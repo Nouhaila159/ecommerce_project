@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Panier;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
@@ -15,6 +17,7 @@ class ContactController extends Controller
      */
     public function index()
     {
+        
         $messages = Contact::all(); // Récupérez tous les messages depuis la base de données
         return view('messages')->with('messages', $messages);
     }
@@ -50,6 +53,26 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function showContactForm(Request $request)
+    {
+    if (Auth::check()) {
+        // Récupérez l'utilisateur connecté
+        $user = Auth::user();
+    
+        // Ensuite, récupérez le nombre d'articles dans son panier
+        $paniersCount = Panier::where('user_id', $user->id)->count();
+    
+        // Maintenant, $paniersCount contient le nombre d'articles dans le panier de l'utilisateur connecté
+    } else {
+        // Aucun utilisateur n'est connecté, gérez-le en conséquence
+        $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
+    }
+
+    return view('frontend.contact', [
+        'paniersCount'=>$paniersCount,
+    ]);
+        
+    }
 
     public function store(Request $request)
     {

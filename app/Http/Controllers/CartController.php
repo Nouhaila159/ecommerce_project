@@ -120,7 +120,7 @@ return redirect()->route('summary')->with('error', 'Les détails de ce produit s
 {
     // Obtenez l'ID de l'utilisateur connecté
     $user_id = auth()->user()->id;
-$livraison=Livraison::all();
+$livraison=Livraison::where('prix', '<>', '0')->get();
     // Récupérez tous les éléments du panier de l'utilisateur connecté avec leurs données associées
     $paniers = Panier::with('produit', 'reference', 'taille')
         ->where('user_id', $user_id)
@@ -289,6 +289,8 @@ public function destroy(Panier $panier)
     $client->adresseC = $request->input('adresseC');
     $client->villeC = $request->input('villeC');
     $client->emailC = $request->input('emailC'); 
+    $client->origine = 'siteWeb'; 
+
 
     // Ajoutez d'autres champs du formulaire ici
     $client->save();

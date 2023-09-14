@@ -77,6 +77,16 @@ class FrontProduitController extends Controller
         // Aucun utilisateur n'est connecté, gérez-le en conséquence
         $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
     }
+
+    $stock = Stock::where('idP', $id)->first();
+    $stockAvailable = false;
+
+    if ($stock) {
+        if ($stock->quantite_disponible > 0) {
+            $stockAvailable = true;
+        }
+    }
+    
     return view('frontend.product', [
         'produitsPublies' => $produitsPublies,
         'marques' => $marques,
@@ -84,6 +94,7 @@ class FrontProduitController extends Controller
         'materiels' => $materiels,
         'references' => $references,
         'paniersCount'=>$paniersCount,
+        'stockAvailable'=>$stockAvailable,
     ]);
 }
 

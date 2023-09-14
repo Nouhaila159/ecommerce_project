@@ -24,7 +24,7 @@ class ProduitController extends Controller
         $marques = Marque::all();
         $categories = Categorie::all();
         $materiels = Materiel::all();
-        $produits = Produit::with('marque', 'categorie', 'materiel')->paginate(10)->onEachSide(0);
+        $produits = Produit::with('marque', 'categorie', 'materiel')->paginate(6)->onEachSide(0);
     
         return view('produit', [
             'produits' => $produits,
@@ -52,7 +52,7 @@ class ProduitController extends Controller
                             ->orWhereHas('materiel', function ($materielQuery) use ($query) {
                                 $materielQuery->where('materiel', 'like', "%$query%");
                             })
-                            ->paginate(10)
+                            ->paginate(6)
                             ->onEachSide(0);
     
                             $marques = Marque::all();

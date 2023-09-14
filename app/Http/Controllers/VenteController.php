@@ -336,8 +336,8 @@ public function telechargerFactureV($id)
 
 public function ajouterVente()
     {
-        $client=Client::all();
-        return view('ajouterVente',['clients'=>$client]);
+        $clients = Client::where('origine', '<>', 'siteWeb')->get();
+        return view('ajouterVente', ['clients' => $clients]);
     }
 
 public function ajouterVentePost(Request $request)
@@ -360,6 +360,7 @@ public function ajouterVentePost(Request $request)
         $client->adresseC = $request->input('adresseC');
         $client->emailC = $request->input('emailC');
         $client->villeC = $request->input('villeC');
+        $client->origine = 'magasin'; 
         $client->save();
     }
     
