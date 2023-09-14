@@ -10,6 +10,7 @@ use App\Models\Reference;
 use App\Models\Produit;
 use App\Models\Tailles;
 use App\Models\Stock;
+use App\Models\Livraison;
 use Dompdf\Dompdf;
 
 class VenteController extends Controller
@@ -337,7 +338,8 @@ public function telechargerFactureV($id)
 public function ajouterVente()
     {
         $clients = Client::where('origine', '<>', 'siteWeb')->get();
-        return view('ajouterVente', ['clients' => $clients]);
+        $livraison=Livraison::all();
+        return view('ajouterVente',['clients'=>$clients,'livraison'=>$livraison,]);
     }
 
 public function ajouterVentePost(Request $request)

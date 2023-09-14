@@ -82,6 +82,12 @@ Route::middleware(["isAdmin"])->group(function (){
     Route::get('/users', function () {
         return view('users');
     });
+    Route::get('/commentaire', function () {
+        return view('commentaire');
+    });
+    Route::get('/commentaire', [FrontProduitController::class, 'showCommentaires'])->name('commentaires.index');
+    Route::patch('/commentaire/changer/{commentaire}', [FrontProduitController::class, 'changer'])->name('changer_commentaire');
+
     Route::post('/add_admin', [UserController::class, 'store'])->name('user.store');
 
     Route::get('/brands', function () {
@@ -260,6 +266,9 @@ Route::get('/historique', [CartController::class, 'historiqueCommandes'])->name(
 
 Route::get('/accueil', [FrontProduitController::class, 'index'])->name('accueil');
 Route::get('/product/{id}', [FrontProduitController::class, 'show'])->name('product.show');
+// web.php
+Route::post('/commentaire/storeCommentaire', [FrontProduitController::class, 'storeCommentaire'])->name('commentaire.storeCommentaire');
+
 Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
