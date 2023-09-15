@@ -25,11 +25,11 @@ class FrontProduitController extends Controller
      */
     public function index()
     {
-    $marques = Marque::all();
-    $categories = Categorie::all();
-    $materiels = Materiel::all();
-    $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
-        ->where('statutP', 'publié') // Filtrer les produits publiés
+        $marques = Marque::all();
+        $categories = Categorie::all();
+        $materiels = Materiel::all();
+        $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
+            ->where('statutP', 'publié') // Filtrer les produits publiés
         ->paginate(10)
         ->onEachSide(0);
         if (Auth::check()) {
@@ -44,13 +44,13 @@ class FrontProduitController extends Controller
             // Aucun utilisateur n'est connecté, gérez-le en conséquence
             $paniersCount = 0; // Par exemple, si personne n'est connecté, le panier est vide
         }
-    return view('frontend.index', [
-        'produitsPublies' => $produitsPublies,
-        'marques' => $marques,
-        'categories' => $categories,
-        'materiels' => $materiels,
-        'paniersCount'=>$paniersCount,
-    ]);
+        return view('frontend.index', [
+            'produitsPublies' => $produitsPublies,
+            'marques' => $marques,
+            'categories' => $categories,
+            'materiels' => $materiels,
+            'paniersCount'=>$paniersCount,
+        ]);
     }
 
     
@@ -201,6 +201,19 @@ public function showCommentaires()
         $message = $commentaire->statut ? 'Commentaire autorisé.' : 'Commentaire bloqué.';
         return redirect()->back()->with('success', $message);
     }
-    
+  
+    public function supprimerCommentairesBloques(){
+        try {
+            // Supprimez les commandes avec validation "annulée" et origine "siteWeb"
+            Commentaire::where('statut', '0')->delete();
+            
+            // Redirigez l'utilisateur vers la page des commandes (ou une autre page de votre choix)
+            return redirect()->route('commentaires.index');
+            
+        } catch (\Exception $e) {
+            // Gérez les erreurs ici (par exemple, journalisez-les ou affichez un message d'erreur)
+            return redirect()->route('commentaires.index')->with('error', 'Une erreur s\'est produite lors de la suppression des commentaires.');
+        }
+    }
      
 }

@@ -7,6 +7,7 @@
 		<link rel="icon" type="image/x-icon" href="./images/logo.jpeg">
 		<meta name="description" content="Free Bootstrap Themes by Zerotheme dot com - Free Responsive5 Templates">
 		<meta name="author" content="https://www.Zerotheme.com">
+
 		
 		<title>RedlySS</title>
 		
@@ -62,17 +63,24 @@
         @else
             <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
-		<li>	<div aria-labelledby="navbarDropdown">
-			<a class="dropdown-item" href="#" onclick="logout();">
-				{{ __('Logout') }}
-			</a>
-			<!-- Le champ bouton submit pour le formulaire de déconnexion -->
-			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-				@csrf
-			</form>
-		</div></li>
-        <li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-    </ul>
+	 <li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+            @if(Auth::check() && Auth::user()->roleId === 1)
+            <li><a href="{{ route('home.index') }}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            @endif
+
+            <li>	<div aria-labelledby="navbarDropdown">
+            
+            @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-out"> {{ __('Logout') }}</a>
+			@else
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-in"> Login</a>
+			@endif
+                <!-- Le champ bouton submit pour le formulaire de déconnexion -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+        </li>  </ul>
 				</div>
 			</div>
 		</div>
@@ -233,19 +241,18 @@
 								<p>{{ $produitsPublies->descriptionP }}</p>						
 							</div>
 							<div id="commentaire" class="tab-pane fade">
-								<form action="{{ route('commentaire.storeCommentaire') }}" method="POST" class="comment-form">
-									@csrf
-									<input type="hidden" name="productId" value="{{ $produitsPublies->idP }}">
-									<textarea name="comment" rows="2" style="width: 80%; margin-right: 65px;" placeholder="Write your comment here"></textarea>
-									<button type="submit" class="btn btn-primary">Submit</button>
-									
-								</form>
+							<form action="{{ route('commentaire.storeCommentaire') }}" method="POST" class="comment-form">
+    @csrf
+    <input type="hidden" name="productId" value="{{ $produitsPublies->idP }}">
+    <textarea name="comment" rows="2" style="width: 80%; margin-right: 10px; vertical-align: middle;" placeholder="Write your comment here"></textarea>
+    <button type="submit" class="btn btn-primary" style="vertical-align: middle;">Submit</button>
+</form>
 								<div class="commentaires">
 									@foreach ($commentaires as $commentaire)
-										<div class="comment">
-											<p>{{ $commentaire->commentaire }}</p>
-											<!-- Affichez d'autres détails du commentaire si nécessaire -->
-										</div>
+									<div class="comment">
+									<p>{{ $commentaire->commentaire }}</p>
+									<!-- Affichez d'autres détails du commentaire si nécessaire -->
+									</div>
 									@endforeach
 								</div>
 							</div>
@@ -320,8 +327,25 @@
 	}
 	
 
+    .commentaires {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
+.comment {
+    background-color: #f5f5f5; /* Couleur de fond grise */
+    padding: 20px;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre */
+    transition: transform 0.2s ease-in-out; /* Effet d'élévation */
+}
 
+.comment:hover {
+    transform: translateY(-5px); /* Léger déplacement vers le haut au survol */
+}
+
+  
 
 </style>
 	<script>

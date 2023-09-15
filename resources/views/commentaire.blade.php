@@ -30,6 +30,11 @@
          <div class="col-10 px-4 mt-3 product-content-container">
              <!-- Users body heading title -->
              <h1 class="fs-2 mb-3">Commentaires</h1>
+             <div class="col text-end">
+             <form action="{{ route('supprimerCommentairesBloques') }}" method="POST">
+    @csrf
+    <button type="submit" class="btn fs-7 px-3 fw-bold text-white btn-danger">Supprimer les Commentaires Bloqués</button>
+</form></div><br>
              <table class="table table-sm table-bordered table-hover table-striped">
                 <thead>
                     <tr>
@@ -90,5 +95,6 @@
    <!-- bootstrap Js  -->
    <!-- Custom Javascript  -->
    <script type="text/javascript" src="./js/admin-script.js"></script>
+ 
 </body>
 </html>

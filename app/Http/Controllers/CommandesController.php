@@ -101,20 +101,20 @@ class CommandesController extends Controller
     }
 
 
-public function updateStatut($id)
-{
-    $commande = Commandes::findOrFail($id);
-    $commande->update(['statut_commande' => 'traité']);
+    public function updateStatut($id)
+    {
+        $commande = Commandes::findOrFail($id);
+        $commande->update(['statut_commande' => 'traité']);
 
-    return response()->json(['message' => 'Statut mis à jour avec succès']);
-}
-public function updateStatutLivraison($id)
-{
-    $commande = Commandes::findOrFail($id);
-    $commande->update(['statut_livraison' => 'livré']);
+        return response()->json(['message' => 'Statut mis à jour avec succès']);
+    }
+    public function updateStatutLivraison($id)
+    {
+        $commande = Commandes::findOrFail($id);
+        $commande->update(['statut_livraison' => 'livré']);
 
-    return response()->json(['message' => 'Statut mis à jour avec succès']);
-}
+        return response()->json(['message' => 'Statut mis à jour avec succès']);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -224,43 +224,43 @@ public function updateStatutLivraison($id)
     }
   
 
-public function updateValidation(Request $request, $id)
-{
-    $commande = Commandes::findOrFail($id);
-    $nouvelleValidation = $request->input('validation'); // Récupère la nouvelle valeur de validation depuis le formulaire
-    $commande->validation = $nouvelleValidation; // Met à jour la valeur de validation dans l'objet Commandes
-    // Enregistre les modifications dans la base de données
-    $commande->save();
-    
-    if($nouvelleValidation=='annulée'){
-        $ligneCommandes = ligne_Commande::where('idCommande', $id)->get(); 
-
-        if (!$ligneCommandes) {
-            return response()->json(['success' => false, 'message' => 'Détail introuvable']);
-        }
-    
-        foreach ($ligneCommandes as $ligneCommande) {    
-            $idR = $ligneCommande->idR;
-            $tailleL = $ligneCommande->idT;
-            $quantite = $ligneCommande->quantite;
+    public function updateValidation(Request $request, $id)
+    {
+        $commande = Commandes::findOrFail($id);
+        $nouvelleValidation = $request->input('validation'); // Récupère la nouvelle valeur de validation depuis le formulaire
+        $commande->validation = $nouvelleValidation; // Met à jour la valeur de validation dans l'objet Commandes
+        // Enregistre les modifications dans la base de données
+        $commande->save();
         
-           
-            //$ligneCommande->delete();
+        if($nouvelleValidation=='annulée'){
+            $ligneCommandes = ligne_Commande::where('idCommande', $id)->get(); 
+
+            if (!$ligneCommandes) {
+                return response()->json(['success' => false, 'message' => 'Détail introuvable']);
+            }
         
-            // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
-            $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+            foreach ($ligneCommandes as $ligneCommande) {    
+                $idR = $ligneCommande->idR;
+                $tailleL = $ligneCommande->idT;
+                $quantite = $ligneCommande->quantite;
+            
+            
+                //$ligneCommande->delete();
+            
+                // Appeler une nouvelle méthode pour mettre à jour la quantité dans la table de référence
+                $this->mettreAJourQuantiteReference($idR,$tailleL, $quantite);
+            }
+
         }
+            return redirect()->back()->with('success', 'Validation mise à jour avec succès');
 
-  }
-     return redirect()->back()->with('success', 'Validation mise à jour avec succès');
+    }
+    private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
+    {
+        // Utiliser une transaction pour gérer les opérations atomiques
+        DB::beginTransaction();
 
-}
-private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
-{
-    // Utiliser une transaction pour gérer les opérations atomiques
-    DB::beginTransaction();
-
-    try {
+        try {
         // Mettre à jour la quantité dans la table des tailles
         $taille = Tailles::where('idR', $idR)
             ->where('idT', $tailleL)
@@ -290,12 +290,12 @@ private function mettreAJourQuantiteReference($idR, $tailleL, $quantite)
         DB::commit();
         return 0;
 
-    } catch (\Exception $e) {
-        // En cas d'erreur, annuler les modifications
-        DB::rollback();
+        } catch (\Exception $e) {
+            // En cas d'erreur, annuler les modifications
+            DB::rollback();
 
-        // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+            // Gérer l'erreur (redirection, réponse JSON d'erreur, message d'erreur, etc.)
+        }
     }
-}
 
 }

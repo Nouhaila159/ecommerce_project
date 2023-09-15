@@ -55,17 +55,25 @@
             <li><a href=""><span class="glyphicon glyphicon-user"></span> My account</a></li>
         @endif
 	
-		<li>	<div aria-labelledby="navbarDropdown">
-			<a class="dropdown-item" href="#" onclick="logout();">
-				{{ __('Logout') }}
-			</a>
-			<!-- Le champ bouton submit pour le formulaire de déconnexion -->
-			<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-				@csrf
-			</form>
-		</div></li>
-        <li><a href="contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
-    </ul>
+	 <li><a href="{{ route('contact') }}"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+            @if(Auth::check() && Auth::user()->roleId === 1)
+            <li><a href="{{ route('home.index') }}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            @endif
+
+            <li>	<div aria-labelledby="navbarDropdown">
+            
+            @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-out"> {{ __('Logout') }}</a>
+			@else
+            <a class="dropdown-item" href="#" onclick="logout();"><span class="glyphicon glyphicon-log-in"> Login</a>
+			@endif
+                <!-- Le champ bouton submit pour le formulaire de déconnexion -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+        </li>
+	</ul>
 				</div>
 			</div>
 		</div>

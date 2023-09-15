@@ -87,6 +87,7 @@ Route::middleware(["isAdmin"])->group(function (){
     });
     Route::get('/commentaire', [FrontProduitController::class, 'showCommentaires'])->name('commentaires.index');
     Route::patch('/commentaire/changer/{commentaire}', [FrontProduitController::class, 'changer'])->name('changer_commentaire');
+    Route::post('/supprimer-commentaire-bloque', [FrontProduitController::class, 'supprimerCommentairesBloques'])->name('supprimerCommentairesBloques');
 
     Route::post('/add_admin', [UserController::class, 'store'])->name('user.store');
 

@@ -30,7 +30,7 @@
          <div class="col-10 px-4 mt-3 product-content-container">
              <!-- Users body heading title -->
              <h1 class="fs-2 mb-3">Tous les Messages</h1>
-                <div class="message-list">
+                <div >
                     @foreach($messages as $message)
                     <div class="message-box alert">
                         <div class="message-box">
@@ -63,12 +63,11 @@
       </div>
    </div>
  <!-- Users Body  end-->
- @include('partials.footer')
+
 
 
    <!-- bootstrap Js  -->
    <!-- Custom Javascript  -->
-       <script type="text/javascript" src="./js/admin-script.js"></script>
 
 
    <script>
@@ -80,6 +79,10 @@
     }
 }
 </script>
+
+@include('partials.footer')
+
+<script type="text/javascript" src="./js/admin-script.js"></script>
 
 
    <style>
