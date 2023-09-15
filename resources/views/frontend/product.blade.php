@@ -136,12 +136,30 @@
 									<ul class="row">
 										@foreach($produitsPublies->references as $reference)
 											<li class="col-lg-4 col-sm-2">
-												<a href="#"><img class="img-responsive reference-image" src="{{ asset('storage/' . $reference->urlPhoto) }}"></a>
+												<!-- Ajoutez un attribut data-toggle et data-target pour déclencher la fenêtre modale -->
+												<a href="#" data-toggle="modal" data-target="#enlarged-image-modal" onclick="enlargeImage('{{ asset('storage/' . $reference->urlPhoto) }}')">
+													<img class="img-responsive reference-image" src="{{ asset('storage/' . $reference->urlPhoto) }}">
+												</a>
 												<p style="font-size: 10px">{{ $reference->referenceP }}</p>
 											</li>
 										@endforeach
 									</ul>
 								</div>
+								
+								<!-- Fenêtre modale pour l'image agrandie -->
+									<div class="modal fade" id="enlarged-image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										<div class="modal-dialog modal-lg" role="document">
+											<div class="modal-content">
+												<div class="modal-body">
+													<img class="img-responsive" src="" id="enlarged-img" alt="Image agrandie">
+													<button class="btn btn-primary" onclick="showPreviousImage()">Previous</button>
+													<button class="btn btn-primary" onclick="showNextImage()">Next</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -211,34 +229,34 @@
 					</div>	
 					<div class="product-desc">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#description">Description</a></li>
-							<li><a href="#review">Review</a></li>
+							<li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+							<li><a href="#commentaire" data-toggle="tab">Commentaire</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="description" class="tab-pane fade in active">
-							<p>{{ $produitsPublies->descriptionP }}</p>						
+								<p>{{ $produitsPublies->descriptionP }}</p>						
 							</div>
-							<div id="review" class="tab-pane fade">
-							  <div class="review-text">
-								<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							  </div>
-							  <div class="review-form">
-								<h4>Write a review</h4>
-									<form name="form1" id="ff" method="post" action="contact">
-										<label>
-										<span>Enter your name:</span>
-										<input type="text"  name="name" id="name" required>
-										</label>
-										<label>
-										<span>Your message here:</span>
-										<textarea name="message" id="message"></textarea>
-										</label>
-										<center><input class="sendButton" type="submit" name="Submit" value="Submit"></center>
-									</form>
-							  </div>
+							<div id="commentaire" class="tab-pane fade">
+								<form action="{{ route('commentaire.storeCommentaire') }}" method="POST" class="comment-form">
+									@csrf
+									<input type="hidden" name="productId" value="{{ $produitsPublies->idP }}">
+									<textarea name="comment" rows="2" style="width: 80%; margin-right: 65px;" placeholder="Write your comment here"></textarea>
+									<button type="submit" class="btn btn-primary">Submit</button>
+									
+								</form>
+								<div class="commentaires">
+									@foreach ($commentaires as $commentaire)
+										<div class="comment">
+											<p>{{ $commentaire->commentaire }}</p>
+											<!-- Affichez d'autres détails du commentaire si nécessaire -->
+										</div>
+									@endforeach
+								</div>
 							</div>
 						</div>
 					</div>
+					
+					
 				</div>
 				<div id="sidebar" class="col-md-4">
 					<div class="widget wid-categories">
@@ -382,6 +400,60 @@ function logout() {
 	document.getElementById('logout-form').submit();
 }
 </script>
+<script>
+    $(document).ready(function() {
+        // Cacher le formulaire de commentaire au chargement de la page
+        $('#commentaire').removeClass('in active'); // Assurez-vous qu'il est caché
 
+        // Gérer les clics sur les onglets
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            if (e.target.href.includes('#commentaire')) {
+                $('#description').removeClass('in active');
+                $('#commentaire').addClass('in active');
+            } else {
+                $('#description').addClass('in active');
+                $('#commentaire').removeClass('in active');
+            }
+        });
+    });
+</script>
+<script>
+    var currentIndex = 0; // Variable pour suivre l'index de l'image actuellement affichée
+
+    // Fonction pour agrandir l'image et l'afficher dans la fenêtre modale
+    function enlargeImage(imageUrl) {
+        const enlargedImg = document.getElementById('enlarged-img');
+        
+        // Modifie la source de l'image dans la fenêtre modale
+        enlargedImg.src = imageUrl;
+    }
+
+    // Fonction pour afficher l'image suivante
+    function showNextImage() {
+        const numImages = {!! json_encode(count($produitsPublies->references)) !!}; // Le nombre total d'images
+        if (currentIndex < numImages - 1) {
+            currentIndex++;
+            const nextImage = document.querySelectorAll('.reference-image')[currentIndex];
+            const imageUrl = nextImage.src;
+            enlargeImage(imageUrl);
+        }
+    }
+
+    // Fonction pour afficher l'image précédente
+    function showPreviousImage() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            const previousImage = document.querySelectorAll('.reference-image')[currentIndex];
+            const imageUrl = previousImage.src;
+            enlargeImage(imageUrl);
+        }
+    }
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

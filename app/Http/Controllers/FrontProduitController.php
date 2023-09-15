@@ -12,6 +12,7 @@ use App\Models\Reference;
 use App\Models\Tailles;
 use App\Models\Stock;
 use App\Models\Panier;
+use App\Models\Commentaire;
 use ColorJizz\ColorJizz;
 use ColorJizz\Formats\RGB;
 
@@ -58,7 +59,9 @@ class FrontProduitController extends Controller
     $marques = Marque::all();
     $categories = Categorie::all();
     $materiels = Materiel::all();
-   
+    $commentaires = Commentaire::where('idP', $id)
+    ->where('statut', 1)
+    ->get();
     $produitsPublies = Produit::with('marque', 'categorie', 'materiel')
         ->where('statutP', 'publié')
         ->findOrFail($id);
@@ -84,6 +87,7 @@ class FrontProduitController extends Controller
         'materiels' => $materiels,
         'references' => $references,
         'paniersCount'=>$paniersCount,
+        'commentaires'=>$commentaires,
     ]);
 }
 
@@ -150,4 +154,42 @@ class FrontProduitController extends Controller
     {
         //
     }
+
+    public function storeCommentaire(Request $request)
+{
+    // Validez les données du formulaire ici si nécessaire
+
+    // Créez un nouveau commentaire
+    $commentaire = new Commentaire;
+    $commentaire->id = auth()->user()->id; // ID de l'utilisateur connecté
+    $commentaire->idP = $request->input('productId');
+    $commentaire->commentaire = $request->input('comment');
+    $commentaire->save();
+
+    // Redirigez l'utilisateur vers la page appropriée après avoir soumis le commentaire
+    return redirect()->back()->with('success', 'Commentaire ajouté avec succès.');
+}
+public function showCommentaires()
+    {
+        // Récupérez tous les commentaires depuis la base de données
+        $commentaires = Commentaire::all();
+
+        // Passez les commentaires à la vue
+        return view('commentaire', [
+            'commentaires' => $commentaires,
+            
+        ]);
+    }
+
+    public function changer(Request $request, Commentaire $commentaire)
+    {
+        // Inversez le statut du commentaire
+        $commentaire->update(['statut' => !$request->input('statut')]);
+    
+        // Redirigez l'utilisateur avec un message de confirmation
+        $message = $commentaire->statut ? 'Commentaire autorisé.' : 'Commentaire bloqué.';
+        return redirect()->back()->with('success', $message);
+    }
+    
+     
 }
