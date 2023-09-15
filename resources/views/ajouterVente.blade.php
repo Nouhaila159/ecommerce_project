@@ -54,6 +54,7 @@
                                 <label for="client_name" class="form-label">Ville du client</label>
                                 <input type="text" class="form-control" id="villeC_found" name="villeC" readonly>
                             </div>
+
                             <div class="mb-3">
                                 <label for="client_name" class="form-label">Email du client</label>
                                 <input type="email" class="form-control" id="emailC_found" name="emailC" readonly>
@@ -103,9 +104,17 @@
                             <input type="text" class="form-control" id="adresse_livraison" name="adresse_livraison" required>
                         </div>
                         <div class="mb-3">
+                            <label for="livraison" class="form-label">Ville de livraison</label>
+                            <select id="livraison" name="livraison">
+                                @foreach ($livraison as $liv)
+                                    <option value="{{ $liv->livraison }}" data-prix="{{ $liv->prix }}">{{ $liv->livraison }} ({{ $liv->prix }})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="prix_livraison" class="form-label">Prix de livraison</label>
-                            <input type="number" class="form-control" id="prix_livraison" name="prix_livraison" required>
-                        </div>                      
+                            <input type="number" class="form-control" id="prix_livraison" name="prix_livraison" readonly>
+                        </div>                     
                         <div class="mb-3">
                             <label for="prix_livraison" class="form-label">Origine</label>
                             <select class="form-select" id="origine" name="origine" required>
@@ -184,7 +193,16 @@
     });
 </script>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    // Lorsque la sélection de la ville change
+    $("#livraison").change(function () {
+        var selectedPrice = $(this).find(":selected").data("prix");
+        $("#prix_livraison").val(selectedPrice);
+    });
+});
+</script>
 
 <!-- Bootstrap JS (optional) -->
 

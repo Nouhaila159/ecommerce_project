@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('roleId');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        Schema::create('tailles', function (Blueprint $table) {
+            $table->increments('idT');
+            $table->integer('idR')->unsigned()->nullable();
+            $table->string('taille', 10)->nullable();
+            $table->integer('quantiteT')->nullable();
             $table->timestamps();
+
+            $table->foreign('idR')->references('idR')->on('reference')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tailles');
     }
 };
