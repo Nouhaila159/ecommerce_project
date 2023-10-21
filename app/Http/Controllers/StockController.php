@@ -22,7 +22,6 @@ class StockController extends Controller
 {
     $produits = Produit::with(['marque', 'categorie', 'materiel'])
         ->join('stock', 'produit.idP', '=', 'stock.idP')
-        ->where('stock.quantite_disponible', 0)
         ->paginate(6)
         ->onEachSide(0);
 
